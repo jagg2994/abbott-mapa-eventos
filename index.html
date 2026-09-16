@@ -325,7 +325,7 @@
         content.innerHTML = feature('Formulario', countryAssets.form, 'form', [], 'Siguiente') + '<div class="transition">' + signal('Clic en Calcular', 'gc_submission', 'Sin redirección') + arrow + '</div>' + arrival('Resultado ' + outcome, countryAssets[outcome], 'Misma URL · resultado de la calculadora.') + submissionExample();
       } else if (step === 1 && isShare) {
         document.getElementById('stepLabel').textContent = 'Resultado verde: pulsa Copiar. No lleva al formulario.';
-        content.innerHTML = feature('Resultado verde · Copiar', countryAssets.verde, 'share', [], 'Siguiente') + signal('Clic en Copiar', 'gc_share_tool', 'Sin redirección · sin registro') + submissionExample();
+        content.innerHTML = feature('Resultado verde · Copiar', countryAssets.verde, 'share', ['link_text: Copiar', 'link_url: vacío en captura'], 'Siguiente') + signal('Clic en Copiar', 'gc_share_tool', 'Sin redirección · sin registro');
       } else if (step === 2 && isShare) {
         document.getElementById('stepLabel').textContent = 'Selecciona Copiar para compartir la herramienta.';
         content.innerHTML = feature('Copiar enlace', countryAssets.verde, 'share', ['link_text: Copiar', 'link_url: vacío en captura'], 'Volver al formulario') + signal('Clic en Copiar', 'gc_share_tool', 'Capturado · GA4') + '<div class="empty">Sin redirección · sin registro</div>';
@@ -334,7 +334,7 @@
         const ctaImage = isChile ? (outcome === 'amarillo' ? countryAssets.amarilloCta : countryAssets.cta) : countryAssets[outcome];
         const confirmedYellow = isChile && outcome === 'amarillo';
         const ctaParams = ['country: ' + selectedCountry, 'link_text: ' + (isChile ? 'Obtén tu cupón' : 'Reclama tu cupón')];
-        content.innerHTML = feature('Resultado ' + outcome + ' · ' + (isChile ? 'Obtén tu cupón' : 'Reclama tu cupón'), ctaImage, 'cta', ctaParams, 'Siguiente', confirmedYellow ? "assets/b5a4d3561f1b2739.png" : '') + '<div class="transition">' + signal('Clic en el botón de cupón', 'gc_register_button', 'Redirige al formulario de registro') + arrow + '</div>' + arrival('Formulario de registro', countryAssets.registration, '/es-' + selectedCountry.toLowerCase() + '/herramientas/calculadora-de-crecimiento/registro · ruta capturada en rojo.') + submissionExample();
+        content.innerHTML = feature('Resultado ' + outcome + ' · ' + (isChile ? 'Obtén tu cupón' : 'Reclama tu cupón'), ctaImage, 'cta', ctaParams, 'Siguiente', confirmedYellow ? "assets/b5a4d3561f1b2739.png" : '') + '<div class="transition">' + signal('Clic en el botón de cupón', 'gc_register_button', 'Redirige al formulario de registro') + arrow + '</div>' + arrival('Formulario de registro', countryAssets.registration, '/es-' + selectedCountry.toLowerCase() + '/herramientas/calculadora-de-crecimiento/registro · ruta capturada en rojo.');
       } else if (step === 3) {
         document.getElementById('stepLabel').textContent = 'Completa y envía el registro. Al crear el usuario, se redirige a ' + (isChile ? 'PediaSure.' : 'la página de destino.');
         content.innerHTML = feature('Formulario de registro', countryAssets.registration, 'registration', ['country: ' + selectedCountry], 'Siguiente') + '<div class="transition">' + signal('Clic en finalizar registro', 'registro_exitoso', 'Usuario creado · redirección') + arrow + '</div>' + destinationImage;
