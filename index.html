@@ -261,12 +261,20 @@
       return '<div class="signal"><span>' + action + '</span><strong>' + eventName + '</strong>' + (status ? '<small>' + status + '</small>' : '') + '</div>';
     }
 
-    function resultExamples() {
-      return '<section class="result-examples"><h2>Ejemplos de resultado · Chile</h2><div class="table-scroll"><table><thead><tr><th>Altura ingresada</th><th>Referencia</th><th>Resultado</th><th>Acción</th></tr></thead><tbody>' +
-        '<tr><td>65 cm</td><td>81,7 cm</td><td>Rojo<code>result_red</code></td><td>Obtén tu cupón</td></tr>' +
-        '<tr><td>78 cm</td><td>81,7 cm</td><td>Amarillo<code>result_yellow</code></td><td>Obtén tu cupón</td></tr>' +
-        '<tr><td>81 cm</td><td>81,7 cm</td><td>Verde<code>result_green</code></td><td>Copiar enlace</td></tr>' +
-        '</tbody></table></div><p>Capturas de Chile. Depende del sexo y nacimiento. Códigos ilustrativos.</p></section>';
+    function submissionExample() {
+      const params = [
+        ['birthday', '2025 02'],
+        ['country', 'CL'],
+        ['gender', 'girl'],
+        ['height', '67cm'],
+        ['heightComparison', 'Altura actual: 67cm vs Altura adecuada: 81.7cm'],
+        ['link_text', 'Calcular'],
+        ['link_url', '(vacío)'],
+        ['outcome', 'la altura de tu hijo es muy inferior a lo esperado para su edad*.'],
+        ['pageName', 'calculadora-de-crecimiento'],
+        ['result', 'result_red']
+      ];
+      return '<section class="result-examples"><h2>Parámetros de gc_submission</h2><p>Ejemplo observado · Chile · rojo</p><div class="table-scroll"><table><thead><tr><th>Parámetro</th><th>Valor de ejemplo</th></tr></thead><tbody>' + params.map(([name, value]) => '<tr><td>' + name + '</td><td>' + value + '</td></tr>').join('') + '</tbody></table></div></section>';
     }
 
     function renderFlow() {
@@ -289,7 +297,7 @@
 
       if (step === 0) {
         document.getElementById('stepLabel').textContent = 'Completa el formulario y selecciona Siguiente.';
-        content.innerHTML = feature('Formulario', countryAssets.form, 'form', ['country', 'birthday', 'height', 'gender'], 'Siguiente') + signal('Clic en Calcular', 'gc_submission') + resultExamples();
+        content.innerHTML = feature('Formulario', countryAssets.form, 'form', [], 'Siguiente') + signal('Clic en Calcular', 'gc_submission') + submissionExample();
       } else if (step === 1) {
         document.getElementById('stepLabel').textContent = 'Selecciona un resultado y continúa con Siguiente.';
         content.innerHTML = feature('Resultado ' + outcome, countryAssets[outcome], 'result', ['result: result_' + (outcome === 'amarillo' ? 'yellow' : outcome === 'verde' ? 'green' : 'red'), 'heightComparison', 'outcome'], 'Siguiente') + signal('Resultado visible', 'gc_submission') + '<div class="empty">' + (isShare ? 'Copiar enlace' : 'CTA de cupón') + '</div>';
