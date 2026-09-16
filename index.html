@@ -18,6 +18,7 @@
       --red: #ba3547;
       --yellow: #bd7800;
       --green: #16805c;
+      --image-height: clamp(180px, calc(100svh - 380px), 340px);
     }
     * { box-sizing: border-box; }
     body {
@@ -78,19 +79,13 @@
     .destination p { overflow-wrap: anywhere; }
     .feature h2 { font-size: 16px; margin: 0 0 9px; }
     .crop {
-      height: auto;
+      height: var(--image-height);
       border: 1px solid var(--line);
       border-radius: 12px;
-      overflow: visible;
+      overflow: hidden;
       background: #edf3f6;
     }
-    .crop img { width: 100%; height: auto; object-fit: contain; display: block; border-radius: 12px; }
-    .crop.confirmation { max-height: 420px; overflow-y: auto; }
-    .crop.form img { object-position: 50% 38%; }
-    .crop.result img { object-position: 50% 18%; }
-    .crop.cta img { object-position: 50% 23%; }
-    .crop.registration img { object-position: 50% 35%; }
-    .crop.confirmation img { object-position: 50% 0%; }
+    .crop img { width: 100%; height: 100%; object-fit: contain; object-position: center; display: block; border-radius: 12px; }
     .transition { align-self: center; }
     .result-route { --route-color: var(--red); --route-soft: #fff0f2; }
     .result-route.yellow { --route-color: var(--yellow); --route-soft: #fff8df; }
@@ -114,7 +109,6 @@
     .signal strong { display: block; color: var(--brand); margin: 5px 0; white-space: nowrap; font-size: 14px; }
     .signal code { font-size: 12px; margin-top: 3px; }
     .signal small { display: block; font-size: 11px; margin-top: 6px; }
-    .crop.share img { object-position: 50% 85%; }
     .flow-navigation { display: flex; justify-content: space-between; gap: 12px; align-items: center; margin-top: 18px; padding: 12px 0; border-top: 1px solid var(--line); position: sticky; bottom: 0; z-index: 2; background: var(--white); }
     .flow-navigation .button { min-height: 44px; }
     .flow-navigation .button:disabled { opacity: .45; cursor: default; }
@@ -137,7 +131,6 @@
       .tool-grid, .flow, .flow.registration-view { grid-template-columns: minmax(0, 1fr); }
       .flow > .feature:first-child, .flow > .signal, .flow > .empty, .flow > .result-examples { grid-column: auto; grid-row: auto; }
       .signal { border-radius: 28px; }
-      .crop { height: auto; }
       .redirect-arrow { width: 3px; height: 36px; margin: 14px auto; }
       .redirect-arrow::after { right: -5.5px; top: auto; bottom: -1px; border-top: 12px solid var(--brand); border-bottom: 0; border-left: 7px solid transparent; border-right: 7px solid transparent; }
       .result-route .redirect-arrow::after { border-top-color: var(--route-color); border-left-color: transparent; }
