@@ -115,7 +115,10 @@
     .signal code { font-size: 12px; margin-top: 3px; }
     .signal small { display: block; font-size: 11px; margin-top: 6px; }
     .crop.share img { object-position: 50% 85%; }
-    .feature-footer { display: flex; justify-content: space-between; gap: 10px; align-items: center; margin-top: 12px; }
+    .flow-navigation { display: flex; justify-content: space-between; gap: 12px; align-items: center; margin-top: 18px; padding: 12px 0; border-top: 1px solid var(--line); position: sticky; bottom: 0; z-index: 2; background: var(--white); }
+    .flow-navigation .button { min-height: 44px; }
+    .flow-navigation .button:disabled { opacity: .45; cursor: default; }
+    .button:focus-visible { outline: 3px solid var(--ink); outline-offset: 3px; }
     details { margin-top: 10px; color: var(--muted); }
     details code { display: inline-block; margin: 5px 8px 0 0; color: var(--ink); }
     details a { display: block; margin-top: 8px; color: var(--brand); }
@@ -185,6 +188,7 @@
             <button class="button green" data-outcome="verde" aria-pressed="false">Verde</button>
           </div>
           <div class="flow" id="flowContent"></div>
+          <nav class="flow-navigation" id="flowNavigation" aria-label="Navegación del mapa"></nav>
         </div>
       </div>
     </section>
@@ -264,8 +268,7 @@
     }));
 
     function feature(title, image, cropClass, params, nextLabel, evidence = '') {
-      const previous = step > 0 ? '<button class="button" id="previousStep">Anterior</button>' : '<span></span>';
-      return '<div class="feature"><h2>' + title + '</h2><div class="crop ' + cropClass + '"><img src="' + image + '" alt="' + title + '"></div><div class="feature-footer">' + previous + '<button class="button primary" id="nextStep">' + nextLabel + '</button></div>' + (params.length ? '<details><summary>Ver parámetros</summary>' + params.map(param => '<code>' + param + '</code>').join('') + (evidence ? '<a href="' + evidence + '" target="_blank" rel="noopener">Ver evidencia</a>' : '') + '</details>' : '') + '</div>';
+      return '<div class="feature"><h2>' + title + '</h2><div class="crop ' + cropClass + '"><img src="' + image + '" alt="' + title + '"></div>' + (params.length ? '<details><summary>Ver parámetros</summary>' + params.map(param => '<code>' + param + '</code>').join('') + (evidence ? '<a href="' + evidence + '" target="_blank" rel="noopener">Ver evidencia</a>' : '') + '</details>' : '') + '</div>';
     }
 
     function signal(action, eventName, status = '') {
@@ -343,6 +346,8 @@
         content.innerHTML = feature(destinationTitle + (isChile && outcome === 'amarillo' ? ' · ejemplo' : ''), countryAssets.confirmation, 'confirmation', [], 'Volver al formulario');
       }
 
+      const lastStep = step >= (isShare ? 2 : 4);
+      document.getElementById('flowNavigation').innerHTML = '<button class="button" id="previousStep"' + (step === 0 ? ' disabled' : '') + '>← Anterior</button><button class="button primary" id="nextStep">' + (lastStep ? 'Volver al formulario ↺' : 'Siguiente →') + '</button>';
       document.getElementById('nextStep').addEventListener('click', () => {
         if (step >= (isShare ? 2 : 4)) step = 0;
         else if (step === 1 && !isShare) step = 3;
