@@ -74,6 +74,8 @@
     .flow > .signal, .flow > .empty, .flow > .result-examples { grid-column: 2; }
     .flow.registration-view { grid-template-columns: minmax(0, 1fr) 240px minmax(0, 1fr); grid-template-rows: auto; }
     .flow.registration-view > .feature:first-child { grid-row: 1; }
+    .flow.registration-view > .result-examples { grid-column: 1 / -1; }
+    .destination p { overflow-wrap: anywhere; }
     .feature h2 { font-size: 16px; margin: 0 0 9px; }
     .crop {
       height: auto;
@@ -184,8 +186,8 @@
       CO: {
         form: "assets/8e4a83235271b63e.png",
         rojo: "assets/1ba4d415e3db16a2.png",
-        amarillo: "assets/14e1e9c5fa085f9c.png",
-        verde: "assets/aeaaef1de56af7fb.png",
+        amarillo: "assets/aeaaef1de56af7fb.png",
+        verde: "assets/bc16db42df14aa1c.png",
         cta: "assets/1ba4d415e3db16a2.png",
         registration: "assets/895def507e738fe3.png",
         confirmation: "assets/849830ab8d5e1ca4.png"
@@ -248,7 +250,7 @@
 
     document.querySelectorAll('[data-outcome]').forEach(button => button.addEventListener('click', () => {
       outcome = button.dataset.outcome;
-      step = 1;
+      if (step > 1) step = 1;
       renderFlow();
     }));
 
@@ -262,19 +264,28 @@
     }
 
     function submissionExample() {
+      // Captured examples, selected by actual result rather than run directory name.
+      const examples = {
+        CL: { rojo: ['67', '81.7', 'muy inferior', '2025 02', 'girl'], verde: ['76', '78.6', 'acorde', '2025 02', 'girl'] },
+        CO: { rojo: ['70', '79.7', 'muy inferior', '2025 02', 'girl'], amarillo: ['76', '79.7', 'ligeramente inferior', '2025 02', 'girl'], verde: ['76', '78.6', 'acorde', '2025 02', 'girl'] }
+      };
+      const example = examples[selectedCountry][outcome];
+      const pending = 'Pendiente de captura';
+      const result = 'result_' + ({rojo:'red', amarillo:'yellow', verde:'green'}[outcome]);
+      const message = example ? 'la altura de tu hijo ' + (example[2] === 'acorde' ? 'se encuentra acorde' : 'es ' + example[2]) + ' a lo esperado para su edad' + (selectedCountry === 'CL' && outcome === 'verde' ? '.' : '*.') : pending;
       const params = [
-        ['birthday', '2025 02'],
-        ['country', 'CL'],
-        ['gender', 'girl'],
-        ['height', '67cm'],
-        ['heightComparison', 'Altura actual: 67cm vs Altura adecuada: 81.7cm'],
+        ['birthday', example ? example[3] : pending],
+        ['country', selectedCountry],
+        ['gender', example ? example[4] : pending],
+        ['height', example ? example[0] + 'cm' : pending],
+        ['heightComparison', example ? 'Altura actual: ' + example[0] + 'cm vs Altura adecuada: ' + example[1] + 'cm' : pending],
         ['link_text', 'Calcular'],
         ['link_url', '(vacío)'],
-        ['outcome', 'la altura de tu hijo es muy inferior a lo esperado para su edad*.'],
+        ['outcome', message],
         ['pageName', 'calculadora-de-crecimiento'],
-        ['result', 'result_red']
+        ['result', example ? result : result + ' · por confirmar']
       ];
-      return '<section class="result-examples"><h2>Parámetros de gc_submission</h2><p>Ejemplo observado · Chile · rojo</p><div class="table-scroll"><table><thead><tr><th>Parámetro</th><th>Valor de ejemplo</th></tr></thead><tbody>' + params.map(([name, value]) => '<tr><td>' + name + '</td><td>' + value + '</td></tr>').join('') + '</tbody></table></div></section>';
+      return '<section class="result-examples"><h2>Parámetros de gc_submission</h2><p>' + (example ? 'Ejemplo capturado' : 'Parámetros pendientes de confirmar') + ' · ' + selectedCountry + ' · ' + outcome + '</p><div class="table-scroll"><table><thead><tr><th>Parámetro</th><th>Valor de ejemplo</th></tr></thead><tbody>' + params.map(([name, value]) => '<tr><td>' + name + '</td><td>' + value + '</td></tr>').join('') + '</tbody></table></div><p>Capturas de referencia; las imágenes pueden mostrar otra medición.</p></section>';
     }
 
     function renderFlow() {
@@ -283,11 +294,13 @@
       const countryAssets = assets[selectedCountry];
       const isChile = selectedCountry === 'CL';
       const isShare = isChile && outcome === 'verde';
-      const destinationTitle = isChile ? 'Página de PediaSure' : 'Página de destino';
+      const destinationTitle = 'Página de PediaSure';
       const destinationImage = '<div class="feature destination"><h2>' + destinationTitle + (isChile && outcome === 'amarillo' ? ' · ejemplo' : '') + '</h2><div class="crop confirmation"><img src="' + countryAssets.confirmation + '" alt="' + destinationTitle + ' tras crear el usuario"></div><p>Usuario creado · cupón en camino.</p></div>';
       content.classList.toggle('destination-view', step === 4);
-      content.classList.toggle('registration-view', step === 3);
-      outcomes.classList.toggle('hidden', step === 0);
+      content.classList.toggle('registration-view', step === 0 || step === 3 || (step === 2 && !isShare));
+      outcomes.classList.toggle('hidden', false);
+      const arrow = '<div class="redirect-arrow" role="img" aria-label="Acción hacia el resultado o destino"></div>';
+      const arrival = (title, image, note) => '<div class="feature destination"><h2>' + title + '</h2><div class="crop"><img src="' + image + '" alt="' + title + '"></div><p>' + note + '</p></div>';
       document.querySelectorAll('[data-outcome]').forEach(button => {
         button.classList.remove('hidden');
         const active = button.dataset.outcome === outcome;
@@ -296,23 +309,23 @@
       });
 
       if (step === 0) {
-        document.getElementById('stepLabel').textContent = 'Completa el formulario y selecciona Siguiente.';
-        content.innerHTML = feature('Formulario', countryAssets.form, 'form', [], 'Siguiente') + signal('Clic en Calcular', 'gc_submission') + submissionExample();
+        document.getElementById('stepLabel').textContent = 'Completa el formulario y pulsa Calcular. El resultado aparece en la misma página.';
+        content.innerHTML = feature('Formulario', countryAssets.form, 'form', [], 'Siguiente') + '<div class="transition">' + signal('Clic en Calcular', 'gc_submission', 'Sin redirección') + arrow + '</div>' + arrival('Resultado ' + outcome, countryAssets[outcome], 'Misma URL · resultado de la calculadora.') + submissionExample();
       } else if (step === 1) {
         document.getElementById('stepLabel').textContent = 'Selecciona un resultado y continúa con Siguiente.';
-        content.innerHTML = feature('Resultado ' + outcome, countryAssets[outcome], 'result', ['result: result_' + (outcome === 'amarillo' ? 'yellow' : outcome === 'verde' ? 'green' : 'red'), 'heightComparison', 'outcome'], 'Siguiente') + signal('Resultado visible', 'gc_submission') + '<div class="empty">' + (isShare ? 'Copiar enlace' : 'CTA de cupón') + '</div>';
+        content.innerHTML = feature('Resultado ' + outcome, countryAssets[outcome], 'result', [], 'Siguiente') + submissionExample();
       } else if (step === 2 && isShare) {
         document.getElementById('stepLabel').textContent = 'Selecciona Copiar para compartir la herramienta.';
         content.innerHTML = feature('Copiar enlace', countryAssets.verde, 'share', ['link_text: Copiar', 'link_url: vacío en captura'], 'Volver al formulario') + signal('Clic en Copiar', 'gc_share_tool', 'Capturado · GA4') + '<div class="empty">Sin redirección · sin registro</div>';
       } else if (step === 2) {
         document.getElementById('stepLabel').textContent = 'Selecciona el CTA para ir al formulario de registro.';
-        const ctaImage = isChile && outcome === 'amarillo' ? countryAssets.amarilloCta : countryAssets.cta;
+        const ctaImage = isChile ? (outcome === 'amarillo' ? countryAssets.amarilloCta : countryAssets.cta) : countryAssets[outcome];
         const confirmedYellow = isChile && outcome === 'amarillo';
-        const ctaParams = confirmedYellow ? ['country: CL', 'link_text: Obtén tu cupón'] : ['link_text', 'link_url', 'result'];
-        content.innerHTML = feature(isChile ? 'Obtén tu cupón' : 'Reclama tu cupón', ctaImage, 'cta', ctaParams, 'Siguiente', confirmedYellow ? "assets/b5a4d3561f1b2739.png" : '') + signal('Clic en CTA', 'gc_register_button', confirmedYellow ? 'Confirmado · evidencia manual' : '') + '<div class="empty">Formulario de registro</div>';
+        const ctaParams = ['country: ' + selectedCountry, 'link_text: ' + (isChile ? 'Obtén tu cupón' : 'Reclama tu cupón')];
+        content.innerHTML = feature(isChile ? 'Obtén tu cupón' : 'Reclama tu cupón', ctaImage, 'cta', ctaParams, 'Siguiente', confirmedYellow ? "assets/b5a4d3561f1b2739.png" : '') + '<div class="transition">' + signal('Clic en el botón de cupón', 'gc_register_button', 'Redirige al registro') + arrow + '</div>' + arrival('Formulario de registro', countryAssets.registration, '/es-' + selectedCountry.toLowerCase() + '/herramientas/calculadora-de-crecimiento/registro · ruta capturada en rojo.');
       } else if (step === 3) {
         document.getElementById('stepLabel').textContent = 'Completa y envía el registro. Al crear el usuario, se redirige a ' + (isChile ? 'PediaSure.' : 'la página de destino.');
-        content.innerHTML = feature('Formulario de registro', countryAssets.registration, 'registration', ['country', 'pageName'], 'Siguiente') + '<div class="transition">' + signal('Registro enviado', 'registro_exitoso') + '<div class="redirect-arrow" role="img" aria-label="El registro redirige a ' + destinationTitle + '"></div></div>' + destinationImage;
+        content.innerHTML = feature('Formulario de registro', countryAssets.registration, 'registration', ['country: ' + selectedCountry], 'Siguiente') + '<div class="transition">' + signal('Clic en finalizar registro', 'registro_exitoso', 'Usuario creado · redirección') + arrow + '</div>' + destinationImage;
       } else {
         document.getElementById('stepLabel').textContent = 'Usuario creado. Revisa el mensaje del cupón.';
         content.innerHTML = feature(destinationTitle + (isChile && outcome === 'amarillo' ? ' · ejemplo' : ''), countryAssets.confirmation, 'confirmation', [], 'Volver al formulario');
