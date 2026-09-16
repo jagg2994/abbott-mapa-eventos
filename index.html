@@ -27,8 +27,8 @@
       background: var(--surface);
     }
     button { font: inherit; }
-    .shell { max-width: 1180px; margin: 0 auto; padding: 28px 22px 52px; }
-    .top { display: flex; align-items: center; justify-content: space-between; gap: 14px; margin-bottom: 30px; }
+    .shell { max-width: 1100px; margin: 0 auto; padding: 20px 18px 32px; }
+    .top { display: flex; align-items: center; justify-content: space-between; gap: 14px; margin-bottom: 18px; }
     .top strong { font-size: 18px; }
     .crumb { color: var(--muted); font-size: 13px; }
     .tool-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; }
@@ -49,7 +49,7 @@
     .tool:hover { transform: translateY(-2px); border-color: var(--brand); }
     .tool span { color: var(--muted); margin-top: 7px; }
     .tool strong { font-size: 26px; text-decoration: underline; text-underline-offset: 6px; }
-    .toolbar { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 22px; }
+    .toolbar { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 14px; }
     .button {
       border: 1px solid var(--line);
       border-radius: 8px;
@@ -66,19 +66,24 @@
     .button.red.active { background: var(--red); border-color: var(--red); }
     .button.yellow.active { background: var(--yellow); border-color: var(--yellow); }
     .button.green.active { background: var(--green); border-color: var(--green); }
-    .panel { background: var(--white); border: 1px solid var(--line); border-radius: 16px; padding: 24px; }
+    .panel { background: var(--white); border: 1px solid var(--line); border-radius: 16px; padding: 18px; }
     .panel h1 { margin: 0 0 6px; font-size: 26px; }
     .panel > p { margin: 0 0 22px; color: var(--muted); }
-    .flow { display: grid; grid-template-columns: minmax(0, 1fr) 170px minmax(0, 1fr); gap: 18px; align-items: center; }
+    .flow { display: grid; grid-template-columns: minmax(0, 560px) minmax(240px, 1fr); grid-template-rows: auto 1fr; gap: 14px; align-items: start; }
+    .flow > .feature:first-child { grid-column: 1; grid-row: 1 / span 2; min-width: 0; }
+    .flow > .signal, .flow > .empty, .flow > .result-examples { grid-column: 2; }
+    .flow.registration-view { grid-template-columns: minmax(0, 1fr) 240px minmax(0, 1fr); grid-template-rows: auto; }
+    .flow.registration-view > .feature:first-child { grid-row: 1; }
     .feature h2 { font-size: 16px; margin: 0 0 9px; }
     .crop {
-      height: 390px;
+      height: auto;
       border: 1px solid var(--line);
       border-radius: 12px;
-      overflow: hidden;
+      overflow: visible;
       background: #edf3f6;
     }
-    .crop img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .crop img { width: 100%; height: auto; object-fit: contain; display: block; border-radius: 12px; }
+    .crop.confirmation { max-height: 420px; overflow-y: auto; }
     .crop.form img { object-position: 50% 38%; }
     .crop.result img { object-position: 50% 18%; }
     .crop.cta img { object-position: 50% 23%; }
@@ -88,15 +93,15 @@
     .redirect-arrow { position: relative; height: 3px; margin: 18px 10px; background: var(--brand); }
     .redirect-arrow::after { content: ''; position: absolute; right: -1px; top: -6px; border-top: 7px solid transparent; border-bottom: 7px solid transparent; border-left: 12px solid var(--brand); }
     .destination p { color: var(--muted); font-size: 13px; margin: 10px 0 0; }
-    .flow.destination-view { grid-template-columns: minmax(0, 600px); justify-content: center; }
+    .flow.destination-view { grid-template-columns: minmax(0, 600px); grid-template-rows: auto; justify-content: center; }
     .signal {
       background: var(--brand-soft);
-      border-radius: 42% 58% 46% 54% / 55% 46% 54% 45%;
-      padding: 24px 13px;
+      border-radius: 16px;
+      padding: 16px 12px;
       text-align: center;
     }
     .signal span, .signal code { display: block; }
-    .signal strong { display: block; color: var(--brand); margin: 5px 0; overflow-wrap: anywhere; }
+    .signal strong { display: block; color: var(--brand); margin: 5px 0; white-space: nowrap; font-size: 14px; }
     .signal code { font-size: 12px; margin-top: 3px; }
     .signal small { display: block; font-size: 11px; margin-top: 6px; }
     .crop.share img { object-position: 50% 85%; }
@@ -105,12 +110,21 @@
     details code { display: inline-block; margin: 5px 8px 0 0; color: var(--ink); }
     details a { display: block; margin-top: 8px; color: var(--brand); }
     .hidden { display: none !important; }
-    .empty { padding: 42px 20px; text-align: center; color: var(--muted); }
-    @media (max-width: 760px) {
+    .empty { padding: 14px; text-align: left; color: var(--muted); background: var(--surface); border-radius: 12px; }
+    .result-examples { min-width: 0; }
+    .result-examples h2 { margin: 0 0 8px; font-size: 16px; }
+    .result-examples p { margin: 8px 0 0; font-size: 12px; color: var(--muted); }
+    .table-scroll { overflow-x: auto; }
+    table { width: 100%; border-collapse: collapse; font-size: 12px; }
+    th, td { border-bottom: 1px solid var(--line); padding: 9px 6px; text-align: left; vertical-align: top; }
+    th { background: var(--surface); }
+    td code { display: block; font-size: 11px; margin-top: 3px; }
+    @media (max-width: 900px) {
       .shell { padding: 20px 14px 38px; }
-      .tool-grid, .flow { grid-template-columns: 1fr; }
+      .tool-grid, .flow, .flow.registration-view { grid-template-columns: minmax(0, 1fr); }
+      .flow > .feature:first-child, .flow > .signal, .flow > .empty, .flow > .result-examples { grid-column: auto; grid-row: auto; }
       .signal { border-radius: 28px; }
-      .crop { height: 330px; }
+      .crop { height: auto; }
       .redirect-arrow { width: 3px; height: 36px; margin: 14px auto; }
       .redirect-arrow::after { right: -5.5px; top: auto; bottom: -1px; border-top: 12px solid var(--brand); border-bottom: 0; border-left: 7px solid transparent; border-right: 7px solid transparent; }
     }
@@ -247,6 +261,14 @@
       return '<div class="signal"><span>' + action + '</span><strong>' + eventName + '</strong>' + (status ? '<small>' + status + '</small>' : '') + '</div>';
     }
 
+    function resultExamples() {
+      return '<section class="result-examples"><h2>Ejemplos de resultado · Chile</h2><div class="table-scroll"><table><thead><tr><th>Altura ingresada</th><th>Referencia</th><th>Resultado</th><th>Acción</th></tr></thead><tbody>' +
+        '<tr><td>65 cm</td><td>81,7 cm</td><td>Rojo<code>result_red</code></td><td>Obtén tu cupón</td></tr>' +
+        '<tr><td>78 cm</td><td>81,7 cm</td><td>Amarillo<code>result_yellow</code></td><td>Obtén tu cupón</td></tr>' +
+        '<tr><td>81 cm</td><td>81,7 cm</td><td>Verde<code>result_green</code></td><td>Copiar enlace</td></tr>' +
+        '</tbody></table></div><p>Capturas de Chile. Depende del sexo y nacimiento. Códigos ilustrativos.</p></section>';
+    }
+
     function renderFlow() {
       const content = document.getElementById('flowContent');
       const outcomes = document.getElementById('outcomes');
@@ -256,6 +278,7 @@
       const destinationTitle = isChile ? 'Página de PediaSure' : 'Página de destino';
       const destinationImage = '<div class="feature destination"><h2>' + destinationTitle + (isChile && outcome === 'amarillo' ? ' · ejemplo' : '') + '</h2><div class="crop confirmation"><img src="' + countryAssets.confirmation + '" alt="' + destinationTitle + ' tras crear el usuario"></div><p>Usuario creado · cupón en camino.</p></div>';
       content.classList.toggle('destination-view', step === 4);
+      content.classList.toggle('registration-view', step === 3);
       outcomes.classList.toggle('hidden', step === 0);
       document.querySelectorAll('[data-outcome]').forEach(button => {
         button.classList.remove('hidden');
@@ -266,7 +289,7 @@
 
       if (step === 0) {
         document.getElementById('stepLabel').textContent = 'Completa el formulario y selecciona Siguiente.';
-        content.innerHTML = feature('Formulario', countryAssets.form, 'form', ['country', 'birthday', 'height', 'gender'], 'Siguiente') + signal('Clic en Calcular', 'gc_submission') + '<div class="empty">Rojo · Amarillo · Verde</div>';
+        content.innerHTML = feature('Formulario', countryAssets.form, 'form', ['country', 'birthday', 'height', 'gender'], 'Siguiente') + signal('Clic en Calcular', 'gc_submission') + resultExamples();
       } else if (step === 1) {
         document.getElementById('stepLabel').textContent = 'Selecciona un resultado y continúa con Siguiente.';
         content.innerHTML = feature('Resultado ' + outcome, countryAssets[outcome], 'result', ['result: result_' + (outcome === 'amarillo' ? 'yellow' : outcome === 'verde' ? 'green' : 'red'), 'heightComparison', 'outcome'], 'Siguiente') + signal('Resultado visible', 'gc_submission') + '<div class="empty">' + (isShare ? 'Copiar enlace' : 'CTA de cupón') + '</div>';
