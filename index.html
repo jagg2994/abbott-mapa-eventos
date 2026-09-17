@@ -1417,8 +1417,53 @@ const tagMapData = {
   },
   "CR": {
     "rojo": {
-      "status": "pending_evidence",
-      "pages": []
+      "status": "mapped_capture_requires_render_review",
+      "pages": [
+        {
+          "id": "calculate",
+          "action": "Calcular",
+          "image": "assets/e4a24695e8c6d1b7.png",
+          "evidence": null,
+          "event": {
+            "name": "gc_submission",
+            "params": {
+              "country": "CR",
+              "pageName": "calculadora-de-crecimiento",
+              "birthday": "2025 02",
+              "height": "75cm",
+              "result": "result_red",
+              "outcome": " la altura de tu hij@ está muy por debajo de lo esperado para su edad, es momento de ayudarlo a crecer con pediasure®*.",
+              "heightComparison": "Altura actual: 75cm vs Altura adecuada: 81.7cm"
+            }
+          },
+          "additional_events": [],
+          "destination": {
+            "type": "same_page_result",
+            "url": "https://www.convos.abbott/es-cr/herramientas/calculadora-de-crecimiento",
+            "image": "assets/61faba965249e58d.png"
+          }
+        },
+        {
+          "id": "result_action",
+          "action": "Clic aquí",
+          "image": "assets/61faba965249e58d.png",
+          "evidence": null,
+          "event": {
+            "name": "click_links",
+            "params": {
+              "link_text": "Clic aquí",
+              "link_url": "https://www.aboxplan.com/calculadoraaltura/?marca=pediasure&origen=pediasuredigital"
+            }
+          },
+          "additional_events": [],
+          "destination": {
+            "type": "external_redirect",
+            "url": "https://www.aboxplan.com/calculadoraaltura/?marca=pediasure&origen=pediasuredigital",
+            "image": "assets/1c6878b0e47fc2d3.png",
+            "status": "no_ga4_destination_event_captured"
+          }
+        }
+      ]
     },
     "amarillo": {
       "status": "pending_evidence",
@@ -1447,7 +1492,7 @@ const tagMapData = {
 
 </script>
   <script>
-    const countryNames = {CO:'Colombia',CL:'Chile',PE:'Perú',MX:'México',EC:'Ecuador',AR:'Argentina'};
+    const countryNames = {CO:'Colombia',CL:'Chile',PE:'Perú',MX:'México',EC:'Ecuador',AR:'Argentina',CR:'Costa Rica'};
     const groups = {
       direct: ['CO', 'PE', 'MX'],
       redirect: ['CL', 'EC', 'AR'],
@@ -1563,6 +1608,9 @@ const tagMapData = {
       } else if (step === 2 && isShare) {
         document.getElementById('stepLabel').textContent = 'Selecciona Copiar para compartir la herramienta.';
         content.innerHTML = feature('Copiar enlace', countryAssets[outcome], 'share', eventParams(actionPage), 'Volver al formulario') + signal('Clic en Copiar', actionPage.event.name, 'Capturado · GA4') + '<div class="empty">Sin redirección · sin registro</div>';
+      } else if (step === 1 && actionPage?.destination.type === 'external_redirect') {
+        document.getElementById('stepLabel').textContent = 'Pulsa Clic aquí: abre Abox Plan en otro sitio.';
+        content.innerHTML = feature('Resultado ' + outcome + ' · ' + actionPage.action, actionPage.image, 'cta', eventParams(actionPage), 'Volver al formulario') + '<div class="transition">' + signal('Clic aquí', actionPage.event.name, 'Redirige a otro sitio · Abox Plan') + arrow + '</div>' + arrival('Abox Plan · ingreso / registro', actionPage.destination.image, actionPage.destination.url + ' · No se envió el registro. Sin evento GA4 de llegada capturado.');
       } else if (step === 1 || step === 2) {
         document.getElementById('stepLabel').textContent = 'Pulsa el botón de cupón: activa gc_register_button y lleva al formulario.';
         const ctaImage = countryAssets.cta;
