@@ -249,20 +249,30 @@ const tagMapData = {
       ]
     },
     "amarillo": {
-      "status": "partial_manual_evidence",
+      "status": "captured_until_registration_page",
       "pages": [
         {
           "id": "calculate",
           "action": "Calcular",
           "event": {
             "name": "gc_submission",
-            "params": null,
-            "status": "pending_parameter_capture"
+            "params": {
+              "link_text": "Calcular",
+              "link_url": "",
+              "country": "CL",
+              "pageName": "calculadora-de-crecimiento",
+              "birthday": "2025 02",
+              "height": "78cm",
+              "result": "result_yellow",
+              "outcome": " la altura de tu hijo es ligeramente inferior a lo esperado para su edad*.",
+              "heightComparison": "Altura actual: 78cm vs Altura adecuada: 81.7cm",
+              "gender": "girl"
+            }
           },
           "destination": {
             "type": "same_page_result",
             "url": "https://www.contigo.abbott/es-cl/herramientas/calculadora-de-crecimiento",
-            "status": "visual_evidence_only"
+            "status": "observed_in_source_capture"
           }
         },
         {
@@ -277,8 +287,8 @@ const tagMapData = {
           },
           "destination": {
             "type": "registration",
-            "url": null,
-            "status": "reference_from_red_not_verified_for_yellow"
+            "url": "https://www.contigo.abbott/es-cl/herramientas/calculadora-de-crecimiento/registro",
+            "status": "observed_in_source_capture"
           }
         }
       ]
@@ -939,7 +949,7 @@ const tagMapData = {
       CL: {
         form: "assets/f05421e597a81f92.png",
         rojo: "assets/0b3d8b4ae99211e1.png",
-        amarillo: "assets/657ce6e266837b8f.png",
+        amarillo: "assets/811bcfb10e0ccc76.png",
         verde: "assets/346c30a802e37904.png",
         amarilloCta: "assets/15aa22a2df8b73b2.png",
         cta: "assets/0b3d8b4ae99211e1.png",
