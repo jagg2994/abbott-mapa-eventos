@@ -117,6 +117,20 @@
     details code { display: inline-block; margin: 5px 8px 0 0; color: var(--ink); }
     details a { display: block; margin-top: 8px; color: var(--brand); }
     .hidden { display: none !important; }
+    .mac-map { max-width: 700px; margin: 22px auto 0; }
+    .mac-note { margin: 0 0 16px; color: var(--muted); }
+    .mac-step { position: relative; padding: 18px; border: 1px solid var(--line); border-radius: 16px; background: var(--white); }
+    .mac-step + .mac-step { margin-top: 34px; }
+    .mac-step + .mac-step::before { content: ''; position: absolute; left: 50%; top: -35px; width: 3px; height: 22px; background: var(--brand); transform: translateX(-50%); }
+    .mac-step + .mac-step::after { content: ''; position: absolute; left: calc(50% - 6px); top: -17px; border-left: 7px solid transparent; border-right: 7px solid transparent; border-top: 10px solid var(--brand); }
+    .mac-step h2 { margin: 0 0 5px; font-size: 18px; }
+    .mac-step > p { margin: 0 0 12px; color: var(--muted); }
+    .mac-step img { width: 100%; max-height: 520px; object-fit: contain; object-position: center; display: block; border: 1px solid var(--line); border-radius: 12px; background: var(--surface); }
+    .event-chip { display: inline-block; margin: 13px 0 8px; padding: 7px 10px; border-radius: 999px; background: var(--brand-soft); color: var(--ink); font: 700 13px ui-monospace, SFMono-Regular, Menlo, monospace; }
+    .param-table { width: 100%; margin-top: 4px; }
+    .param-table th { width: 34%; }
+    .mac-branch { border-color: var(--yellow); background: #fff8df; }
+    .mac-branch .event-chip { background: #f8e5b3; }
     .empty { padding: 14px; text-align: left; color: var(--muted); background: var(--surface); border-radius: 12px; }
     .result-examples { min-width: 0; }
     .result-examples h2 { margin: 0 0 8px; font-size: 16px; }
@@ -158,7 +172,59 @@
     <section id="mac" class="panel hidden">
       <div class="toolbar"><button class="button" data-back="home">← Herramientas</button></div>
       <h1>Calculadora de masa muscular</h1>
-      <p>Flujo pendiente de documentar. Propiedad GA4: 505260213.</p>
+      <p>MAC 2.0 · flujo móvil lineal. Propiedad GA4: 505260213.</p>
+      <div class="mac-map">
+        <p class="mac-note">Boceto en revisión: cada bloque muestra la funcionalidad que activa la medición, no una captura completa de la página.</p>
+        <article class="mac-step mac-branch">
+          <h2>Acceso desde desktop</h2>
+          <p>Única bifurcación: el test no se ejecuta en desktop; se invita a continuar desde móvil mediante QR.</p>
+          <img src="assets/0b3de5127e6856ea.png" alt="Acceso desktop de MAC con código QR para continuar desde móvil">
+          <span class="event-chip">desktop_gate_view</span>
+          <table class="param-table"><tr><th>Parámetro</th><th>Ejemplo confirmado</th></tr><tr><td>market</td><td>CO</td></tr><tr><td>route_clean</td><td>/desktop</td></tr><tr><td>flow_step</td><td>home</td></tr></table>
+        </article>
+        <article class="mac-step">
+          <h2>Formulario de inicio</h2>
+          <p>La persona ingresa edad y sexo. El CTA <strong>Siguiente</strong> habilitado envía el formulario.</p>
+          <img src="assets/81cd0253412e63b1.png" alt="Formulario de MAC con edad, sexo y botón Siguiente">
+          <span class="event-chip">start_form_view · form_start · start_form_submit</span>
+          <table class="param-table"><tr><th>Acción</th><th>Medición</th></tr><tr><td>Vista del formulario</td><td>start_form_view</td></tr><tr><td>Interacción con campos</td><td>form_start</td></tr><tr><td>Clic en Siguiente</td><td>start_form_submit</td></tr></table>
+        </article>
+        <article class="mac-step">
+          <h2>Instrucciones y permiso de movimiento</h2>
+          <p>El CTA <strong>Siguiente</strong> lleva a la calibración después de solicitar o confirmar el acceso al sensor.</p>
+          <img src="assets/9fc9abcfe535e7b8.png" alt="Instrucciones de movimiento y botón Siguiente">
+          <span class="event-chip">motion_permission_prompt · motion_permission_result</span>
+          <table class="param-table"><tr><th>Parámetro</th><th>Ejemplo confirmado</th></tr><tr><td>market</td><td>CO</td></tr><tr><td>route_clean</td><td>/instructions</td></tr><tr><td>permission_status</td><td>granted</td></tr></table>
+        </article>
+        <article class="mac-step">
+          <h2>Calibración</h2>
+          <p>La persona confirma la posición inicial. El sensor valida el movimiento antes de habilitar el test.</p>
+          <img src="assets/a4a11305aa3c7ed7.png" alt="Estado de calibración de MAC">
+          <span class="event-chip">muscle_calculator_start · calibration_start</span>
+          <table class="param-table"><tr><th>Disparador</th><th>Estado</th></tr><tr><td>Clic en Calibrar</td><td>Configurado; parámetros por validar en teléfono físico</td></tr></table>
+        </article>
+        <article class="mac-step">
+          <h2>Inicio y ejecución del test</h2>
+          <p>Después de la calibración, comienza la cuenta regresiva y el contador de sentadillas.</p>
+          <img src="assets/1600d430c0274073.png" alt="Cuenta regresiva de inicio del test">
+          <span class="event-chip">test_start</span>
+          <table class="param-table"><tr><th>Disparador</th><th>Estado</th></tr><tr><td>Inicio de cuenta regresiva</td><td>Capturado; parámetros por validar en teléfono físico</td></tr></table>
+        </article>
+        <article class="mac-step mac-branch">
+          <h2>Rama de error y reintento</h2>
+          <p>Si no se detecta movimiento, se muestra el mensaje de error y se permite reiniciar la experiencia.</p>
+          <img src="assets/1c18bc4dda12c6e9.png" alt="Mensaje de error de MAC y botón Reiniciar test">
+          <span class="event-chip">test_error · test_retry_click · test_restart</span>
+        </article>
+        <article class="mac-step">
+          <h2>Resultado y cupón</h2>
+          <p>Al finalizar el test se muestra el resultado. El CTA abre un modal de confirmación antes de redirigir al cupón.</p>
+          <img src="assets/3c313a0cb6f6d3a5.png" alt="Resultado de MAC y botón Obtener cupón">
+          <span class="event-chip">test_complete · muscle_calculator_submission · coupon_get_click · coupon_modal_view · coupon_modal_accept_toggle · coupon_claim_click</span>
+          <table class="param-table"><tr><th>Disparador</th><th>Medición</th></tr><tr><td>Resultado visible</td><td>test_complete / muscle_calculator_submission</td></tr><tr><td>CTA Obtener cupón</td><td>coupon_get_click</td></tr><tr><td>Confirmación y salida</td><td>coupon_modal_view / coupon_claim_click</td></tr></table>
+          <img src="assets/6835dc97815a515a.png" alt="Modal de confirmación y CTA Reclamar cupón">
+        </article>
+      </div>
     </section>
 
     <section id="growth" class="panel hidden">
@@ -1014,8 +1080,55 @@ const tagMapData = {
       ]
     },
     "amarillo": {
-      "status": "pending_evidence",
-      "pages": []
+      "status": "mapped_capture_requires_render_review",
+      "pages": [
+        {
+          "id": "calculate",
+          "action": "Calcular",
+          "image": "assets/ab0dddb8327aa0a5.png",
+          "evidence": null,
+          "event": {
+            "name": "gc_submission",
+            "params": {
+              "link_text": "Calcular",
+              "link_url": "",
+              "country": "EC",
+              "pageName": "calculadora-de-crecimiento",
+              "birthday": "2025 02",
+              "height": "78cm",
+              "result": "result_yellow",
+              "outcome": " la altura de tu hijo es ligeramente inferior a lo esperado para su edad*.",
+              "heightComparison": "Altura actual: 78cm vs Altura adecuada: 81.7cm",
+              "gender": "girl"
+            }
+          },
+          "additional_events": [],
+          "destination": {
+            "type": "same_page_result",
+            "url": "https://www.contigo.abbott/es-ec/herramientas/calculadora-de-crecimiento",
+            "image": "assets/2c874425b2166a6d.png"
+          }
+        },
+        {
+          "id": "result_action",
+          "action": "Canjea tu cupón",
+          "image": "assets/2c874425b2166a6d.png",
+          "evidence": null,
+          "event": {
+            "name": "gc_register_button",
+            "params": {
+              "country": "EC",
+              "link_text": "Canjea tu cupón"
+            }
+          },
+          "additional_events": [],
+          "destination": {
+            "type": "registration",
+            "url": "https://www.contigo.abbott/es-ec/herramientas/calculadora-de-crecimiento/registro",
+            "image": "assets/1a8f2e3f1df580cc.png"
+          }
+        }
+      ]
     },
     "verde": {
       "status": "mapped_capture_requires_render_review",
@@ -1133,8 +1246,49 @@ const tagMapData = {
       ]
     },
     "amarillo": {
-      "status": "pending_evidence",
-      "pages": []
+      "status": "mapped_capture_requires_render_review",
+      "pages": [
+        {
+          "id": "calculate",
+          "action": "Calcular",
+          "image": "assets/c4a05c8232ea1d28.png",
+          "evidence": null,
+          "event": {
+            "name": "gc_submission",
+            "params": {
+              "country": "AR",
+              "pageName": "calculadora-de-crecimiento",
+              "birthday": "2025 02",
+              "height": "78cm",
+              "result": "result_yellow",
+              "outcome": " la altura de tu hijo es ligeramente inferior a lo esperado para su edad*.",
+              "heightComparison": "Altura actual: 78cm vs Altura adecuada: 81.7cm"
+            }
+          },
+          "additional_events": [],
+          "destination": {
+            "type": "same_page_result",
+            "url": "https://www.convos.abbott/es-ar/herramientas/calculadora-de-crecimiento",
+            "image": "assets/1661d81a7e59e98e.png"
+          }
+        },
+        {
+          "id": "result_action",
+          "action": "Obtené tu cupón",
+          "image": "assets/1661d81a7e59e98e.png",
+          "evidence": null,
+          "event": {
+            "name": "gc_register_button",
+            "params": {}
+          },
+          "additional_events": [],
+          "destination": {
+            "type": "registration",
+            "url": "https://www.convos.abbott/es-ar/herramientas/calculadora-de-crecimiento/registro",
+            "image": "assets/5ac0e457594c8209.png"
+          }
+        }
+      ]
     },
     "verde": {
       "status": "mapped_capture_requires_render_review",
