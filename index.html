@@ -187,6 +187,744 @@
     </section>
   </main>
 
+  <script>// Generated from client-tag-map.yaml. Do not edit.
+const tagMapData = {
+  "CL": {
+    "rojo": {
+      "status": "mapped_capture_requires_render_review",
+      "pages": [
+        {
+          "id": "calculate",
+          "action": "Calcular",
+          "event": {
+            "name": "gc_submission",
+            "params": {
+              "birthday": "2025 02",
+              "country": "CL",
+              "gender": "girl",
+              "height": "67cm",
+              "heightComparison": "Altura actual: 67cm vs Altura adecuada: 81.7cm",
+              "link_text": "Calcular",
+              "link_url": "",
+              "outcome": "la altura de tu hijo es muy inferior a lo esperado para su edad*.",
+              "pageName": "calculadora-de-crecimiento",
+              "result": "result_red"
+            }
+          },
+          "destination": {
+            "type": "same_page_result",
+            "url": "https://www.contigo.abbott/es-cl/herramientas/calculadora-de-crecimiento"
+          }
+        },
+        {
+          "id": "result_action",
+          "action": "Obtén tu cupón",
+          "event": {
+            "name": "gc_register_button",
+            "params": {
+              "country": "CL",
+              "link_text": "Obtén tu cupón"
+            }
+          },
+          "destination": {
+            "type": "registration",
+            "url": "https://www.contigo.abbott/es-cl/herramientas/calculadora-de-crecimiento/registro"
+          }
+        },
+        {
+          "id": "registration",
+          "action": "Finalizar registro",
+          "event": {
+            "name": "registro_exitoso",
+            "params": {
+              "country": "CL"
+            }
+          },
+          "destination": {
+            "type": "redirect",
+            "url": "https://www.contigo.abbott/es-cl/marca/pediasure/pediasure?showsuccesspopup=true",
+            "status": "observed_not_independently_verified"
+          }
+        }
+      ]
+    },
+    "amarillo": {
+      "status": "partial_manual_evidence",
+      "pages": [
+        {
+          "id": "calculate",
+          "action": "Calcular",
+          "event": {
+            "name": "gc_submission",
+            "params": null,
+            "status": "pending_parameter_capture"
+          },
+          "destination": {
+            "type": "same_page_result",
+            "url": "https://www.contigo.abbott/es-cl/herramientas/calculadora-de-crecimiento",
+            "status": "visual_evidence_only"
+          }
+        },
+        {
+          "id": "result_action",
+          "action": "Obtén tu cupón",
+          "event": {
+            "name": "gc_register_button",
+            "params": {
+              "country": "CL",
+              "link_text": "Obtén tu cupón"
+            }
+          },
+          "destination": {
+            "type": "registration",
+            "url": null,
+            "status": "reference_from_red_not_verified_for_yellow"
+          }
+        }
+      ]
+    },
+    "verde": {
+      "status": "mapped_capture_requires_render_review",
+      "pages": [
+        {
+          "id": "calculate",
+          "action": "Calcular",
+          "event": {
+            "name": "gc_submission",
+            "params": {
+              "link_text": "Calcular",
+              "link_url": "",
+              "country": "CL",
+              "pageName": "calculadora-de-crecimiento",
+              "birthday": "2025 02",
+              "height": "76cm",
+              "result": "result_green",
+              "outcome": "la altura de tu hijo se encuentra acorde a lo esperado para su edad.",
+              "heightComparison": "Altura actual: 76cm vs Altura adecuada: 78.6cm",
+              "gender": "girl"
+            }
+          },
+          "destination": {
+            "type": "same_page_result",
+            "url": "https://www.contigo.abbott/es-cl/herramientas/calculadora-de-crecimiento"
+          }
+        },
+        {
+          "id": "result_action",
+          "action": "Copiar",
+          "event": {
+            "name": "gc_share_tool",
+            "params": {
+              "link_text": "Copiar",
+              "link_url": ""
+            }
+          },
+          "destination": {
+            "type": "no_redirect",
+            "url": "https://www.contigo.abbott/es-cl/herramientas/calculadora-de-crecimiento"
+          }
+        }
+      ]
+    }
+  },
+  "CO": {
+    "rojo": {
+      "status": "mapped_capture_requires_render_review",
+      "pages": [
+        {
+          "id": "calculate",
+          "action": "Calcular",
+          "event": {
+            "name": "gc_submission",
+            "params": {
+              "link_text": "Calcular",
+              "link_url": "",
+              "country": "CO",
+              "pageName": "calculadora-de-crecimiento",
+              "birthday": "2025 02",
+              "height": "70cm",
+              "result": "result_red",
+              "outcome": " la altura de tu hijo es muy inferior a lo esperado para su edad*.",
+              "heightComparison": "Altura actual: 70cm vs Altura adecuada: 79.7cm",
+              "gender": "girl"
+            }
+          },
+          "destination": {
+            "type": "same_page_result",
+            "url": "https://www.contigo.abbott/es-co/herramientas/calculadora-de-crecimiento"
+          }
+        },
+        {
+          "id": "result_action",
+          "action": "Reclama tu cupón",
+          "event": {
+            "name": "gc_register_button",
+            "params": {
+              "country": "CO",
+              "link_text": "Reclama tu cupón"
+            }
+          },
+          "destination": {
+            "type": "registration",
+            "url": "https://www.contigo.abbott/es-co/herramientas/calculadora-de-crecimiento/registro"
+          }
+        },
+        {
+          "id": "registration",
+          "action": "Finalizar registro",
+          "event": {
+            "name": "registro_exitoso",
+            "params": {
+              "country": "CO"
+            }
+          },
+          "destination": {
+            "type": "redirect",
+            "url": "https://www.contigo.abbott/es-co/marca/pediasure/pediasure",
+            "status": "observed_not_independently_verified"
+          }
+        }
+      ]
+    },
+    "amarillo": {
+      "status": "mapped_capture_requires_render_review",
+      "pages": [
+        {
+          "id": "calculate",
+          "action": "Calcular",
+          "event": {
+            "name": "gc_submission",
+            "params": {
+              "link_text": "Calcular",
+              "link_url": "",
+              "country": "CO",
+              "pageName": "calculadora-de-crecimiento",
+              "birthday": "2025 02",
+              "height": "76cm",
+              "result": "result_yellow",
+              "outcome": " la altura de tu hijo es ligeramente inferior a lo esperado para su edad*.",
+              "heightComparison": "Altura actual: 76cm vs Altura adecuada: 79.7cm",
+              "gender": "girl"
+            }
+          },
+          "destination": {
+            "type": "same_page_result",
+            "url": "https://www.contigo.abbott/es-co/herramientas/calculadora-de-crecimiento"
+          }
+        },
+        {
+          "id": "result_action",
+          "action": "Reclama tu cupón",
+          "event": {
+            "name": "gc_register_button",
+            "params": {
+              "country": "CO",
+              "link_text": "Reclama tu cupón"
+            }
+          },
+          "destination": {
+            "type": "registration",
+            "url": "https://www.contigo.abbott/es-co/herramientas/calculadora-de-crecimiento/registro"
+          }
+        },
+        {
+          "id": "registration",
+          "action": "Finalizar registro",
+          "event": {
+            "name": "registro_exitoso",
+            "params": {
+              "country": "CO"
+            }
+          },
+          "destination": {
+            "type": "redirect",
+            "url": "https://www.contigo.abbott/es-co/marca/pediasure/pediasure?responseFailed=true",
+            "status": "response_failed_needs_review"
+          }
+        }
+      ]
+    },
+    "verde": {
+      "status": "mapped_capture_requires_render_review",
+      "pages": [
+        {
+          "id": "calculate",
+          "action": "Calcular",
+          "event": {
+            "name": "gc_submission",
+            "params": {
+              "link_text": "Calcular",
+              "link_url": "",
+              "country": "CO",
+              "pageName": "calculadora-de-crecimiento",
+              "birthday": "2025 02",
+              "height": "76cm",
+              "result": "result_green",
+              "outcome": " la altura de tu hijo se encuentra acorde a lo esperado para su edad*.",
+              "heightComparison": "Altura actual: 76cm vs Altura adecuada: 78.6cm",
+              "gender": "girl"
+            }
+          },
+          "destination": {
+            "type": "same_page_result",
+            "url": "https://www.contigo.abbott/es-co/herramientas/calculadora-de-crecimiento"
+          }
+        },
+        {
+          "id": "result_action",
+          "action": "Copiar",
+          "event": {
+            "name": "gc_share_tool",
+            "params": {
+              "link_text": "Copiar",
+              "link_url": ""
+            }
+          },
+          "destination": {
+            "type": "no_redirect",
+            "url": "https://www.contigo.abbott/es-co/herramientas/calculadora-de-crecimiento"
+          }
+        }
+      ]
+    }
+  },
+  "PE": {
+    "rojo": {
+      "status": "mapped_capture_requires_render_review",
+      "pages": [
+        {
+          "id": "calculate",
+          "action": "Calcular",
+          "event": {
+            "name": "gc_submission",
+            "params": {
+              "link_text": "Calcular",
+              "link_url": "",
+              "country": "PE",
+              "pageName": "calculadora-de-crecimiento",
+              "birthday": "2025 02",
+              "height": "70cm",
+              "result": "result_red",
+              "outcome": " la altura de tu hijo es muy inferior a lo esperado para su edad*.",
+              "heightComparison": "Altura actual: 70cm vs Altura adecuada: 78.6cm",
+              "gender": "girl"
+            }
+          },
+          "destination": {
+            "type": "same_page_result",
+            "url": "https://www.contigo.abbott/es-pe/herramientas/calculadora-de-crecimiento"
+          }
+        },
+        {
+          "id": "result_action",
+          "action": "Canjea tu cupón",
+          "event": {
+            "name": "gc_register_button",
+            "params": {
+              "country": "PE",
+              "link_text": "Canjea tu cupón"
+            }
+          },
+          "destination": {
+            "type": "registration",
+            "url": null
+          }
+        },
+        {
+          "id": "registration",
+          "action": "Finalizar registro",
+          "event": {
+            "name": "registro_exitoso",
+            "params": {
+              "country": "PE"
+            }
+          },
+          "destination": {
+            "type": "not_observed",
+            "url": null,
+            "status": "observed_not_independently_verified"
+          }
+        }
+      ]
+    },
+    "amarillo": {
+      "status": "pending_evidence",
+      "pages": []
+    },
+    "verde": {
+      "status": "pending_evidence",
+      "pages": []
+    }
+  },
+  "MX": {
+    "rojo": {
+      "status": "mapped_capture_requires_render_review",
+      "pages": [
+        {
+          "id": "calculate",
+          "action": "Calcular",
+          "event": {
+            "name": "gc_submission",
+            "params": {
+              "link_text": "Calcular",
+              "link_url": "",
+              "country": "MX",
+              "pageName": "calculadora-de-crecimiento",
+              "birthday": "2025 02",
+              "height": "70cm",
+              "result": "result_red",
+              "outcome": " la altura de tu hijo es muy inferior a lo esperado para su edad*.",
+              "heightComparison": "Altura actual: 70cm vs Altura adecuada: 78.6cm",
+              "gender": "girl"
+            }
+          },
+          "destination": {
+            "type": "same_page_result",
+            "url": "https://www.contigo.abbott/es-mx/herramientas/calculadora-de-crecimiento"
+          }
+        },
+        {
+          "id": "result_action",
+          "action": "Reclama tu cupón",
+          "event": {
+            "name": "gc_register_button",
+            "params": {
+              "country": "MX",
+              "link_text": "Reclama tu cupón"
+            }
+          },
+          "destination": {
+            "type": "registration",
+            "url": null
+          }
+        },
+        {
+          "id": "registration",
+          "action": "Finalizar registro",
+          "event": {
+            "name": "registro_exitoso",
+            "params": {
+              "country": "MX"
+            }
+          },
+          "destination": {
+            "type": "not_observed",
+            "url": null,
+            "status": "observed_not_independently_verified"
+          }
+        }
+      ]
+    },
+    "amarillo": {
+      "status": "pending_evidence",
+      "pages": []
+    },
+    "verde": {
+      "status": "pending_evidence",
+      "pages": []
+    }
+  },
+  "EC": {
+    "rojo": {
+      "status": "mapped_capture_requires_render_review",
+      "pages": [
+        {
+          "id": "calculate",
+          "action": "Calcular",
+          "event": {
+            "name": "gc_submission",
+            "params": {
+              "link_text": "Calcular",
+              "link_url": "",
+              "country": "EC",
+              "pageName": "calculadora-de-crecimiento",
+              "birthday": "2025 02",
+              "height": "70cm",
+              "result": "result_red",
+              "outcome": " la altura de tu hijo es muy inferior a lo esperado para su edad*.",
+              "heightComparison": "Altura actual: 70cm vs Altura adecuada: 81.7cm",
+              "gender": "girl"
+            }
+          },
+          "destination": {
+            "type": "same_page_result",
+            "url": "https://www.contigo.abbott/es-ec/herramientas/calculadora-de-crecimiento"
+          }
+        },
+        {
+          "id": "result_action",
+          "action": "Canjea tu cupón",
+          "event": {
+            "name": "gc_register_button",
+            "params": {
+              "country": "EC",
+              "link_text": "Canjea tu cupón"
+            }
+          },
+          "destination": {
+            "type": "registration",
+            "url": "https://www.contigo.abbott/es-ec/herramientas/calculadora-de-crecimiento/registro"
+          }
+        },
+        {
+          "id": "registration",
+          "action": "Finalizar registro",
+          "event": {
+            "name": "registro_exitoso",
+            "params": {
+              "country": "EC"
+            }
+          },
+          "destination": {
+            "type": "redirect",
+            "url": "https://www.contigo.abbott/es-ec/marca/pediasure/pediasure?showsuccesspopup=true",
+            "status": "observed_not_independently_verified"
+          }
+        }
+      ]
+    },
+    "amarillo": {
+      "status": "pending_evidence",
+      "pages": []
+    },
+    "verde": {
+      "status": "mapped_capture_requires_render_review",
+      "pages": [
+        {
+          "id": "calculate",
+          "action": "Calcular",
+          "event": {
+            "name": "gc_submission",
+            "params": {
+              "link_text": "Calcular",
+              "link_url": "",
+              "country": "EC",
+              "pageName": "calculadora-de-crecimiento",
+              "birthday": "2025 02",
+              "height": "76cm",
+              "result": "result_green",
+              "outcome": "la altura de tu hijo se encuentra acorde a lo esperado para su edad.",
+              "heightComparison": "Altura actual: 76cm vs Altura adecuada: 78.6cm",
+              "gender": "girl"
+            }
+          },
+          "destination": {
+            "type": "same_page_result",
+            "url": "https://www.contigo.abbott/es-ec/herramientas/calculadora-de-crecimiento"
+          }
+        },
+        {
+          "id": "result_action",
+          "action": "Copiar",
+          "event": {
+            "name": "gc_share_tool",
+            "params": {
+              "link_text": "Copiar",
+              "link_url": ""
+            }
+          },
+          "destination": {
+            "type": "no_redirect",
+            "url": "https://www.contigo.abbott/es-ec/herramientas/calculadora-de-crecimiento"
+          }
+        }
+      ]
+    }
+  },
+  "AR": {
+    "rojo": {
+      "status": "mapped_capture_requires_render_review",
+      "pages": [
+        {
+          "id": "calculate",
+          "action": "Calcular",
+          "event": {
+            "name": "gc_submission",
+            "params": {
+              "country": "AR",
+              "pageName": "calculadora-de-crecimiento",
+              "birthday": "2025 02",
+              "height": "70cm",
+              "result": "result_red",
+              "outcome": " la altura de tu hijo es muy inferior a lo esperado para su edad*.",
+              "heightComparison": "Altura actual: 70cm vs Altura adecuada: 81.7cm"
+            }
+          },
+          "destination": {
+            "type": "same_page_result",
+            "url": "https://www.convos.abbott/es-ar/herramientas/calculadora-de-crecimiento"
+          }
+        },
+        {
+          "id": "result_action",
+          "action": "Pendiente de texto visible",
+          "event": {
+            "name": "gc_register_button",
+            "params": {}
+          },
+          "destination": {
+            "type": "registration",
+            "url": "https://www.convos.abbott/es-ar/herramientas/calculadora-de-crecimiento/registro"
+          }
+        },
+        {
+          "id": "registration",
+          "action": "Finalizar registro",
+          "event": {
+            "name": "registro_exitoso",
+            "params": {}
+          },
+          "destination": {
+            "type": "redirect",
+            "url": "https://www.convos.abbott/es-ar/marca/pediasure/pediasure?showsuccesspopup=true",
+            "status": "observed_not_independently_verified"
+          }
+        }
+      ]
+    },
+    "amarillo": {
+      "status": "pending_evidence",
+      "pages": []
+    },
+    "verde": {
+      "status": "mapped_capture_requires_render_review",
+      "pages": [
+        {
+          "id": "calculate",
+          "action": "Calcular",
+          "event": {
+            "name": "gc_submission",
+            "params": {
+              "country": "AR",
+              "pageName": "calculadora-de-crecimiento",
+              "birthday": "2025 02",
+              "height": "76cm",
+              "result": "result_green",
+              "outcome": "la altura de tu hijo se encuentra acorde a lo esperado para su edad.",
+              "heightComparison": "Altura actual: 76cm vs Altura adecuada: 78.6cm"
+            }
+          },
+          "destination": {
+            "type": "same_page_result",
+            "url": "https://www.convos.abbott/es-ar/herramientas/calculadora-de-crecimiento"
+          }
+        },
+        {
+          "id": "result_action",
+          "action": "Pendiente de texto visible",
+          "event": {
+            "name": "gc_share_tool",
+            "params": {}
+          },
+          "destination": {
+            "type": "no_redirect",
+            "url": "https://www.convos.abbott/es-ar/herramientas/calculadora-de-crecimiento"
+          }
+        }
+      ]
+    }
+  },
+  "GT": {
+    "rojo": {
+      "status": "pending_evidence",
+      "pages": []
+    },
+    "amarillo": {
+      "status": "pending_evidence",
+      "pages": []
+    },
+    "verde": {
+      "status": "pending_evidence",
+      "pages": []
+    }
+  },
+  "HN": {
+    "rojo": {
+      "status": "pending_evidence",
+      "pages": []
+    },
+    "amarillo": {
+      "status": "pending_evidence",
+      "pages": []
+    },
+    "verde": {
+      "status": "pending_evidence",
+      "pages": []
+    }
+  },
+  "PA": {
+    "rojo": {
+      "status": "pending_evidence",
+      "pages": []
+    },
+    "amarillo": {
+      "status": "pending_evidence",
+      "pages": []
+    },
+    "verde": {
+      "status": "pending_evidence",
+      "pages": []
+    }
+  },
+  "DO": {
+    "rojo": {
+      "status": "pending_evidence",
+      "pages": []
+    },
+    "amarillo": {
+      "status": "pending_evidence",
+      "pages": []
+    },
+    "verde": {
+      "status": "pending_evidence",
+      "pages": []
+    }
+  },
+  "SV": {
+    "rojo": {
+      "status": "pending_evidence",
+      "pages": []
+    },
+    "amarillo": {
+      "status": "pending_evidence",
+      "pages": []
+    },
+    "verde": {
+      "status": "pending_evidence",
+      "pages": []
+    }
+  },
+  "CR": {
+    "rojo": {
+      "status": "pending_evidence",
+      "pages": []
+    },
+    "amarillo": {
+      "status": "pending_evidence",
+      "pages": []
+    },
+    "verde": {
+      "status": "pending_evidence",
+      "pages": []
+    }
+  },
+  "NI": {
+    "rojo": {
+      "status": "pending_evidence",
+      "pages": []
+    },
+    "amarillo": {
+      "status": "pending_evidence",
+      "pages": []
+    },
+    "verde": {
+      "status": "pending_evidence",
+      "pages": []
+    }
+  }
+};
+
+</script>
   <script>
     const assets = {
       CO: {
@@ -269,27 +1007,9 @@
     }
 
     function submissionExample() {
-      // Captured examples, selected by actual result rather than run directory name.
-      const examples = {
-        CL: { rojo: ['67', '81.7', 'muy inferior', '2025 02', 'girl'], verde: ['76', '78.6', 'acorde', '2025 02', 'girl'] },
-        CO: { rojo: ['70', '79.7', 'muy inferior', '2025 02', 'girl'], amarillo: ['76', '79.7', 'ligeramente inferior', '2025 02', 'girl'], verde: ['76', '78.6', 'acorde', '2025 02', 'girl'] }
-      };
-      const example = examples[selectedCountry][outcome];
+      const example = tagMapData[selectedCountry][outcome].pages.find(page => page.id === 'calculate')?.event.params;
       const pending = 'Pendiente de captura';
-      const result = 'result_' + ({rojo:'red', amarillo:'yellow', verde:'green'}[outcome]);
-      const message = example ? 'la altura de tu hijo ' + (example[2] === 'acorde' ? 'se encuentra acorde' : 'es ' + example[2]) + ' a lo esperado para su edad' + (selectedCountry === 'CL' && outcome === 'verde' ? '.' : '*.') : pending;
-      const params = [
-        ['birthday', example ? example[3] : pending],
-        ['country', selectedCountry],
-        ['gender', example ? example[4] : pending],
-        ['height', example ? example[0] + 'cm' : pending],
-        ['heightComparison', example ? 'Altura actual: ' + example[0] + 'cm vs Altura adecuada: ' + example[1] + 'cm' : pending],
-        ['link_text', 'Calcular'],
-        ['link_url', '(vacío)'],
-        ['outcome', message],
-        ['pageName', 'calculadora-de-crecimiento'],
-        ['result', example ? result : result + ' · por confirmar']
-      ];
+      const params = example ? Object.entries(example).map(([name,value])=>[name,value === '' ? '(vacío)' : value]) : [['Captura',pending]];
       return '<section class="result-examples"><h2>Parámetros de gc_submission</h2><p>' + (example ? 'Ejemplo capturado' : 'Parámetros pendientes de confirmar') + ' · ' + selectedCountry + ' · ' + outcome + '</p><div class="table-scroll"><table><thead><tr><th>Parámetro</th><th>Valor de ejemplo</th></tr></thead><tbody>' + params.map(([name, value]) => '<tr><td>' + name + '</td><td>' + value + '</td></tr>').join('') + '</tbody></table></div><p>Capturas de referencia; las imágenes pueden mostrar otra medición.</p></section>';
     }
 
@@ -298,9 +1018,14 @@
       const outcomes = document.getElementById('outcomes');
       const countryAssets = assets[selectedCountry];
       const isChile = selectedCountry === 'CL';
-      const isShare = isChile && outcome === 'verde';
+      const yamlPages = tagMapData[selectedCountry][outcome].pages;
+      const actionPage = yamlPages.find(page => page.id === 'result_action');
+      const isShare = actionPage?.event.name === 'gc_share_tool';
       const destinationTitle = 'Página de PediaSure';
-      const destinationImage = '<div class="feature destination"><h2>' + destinationTitle + (isChile && outcome === 'amarillo' ? ' · ejemplo' : '') + '</h2><div class="crop confirmation"><img src="' + countryAssets.confirmation + '" alt="' + destinationTitle + ' tras crear el usuario"></div><p>Usuario creado · cupón en camino.</p></div>';
+      const registrationPage = yamlPages.find(page => page.id === 'registration');
+      const failedDestination = registrationPage?.destination.status === 'response_failed_needs_review';
+      const destinationNote = failedDestination ? 'Respuesta fallida en la captura · éxito pendiente de confirmar.' : 'Usuario creado · cupón en camino.';
+      const destinationImage = '<div class="feature destination"><h2>' + destinationTitle + ((isChile && outcome === 'amarillo') || failedDestination ? ' · referencia' : '') + '</h2><div class="crop confirmation"><img src="' + countryAssets.confirmation + '" alt="' + destinationTitle + ' de referencia"></div><p>' + destinationNote + '</p></div>';
       content.classList.toggle('destination-view', step === 4);
       content.classList.toggle('registration-view', step === 0 || step === 3 || ([1, 2].includes(step) && !isShare));
       content.classList.toggle('result-route', [1, 2].includes(step));
@@ -329,13 +1054,13 @@
         document.getElementById('stepLabel').textContent = 'Pulsa el botón de cupón: activa gc_register_button y lleva al formulario.';
         const ctaImage = isChile ? (outcome === 'amarillo' ? countryAssets.amarilloCta : countryAssets.cta) : countryAssets[outcome];
         const confirmedYellow = isChile && outcome === 'amarillo';
-        const ctaParams = ['country: ' + selectedCountry, 'link_text: ' + (isChile ? 'Obtén tu cupón' : 'Reclama tu cupón')];
+        const ctaParams = Object.entries(actionPage?.event.params || {}).map(([name,value])=>name + ': ' + (value === '' ? '(vacío)' : value));
         content.innerHTML = feature('Resultado ' + outcome + ' · ' + (isChile ? 'Obtén tu cupón' : 'Reclama tu cupón'), ctaImage, 'cta', ctaParams, 'Siguiente', confirmedYellow ? "assets/b5a4d3561f1b2739.png" : '') + '<div class="transition">' + signal('Clic en el botón de cupón', 'gc_register_button', 'Redirige al formulario de registro') + arrow + '</div>' + arrival('Formulario de registro', countryAssets.registration, '/es-' + selectedCountry.toLowerCase() + '/herramientas/calculadora-de-crecimiento/registro · ruta capturada en rojo.');
       } else if (step === 3) {
         document.getElementById('stepLabel').textContent = 'Completa y envía el registro. Al crear el usuario, se redirige a ' + (isChile ? 'PediaSure.' : 'la página de destino.');
         content.innerHTML = feature('Formulario de registro', countryAssets.registration, 'registration', ['country: ' + selectedCountry], 'Siguiente') + '<div class="transition">' + signal('Clic en finalizar registro', 'registro_exitoso', 'Usuario creado · redirección') + arrow + '</div>' + destinationImage;
       } else {
-        document.getElementById('stepLabel').textContent = 'Usuario creado. Revisa el mensaje del cupón.';
+        document.getElementById('stepLabel').textContent = failedDestination ? 'La URL capturada indica responseFailed=true. Revisa el destino; no confirma éxito.' : 'Usuario creado. Revisa el mensaje del cupón.';
         content.innerHTML = feature(destinationTitle + (isChile && outcome === 'amarillo' ? ' · ejemplo' : ''), countryAssets.confirmation, 'confirmation', [], 'Volver al formulario');
       }
 
