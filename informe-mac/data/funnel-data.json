@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-18T22:09:02.029Z",
+  "generatedAt": "2026-09-18T22:22:18.121Z",
   "period": "2026-06-15 a 2026-09-15",
   "metric": "eventCount",
   "metricLabel": "Eventos GA4",
@@ -273,6 +273,481 @@
         "test_complete": 1466,
         "muscle_calculator_submission": 0,
         "coupon_get_click": 0,
+        "coupon_claim_click": 0
+      }
+    }
+  ],
+  "deviceRows": [
+    {
+      "country": "AR",
+      "device": "desktop",
+      "values": {
+        "page_view": 744,
+        "start_form_submit": 26,
+        "calibration_start": 16,
+        "test_complete": 0,
+        "coupon_claim_click": 0
+      }
+    },
+    {
+      "country": "AR",
+      "device": "mobile",
+      "values": {
+        "page_view": 23990,
+        "start_form_submit": 11069,
+        "calibration_start": 6069,
+        "test_complete": 1466,
+        "coupon_claim_click": 0
+      }
+    },
+    {
+      "country": "AR",
+      "device": "tablet",
+      "values": {
+        "page_view": 168,
+        "start_form_submit": 16,
+        "calibration_start": 7,
+        "test_complete": 1,
+        "coupon_claim_click": 0
+      }
+    },
+    {
+      "country": "CL",
+      "device": "desktop",
+      "values": {
+        "page_view": 224,
+        "start_form_submit": 6,
+        "calibration_start": 3,
+        "test_complete": 0,
+        "coupon_claim_click": 0
+      }
+    },
+    {
+      "country": "CL",
+      "device": "mobile",
+      "values": {
+        "page_view": 17296,
+        "start_form_submit": 2286,
+        "calibration_start": 1303,
+        "test_complete": 286,
+        "coupon_claim_click": 0
+      }
+    },
+    {
+      "country": "CL",
+      "device": "tablet",
+      "values": {
+        "page_view": 198,
+        "start_form_submit": 2,
+        "calibration_start": 1,
+        "test_complete": 1,
+        "coupon_claim_click": 0
+      }
+    },
+    {
+      "country": "CO",
+      "device": "desktop",
+      "values": {
+        "page_view": 2444,
+        "start_form_submit": 7,
+        "calibration_start": 15,
+        "test_complete": 0,
+        "coupon_claim_click": 1
+      }
+    },
+    {
+      "country": "CO",
+      "device": "mobile",
+      "values": {
+        "page_view": 159566,
+        "start_form_submit": 63078,
+        "calibration_start": 39168,
+        "test_complete": 10707,
+        "coupon_claim_click": 2630
+      }
+    },
+    {
+      "country": "CO",
+      "device": "smart tv",
+      "values": {
+        "page_view": 16,
+        "start_form_submit": 0,
+        "calibration_start": 0,
+        "test_complete": 0,
+        "coupon_claim_click": 0
+      }
+    },
+    {
+      "country": "CO",
+      "device": "tablet",
+      "values": {
+        "page_view": 822,
+        "start_form_submit": 101,
+        "calibration_start": 54,
+        "test_complete": 16,
+        "coupon_claim_click": 3
+      }
+    },
+    {
+      "country": "CR",
+      "device": "desktop",
+      "values": {
+        "page_view": 632,
+        "start_form_submit": 1,
+        "calibration_start": 12,
+        "test_complete": 0,
+        "coupon_claim_click": 0
+      }
+    },
+    {
+      "country": "CR",
+      "device": "mobile",
+      "values": {
+        "page_view": 29764,
+        "start_form_submit": 13847,
+        "calibration_start": 8418,
+        "test_complete": 2807,
+        "coupon_claim_click": 1530
+      }
+    },
+    {
+      "country": "CR",
+      "device": "tablet",
+      "values": {
+        "page_view": 96,
+        "start_form_submit": 24,
+        "calibration_start": 8,
+        "test_complete": 1,
+        "coupon_claim_click": 1
+      }
+    },
+    {
+      "country": "DO",
+      "device": "desktop",
+      "values": {
+        "page_view": 316,
+        "start_form_submit": 0,
+        "calibration_start": 0,
+        "test_complete": 0,
+        "coupon_claim_click": 0
+      }
+    },
+    {
+      "country": "DO",
+      "device": "mobile",
+      "values": {
+        "page_view": 42169,
+        "start_form_submit": 15914,
+        "calibration_start": 10014,
+        "test_complete": 2746,
+        "coupon_claim_click": 0
+      }
+    },
+    {
+      "country": "DO",
+      "device": "tablet",
+      "values": {
+        "page_view": 113,
+        "start_form_submit": 55,
+        "calibration_start": 37,
+        "test_complete": 13,
+        "coupon_claim_click": 0
+      }
+    },
+    {
+      "country": "EC",
+      "device": "desktop",
+      "values": {
+        "page_view": 264,
+        "start_form_submit": 2,
+        "calibration_start": 1,
+        "test_complete": 0,
+        "coupon_claim_click": 0
+      }
+    },
+    {
+      "country": "EC",
+      "device": "mobile",
+      "values": {
+        "page_view": 70751,
+        "start_form_submit": 14249,
+        "calibration_start": 8505,
+        "test_complete": 1504,
+        "coupon_claim_click": 0
+      }
+    },
+    {
+      "country": "EC",
+      "device": "smart tv",
+      "values": {
+        "page_view": 1,
+        "start_form_submit": 0,
+        "calibration_start": 0,
+        "test_complete": 0,
+        "coupon_claim_click": 0
+      }
+    },
+    {
+      "country": "EC",
+      "device": "tablet",
+      "values": {
+        "page_view": 845,
+        "start_form_submit": 34,
+        "calibration_start": 13,
+        "test_complete": 1,
+        "coupon_claim_click": 0
+      }
+    },
+    {
+      "country": "GT",
+      "device": "desktop",
+      "values": {
+        "page_view": 805,
+        "start_form_submit": 0,
+        "calibration_start": 12,
+        "test_complete": 0,
+        "coupon_claim_click": 1
+      }
+    },
+    {
+      "country": "GT",
+      "device": "mobile",
+      "values": {
+        "page_view": 57644,
+        "start_form_submit": 23507,
+        "calibration_start": 16250,
+        "test_complete": 4691,
+        "coupon_claim_click": 3485
+      }
+    },
+    {
+      "country": "GT",
+      "device": "tablet",
+      "values": {
+        "page_view": 147,
+        "start_form_submit": 32,
+        "calibration_start": 18,
+        "test_complete": 2,
+        "coupon_claim_click": 1
+      }
+    },
+    {
+      "country": "HN",
+      "device": "desktop",
+      "values": {
+        "page_view": 1028,
+        "start_form_submit": 2,
+        "calibration_start": 13,
+        "test_complete": 1,
+        "coupon_claim_click": 0
+      }
+    },
+    {
+      "country": "HN",
+      "device": "mobile",
+      "values": {
+        "page_view": 90275,
+        "start_form_submit": 20923,
+        "calibration_start": 13895,
+        "test_complete": 3448,
+        "coupon_claim_click": 1905
+      }
+    },
+    {
+      "country": "HN",
+      "device": "tablet",
+      "values": {
+        "page_view": 431,
+        "start_form_submit": 48,
+        "calibration_start": 29,
+        "test_complete": 6,
+        "coupon_claim_click": 4
+      }
+    },
+    {
+      "country": "MX",
+      "device": "desktop",
+      "values": {
+        "page_view": 1559,
+        "start_form_submit": 4,
+        "calibration_start": 13,
+        "test_complete": 0,
+        "coupon_claim_click": 0
+      }
+    },
+    {
+      "country": "MX",
+      "device": "mobile",
+      "values": {
+        "page_view": 160521,
+        "start_form_submit": 57876,
+        "calibration_start": 33973,
+        "test_complete": 12635,
+        "coupon_claim_click": 0
+      }
+    },
+    {
+      "country": "MX",
+      "device": "smart tv",
+      "values": {
+        "page_view": 76,
+        "start_form_submit": 0,
+        "calibration_start": 0,
+        "test_complete": 0,
+        "coupon_claim_click": 0
+      }
+    },
+    {
+      "country": "MX",
+      "device": "tablet",
+      "values": {
+        "page_view": 1660,
+        "start_form_submit": 160,
+        "calibration_start": 64,
+        "test_complete": 14,
+        "coupon_claim_click": 0
+      }
+    },
+    {
+      "country": "NI",
+      "device": "desktop",
+      "values": {
+        "page_view": 250,
+        "start_form_submit": 2,
+        "calibration_start": 2,
+        "test_complete": 0,
+        "coupon_claim_click": 0
+      }
+    },
+    {
+      "country": "NI",
+      "device": "mobile",
+      "values": {
+        "page_view": 31637,
+        "start_form_submit": 10297,
+        "calibration_start": 6962,
+        "test_complete": 1326,
+        "coupon_claim_click": 0
+      }
+    },
+    {
+      "country": "NI",
+      "device": "tablet",
+      "values": {
+        "page_view": 152,
+        "start_form_submit": 16,
+        "calibration_start": 12,
+        "test_complete": 3,
+        "coupon_claim_click": 0
+      }
+    },
+    {
+      "country": "PA",
+      "device": "desktop",
+      "values": {
+        "page_view": 585,
+        "start_form_submit": 3,
+        "calibration_start": 15,
+        "test_complete": 0,
+        "coupon_claim_click": 1
+      }
+    },
+    {
+      "country": "PA",
+      "device": "mobile",
+      "values": {
+        "page_view": 15384,
+        "start_form_submit": 5990,
+        "calibration_start": 3986,
+        "test_complete": 1037,
+        "coupon_claim_click": 704
+      }
+    },
+    {
+      "country": "PA",
+      "device": "smart tv",
+      "values": {
+        "page_view": 1,
+        "start_form_submit": 0,
+        "calibration_start": 0,
+        "test_complete": 0,
+        "coupon_claim_click": 0
+      }
+    },
+    {
+      "country": "PA",
+      "device": "tablet",
+      "values": {
+        "page_view": 32,
+        "start_form_submit": 10,
+        "calibration_start": 5,
+        "test_complete": 0,
+        "coupon_claim_click": 1
+      }
+    },
+    {
+      "country": "PE",
+      "device": "desktop",
+      "values": {
+        "page_view": 810,
+        "start_form_submit": 3,
+        "calibration_start": 14,
+        "test_complete": 0,
+        "coupon_claim_click": 0
+      }
+    },
+    {
+      "country": "PE",
+      "device": "mobile",
+      "values": {
+        "page_view": 36433,
+        "start_form_submit": 8885,
+        "calibration_start": 5723,
+        "test_complete": 1614,
+        "coupon_claim_click": 0
+      }
+    },
+    {
+      "country": "PE",
+      "device": "tablet",
+      "values": {
+        "page_view": 365,
+        "start_form_submit": 27,
+        "calibration_start": 13,
+        "test_complete": 2,
+        "coupon_claim_click": 0
+      }
+    },
+    {
+      "country": "SV",
+      "device": "desktop",
+      "values": {
+        "page_view": 324,
+        "start_form_submit": 1,
+        "calibration_start": 0,
+        "test_complete": 0,
+        "coupon_claim_click": 0
+      }
+    },
+    {
+      "country": "SV",
+      "device": "mobile",
+      "values": {
+        "page_view": 43409,
+        "start_form_submit": 14952,
+        "calibration_start": 9440,
+        "test_complete": 2075,
+        "coupon_claim_click": 0
+      }
+    },
+    {
+      "country": "SV",
+      "device": "tablet",
+      "values": {
+        "page_view": 79,
+        "start_form_submit": 18,
+        "calibration_start": 10,
+        "test_complete": 1,
         "coupon_claim_click": 0
       }
     }
