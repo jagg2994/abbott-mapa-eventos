@@ -129,6 +129,23 @@
     .event-chip { display: inline-block; margin: 13px 0 8px; padding: 7px 10px; border-radius: 999px; background: var(--brand-soft); color: var(--ink); font: 700 13px ui-monospace, SFMono-Regular, Menlo, monospace; }
     .param-table { width: 100%; margin-top: 4px; }
     .param-table th { width: 34%; }
+    .proposal-tool { grid-column: 1 / -1; min-height: 150px; border-left: 5px solid var(--red); }
+    .proposal-tool strong { font-size: 23px; }
+    .proposal-intro { padding: 14px; border-radius: 10px; background: #fff0f2; margin-bottom: 22px; line-height: 1.6; }
+    .proposal-flow { max-width: 860px; margin: auto; }
+    .proposal-step { border: 1px solid var(--line); border-radius: 12px; overflow: hidden; background: var(--white); }
+    .proposal-step h2 { font-size: 17px; margin: 0; padding: 14px 16px 6px; }
+    .proposal-step > p { margin: 0; padding: 0 16px 12px; color: var(--muted); font-size: 13px; line-height: 1.5; }
+    .proposal-step .event-chip { margin: 0 16px 12px; }
+    .proposal-step td, .proposal-step th { padding: 9px 16px; overflow-wrap: anywhere; }
+    .proposal-step td code { white-space: normal; }
+    .proposal-step.result-red { border: 2px solid var(--red); }
+    .proposal-arrow { text-align: center; font-size: 30px; line-height: 1; padding: 12px; color: var(--brand); }
+    .proposal-arrow span { display: block; color: var(--muted); font-size: 12px; margin-bottom: 6px; line-height: 1.4; }
+    .proposal-fork { text-align: center; margin: 8px 0 16px; padding: 12px; border-radius: 10px; background: var(--brand-soft); }
+    .proposal-branches { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; align-items: start; }
+    .proposal-branch h3 { text-align: center; font-size: 16px; margin: 0 0 12px; }
+    .proposal-note { padding: 14px; margin-top: 20px; border-radius: 10px; background: var(--surface); color: var(--muted); font-size: 13px; line-height: 1.6; }
     .mac-branch { border-color: var(--yellow); background: #fff8df; }
     .mac-branch .event-chip { background: #f8e5b3; }
     .empty { padding: 14px; text-align: left; color: var(--muted); background: var(--surface); border-radius: 12px; }
@@ -149,6 +166,11 @@
       .redirect-arrow::after { right: -5.5px; top: auto; bottom: -1px; border-top: 12px solid var(--brand); border-bottom: 0; border-left: 7px solid transparent; border-right: 7px solid transparent; }
       .result-route .redirect-arrow::after { border-top-color: var(--route-color); border-left-color: transparent; }
     }
+    @media (max-width: 650px) {
+      .proposal-branches { grid-template-columns: minmax(0, 1fr); gap: 28px; }
+      .proposal-tool strong { font-size: 21px; }
+      .proposal-step td, .proposal-step th { padding: 9px 10px; }
+    }
   </style>
 </head>
 <body>
@@ -167,6 +189,18 @@
         <strong>Growth Tool</strong>
         <span>13 países</span>
       </button>
+      <button class="tool proposal-tool" data-tool="proposal">
+        <strong>Propuesta de marcación · Growth Tool</strong>
+        <span>Ejemplo rojo · pasos, parámetros y bifurcación de registro / inicio de sesión</span>
+      </button>
+    </section>
+
+    <section id="proposal" class="panel hidden" aria-labelledby="proposalTitle">
+      <div class="toolbar"><button class="button" data-back="home">← Herramientas</button></div>
+      <h1 id="proposalTitle">Propuesta de marcación · Growth Tool</h1>
+      <p>CO, PE, CL y MX · recorrido propuesto para un resultado rojo.</p>
+      <div class="proposal-intro"><strong>Propuesta para implementación en GTM.</strong> Cada tabla muestra el evento y los parámetros que viajarían a Analytics. El rojo es el ejemplo de este recorrido; el resultado todavía no se conoce al empezar. La bifurcación ocurre cuando la persona elige registrarse o iniciar sesión.</div>
+      <div id="proposalFlow" class="proposal-flow"></div>
     </section>
 
     <section id="mac" class="panel hidden">
@@ -1502,11 +1536,32 @@ const tagMapData = {
     let step = 0;
     let selectedCountry = 'CO';
 
-    const screens = ['home', 'mac', 'growth'];
+    const screens = ['home', 'mac', 'growth', 'proposal'];
     function showScreen(id) {
       screens.forEach(screen => document.getElementById(screen).classList.toggle('hidden', screen !== id));
-      document.getElementById('crumb').textContent = id === 'home' ? 'Herramientas' : id === 'mac' ? 'Herramientas / MAC' : 'Herramientas / Growth Tool';
+      document.getElementById('crumb').textContent = id === 'home' ? 'Herramientas' : id === 'mac' ? 'Herramientas / MAC' : id === 'proposal' ? 'Herramientas / Propuesta de marcación' : 'Herramientas / Growth Tool';
     }
+
+    function proposalCard(number, title, eventName, description, extra = [], color = 'red') {
+      const rows = [['flow_origin', 'growth_tool'], ['flow_step', String(number)], ['growth_result', color], ['growth_step', 'growth_tool :: step ' + number + ' :: ' + color], ...extra];
+      return '<article class="proposal-step' + (number === 2 ? ' result-red' : '') + '"><h2>Paso ' + number + ' · ' + title + '</h2><p>' + description + '</p><span class="event-chip">' + eventName + '</span><table><thead><tr><th>Parámetro</th><th>Valor de ejemplo</th></tr></thead><tbody>' + rows.map(([name, value]) => '<tr><td>' + name + '</td><td><code>' + value + '</code></td></tr>').join('') + '</tbody></table></article>';
+    }
+
+    function renderTaggingProposal() {
+      const arrow = label => '<div class="proposal-arrow" aria-hidden="true">' + (label ? '<span>' + label + '</span>' : '') + '↓</div>';
+      const entry = proposalCard(0, 'Llegada a Growth Tool', 'page_view', 'Carga de la URL de la calculadora. KPI de llegada: usuarios.', [['page_path', '/es-co/herramientas/calculadora-de-crecimiento']], 'pending');
+      const start = proposalCard(1, 'Empieza a llenar la calculadora', 'form_start', 'Primera interacción válida, una sola vez por formulario.', [['form_name', 'growth_calculator'], ['first_field', 'gender']], 'pending');
+      const result = proposalCard(2, 'Resultado calculado: rojo', 'gc_submission', 'El cálculo terminó y entrega result_red. El resultado visible permite completar el contexto para las acciones siguientes.', [['result', 'result_red']]);
+      const coupon = proposalCard(3, 'Clic en obtener cupón', 'gc_register_button', 'Se conserva el origen y el resultado antes de navegar al formulario.', [['cta_type', 'coupon'], ['destination_type', 'registration']]);
+      const form = proposalCard(4, 'Llega al formulario', 'registration_start', 'El formulario se hace visible con contexto de Growth Tool; también aplica cuando el recorrido pasa por /ingreso.', [['form_name', 'user_registration']]);
+      const newUser = proposalCard(5, 'Diligencia el registro', 'form_start', 'La persona empieza a llenar el formulario de registro.', [['form_name', 'user_registration'], ['auth_action', 'register']]);
+      const whatsapp = proposalCard(5, 'Completa WhatsApp', 'form_field_complete', 'Interacción opcional del mismo paso: confirma el campo válido una sola vez. No se envía el número.', [['field_name', 'whatsapp'], ['field_valid', 'true']]);
+      const registered = proposalCard(6, 'Registro confirmado', 'registro_exitoso', 'Confirmación real del registro; se limpia el contexto después de enviar el evento.', [['auth_action', 'register']]);
+      const loginClick = proposalCard(5, 'Elige iniciar sesión', 'login_click', 'Usuario con cuenta existente hace clic en el enlace Iniciar sesión del formulario.', [['link_text', 'Iniciar sesión'], ['auth_action', 'login']]);
+      const loginSuccess = proposalCard(6, 'Sesión iniciada', 'login', 'Se emite cuando la autenticación se confirma. El clic del enlace no confirma el éxito.', [['auth_action', 'login']]);
+      document.getElementById('proposalFlow').innerHTML = entry + arrow('Primera interacción') + start + arrow('Calcular') + result + arrow('El resultado rojo ofrece cupón') + coupon + arrow('Se mantiene el contexto durante la redirección') + form + arrow() + '<div class="proposal-fork"><strong>¿La persona ya tiene una cuenta?</strong><br>Dos formas de continuar el mismo recorrido</div><div class="proposal-branches"><div class="proposal-branch"><h3>↙ Nueva cuenta</h3>' + newUser + arrow('Si el formulario incluye WhatsApp') + whatsapp + arrow('Confirmación del registro') + registered + '</div><div class="proposal-branch"><h3>↘ Cuenta existente</h3>' + loginClick + arrow('Autenticación confirmada') + loginSuccess + '<div class="proposal-note"><strong>Si ya tiene una sesión activa:</strong> continúa con la oferta que muestre el sitio. No se emite un nuevo login ni un registro exitoso por omitir el formulario.</div></div></div><div class="proposal-note"><strong>Origen verificable:</strong> los pasos del formulario heredan un contexto vigente creado por el clic de cupón en Growth Tool. El tráfico que llega directamente a registro desde pauta no recibe esta marcación. Los números son etapas fijas; completar WhatsApp es opcional y no bloquea el paso 6.<br><br><strong>Otros resultados:</strong> amarillo puede continuar por el recorrido de cupón que confirme cada país. Verde termina en copiar y no continúa hacia registro. Aquí se presenta únicamente el ejemplo rojo.<br><br><strong>Lectura de pauta:</strong> campaña de la sesión contiene GROWTH. Esta clasificación de medios es independiente del origen del recorrido.</div>';
+    }
+    renderTaggingProposal();
 
     document.querySelectorAll('[data-tool]').forEach(button => button.addEventListener('click', () => showScreen(button.dataset.tool)));
     document.querySelectorAll('[data-back]').forEach(button => button.addEventListener('click', () => showScreen(button.dataset.back)));
