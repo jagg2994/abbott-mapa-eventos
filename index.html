@@ -124,6 +124,12 @@
     .mac-event-evidence { overflow-x: auto; margin: 12px 0; }
     .mac-event-evidence table { width: 100%; min-width: 440px; border-collapse: collapse; }
     .mac-event-evidence th, .mac-event-evidence td { padding: 7px 9px; text-align: left; border-bottom: 1px solid var(--line); }
+    .mac-coupon-overview { margin: 18px 0 26px; }
+    .mac-coupon-overview h2 { font-size: 18px; margin: 0 0 6px; }
+    .mac-coupon-overview p { color: var(--muted); font-size: 13px; margin: 0 0 10px; }
+    .mac-coupon-overview table { min-width: 690px; }
+    .mac-coupon-overview tr.selected { background: var(--brand-soft); }
+    .mac-coupon-overview td { font-size: 12px; line-height: 1.45; }
     @media (max-width: 650px) {
       .mac-event-evidence table { min-width: 0; }
       .mac-event-evidence thead { display: none; }
@@ -239,6 +245,16 @@
         <p id="macCountryCoupon"></p>
         <small id="macScenarioNote"></small>
       </div>
+      <section class="mac-coupon-overview" aria-labelledby="macCouponOverviewTitle">
+        <h2 id="macCouponOverviewTitle">Cupón por país</h2>
+        <p>Resumen del tramo final. «CTA observado en QA» no confirma que el cliente haya recibido el cupón; el medio de entrega queda por validar.</p>
+        <div class="table-scroll">
+          <table>
+            <thead><tr><th>País</th><th>CTA de cupón</th><th>Medio o destino observado</th><th>Validación</th></tr></thead>
+            <tbody id="macCouponMatrixRows"></tbody>
+          </table>
+        </div>
+      </section>
       <div class="mac-map">
         <p class="mac-note">Las capturas ilustran la interfaz de Colombia; la tabla de cada paso muestra las señales observadas del país seleccionado.</p>
         <article class="mac-step mac-branch">
@@ -2173,9 +2189,23 @@ const tagMapData = {
     const countryNames = {CO:'Colombia',CL:'Chile',PE:'Perú',MX:'México',EC:'Ecuador',AR:'Argentina',CR:'Costa Rica'};
     const macNames = {SV:'El Salvador',GT:'Guatemala',DO:'República Dominicana',HN:'Honduras',CR:'Costa Rica',PA:'Panamá',NI:'Nicaragua',CO:'Colombia',PE:'Perú',MX:'México',CL:'Chile',EC:'Ecuador',AR:'Argentina'};
     const macNoCouponCountries = new Set(['SV','DO','NI','PE','MX','CL','EC','AR']);
+    const macCouponRoutes = {
+      CO:'WhatsApp, tras salida a scan.abbott.com',
+      GT:'Sitio web Abox Plan', HN:'Sitio web Abox Plan', CR:'Sitio web Abox Plan', PA:'Sitio web Abox Plan'
+    };
+    function renderMacCouponMatrix(selectedCountry) {
+      document.getElementById('macCouponMatrixRows').innerHTML = Object.keys(macNames).map((country) => {
+        const noCoupon = macNoCouponCountries.has(country);
+        const cta = noCoupon ? 'No, según el equipo' : 'Sí, observado en QA';
+        const route = noCoupon ? 'No aplica: termina en resultado' : macCouponRoutes[country] + '; entrega del cupón por confirmar';
+        const validation = noCoupon ? 'Referencia visual del equipo; sin atribución de captura por país' : 'Redirección capturada en QA; recepción del cupón no validada';
+        return '<tr class="' + (country === selectedCountry ? 'selected' : '') + '"><th scope="row">' + macNames[country] + ' (' + country + ')</th><td>' + cta + '</td><td>' + route + '</td><td>' + validation + '</td></tr>';
+      }).join('');
+    }
     function renderMacCountry(country) {
       const evidence = macCountryEvidence[country];
       const label = macNames[country];
+      renderMacCouponMatrix(country);
       document.getElementById('macMarket').textContent = country;
       document.getElementById('macCountrySummary').innerHTML = '<strong>' + label + ':</strong> GA4 <code>' + evidence.ga4MeasurementId + '</code> · Meta Pixel <code>' + evidence.metaPixel + '</code>.';
       const noCoupon = macNoCouponCountries.has(country);
