@@ -247,10 +247,9 @@
       </div>
       <section class="mac-coupon-overview" aria-labelledby="macCouponOverviewTitle">
         <h2 id="macCouponOverviewTitle">Cupón por país</h2>
-        <p>Resumen del tramo final. «CTA observado en QA» no confirma que el cliente haya recibido el cupón; el medio de entrega queda por validar.</p>
         <div class="table-scroll">
           <table>
-            <thead><tr><th>País</th><th>CTA de cupón</th><th>Medio o destino observado</th><th>Validación</th></tr></thead>
+            <thead><tr><th>País</th><th>¿Cupón?</th><th>Medio o redirección</th></tr></thead>
             <tbody id="macCouponMatrixRows"></tbody>
           </table>
         </div>
@@ -2190,16 +2189,15 @@ const tagMapData = {
     const macNames = {SV:'El Salvador',GT:'Guatemala',DO:'República Dominicana',HN:'Honduras',CR:'Costa Rica',PA:'Panamá',NI:'Nicaragua',CO:'Colombia',PE:'Perú',MX:'México',CL:'Chile',EC:'Ecuador',AR:'Argentina'};
     const macNoCouponCountries = new Set(['SV','DO','NI','PE','MX','CL','EC','AR']);
     const macCouponRoutes = {
-      CO:'WhatsApp, tras salida a scan.abbott.com',
-      GT:'Sitio web Abox Plan', HN:'Sitio web Abox Plan', CR:'Sitio web Abox Plan', PA:'Sitio web Abox Plan'
+      CO:'WhatsApp (vía scan.abbott.com)',
+      GT:'aboxplan.com/calculadoraaltura/', HN:'aboxplan.com/calculadoraaltura/', CR:'aboxplan.com/calculadoraaltura/', PA:'aboxplan.com/calculadoraaltura/'
     };
     function renderMacCouponMatrix(selectedCountry) {
       document.getElementById('macCouponMatrixRows').innerHTML = Object.keys(macNames).map((country) => {
         const noCoupon = macNoCouponCountries.has(country);
-        const cta = noCoupon ? 'No, según el equipo' : 'Sí, observado en QA';
-        const route = noCoupon ? 'No aplica: termina en resultado' : macCouponRoutes[country] + '; entrega del cupón por confirmar';
-        const validation = noCoupon ? 'Referencia visual del equipo; sin atribución de captura por país' : 'Redirección capturada en QA; recepción del cupón no validada';
-        return '<tr class="' + (country === selectedCountry ? 'selected' : '') + '"><th scope="row">' + macNames[country] + ' (' + country + ')</th><td>' + cta + '</td><td>' + route + '</td><td>' + validation + '</td></tr>';
+        const coupon = noCoupon ? 'No' : 'Sí';
+        const route = noCoupon ? 'No aplica' : macCouponRoutes[country];
+        return '<tr class="' + (country === selectedCountry ? 'selected' : '') + '"><th scope="row">' + macNames[country] + ' (' + country + ')</th><td>' + coupon + '</td><td>' + route + '</td></tr>';
       }).join('');
     }
     function renderMacCountry(country) {
