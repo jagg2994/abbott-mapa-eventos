@@ -139,6 +139,10 @@
     .mac-step > p { margin: 0 0 12px; color: var(--muted); }
     .mac-step img { width: 100%; max-height: 520px; object-fit: contain; object-position: center; display: block; border: 1px solid var(--line); border-radius: 12px; background: var(--surface); }
     .mac-step img[hidden] { display: none; }
+    .mac-result-references { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; margin: 12px 0; }
+    .mac-result-references img { max-height: 360px; }
+    .mac-result-references img:first-child { grid-column: 1 / -1; max-height: 520px; }
+    .mac-result-references[hidden] { display: none; }
     .event-chip { display: inline-block; margin: 13px 0 8px; padding: 7px 10px; border-radius: 999px; background: var(--brand-soft); color: var(--ink); font: 700 13px ui-monospace, SFMono-Regular, Menlo, monospace; }
     .param-table { width: 100%; margin-top: 4px; }
     .param-table th { width: 34%; }
@@ -183,6 +187,8 @@
       .proposal-branches { grid-template-columns: minmax(0, 1fr); gap: 28px; }
       .proposal-tool strong { font-size: 21px; }
       .proposal-step td, .proposal-step th { padding: 9px 10px; }
+      .mac-result-references { grid-template-columns: minmax(0, 1fr); }
+      .mac-result-references img:first-child { grid-column: auto; }
     }
   </style>
 </head>
@@ -282,10 +288,15 @@
         </article>
         <article class="mac-step">
           <h2 id="macResultTitle">Resultado y cupón</h2>
-          <p id="macResultDescription">Al finalizar el test se muestra el resultado. El CTA abre un modal de confirmación antes de redirigir al cupón.</p>
+          <p id="macResultDescription">Al finalizar el test se muestra el resultado. El tramo siguiente depende del país.</p>
           <img id="macResultCouponImage" src="assets/3c313a0cb6f6d3a5.png" alt="Resultado de referencia de Colombia y botón Obtener cupón">
+          <div id="macResultNoCouponImages" class="mac-result-references" hidden>
+            <img src="assets/7fd5106e6e058dcc.png" alt="Ejemplo de resultado sin cupón: 11 repeticiones y edad real de 65 años">
+            <img src="assets/36d770766fad5110.png" alt="Ejemplo de resultado sin cupón: 10 repeticiones y edad real de 55 años">
+            <img src="assets/43b8a5c49b7058db.png" alt="Ejemplo de resultado sin cupón: 16 repeticiones y edad real de 30 años">
+          </div>
           <span class="event-chip" id="macResultChip">test_complete · coupon_get_click · coupon_claim_click</span>
-          <div class="mac-event-evidence" data-mac-events="test_complete,coupon_get_click,coupon_claim_click"></div>
+          <div id="macResultEvidence" class="mac-event-evidence" data-mac-events="test_complete,coupon_get_click,coupon_claim_click"></div>
           <p id="macCouponStep"></p>
           <img id="macCouponModalImage" src="assets/6835dc97815a515a.png" alt="Modal de confirmación de referencia de Colombia y CTA Reclamar cupón">
         </article>
@@ -2161,21 +2172,25 @@ const tagMapData = {
     <script>
     const countryNames = {CO:'Colombia',CL:'Chile',PE:'Perú',MX:'México',EC:'Ecuador',AR:'Argentina',CR:'Costa Rica'};
     const macNames = {SV:'El Salvador',GT:'Guatemala',DO:'República Dominicana',HN:'Honduras',CR:'Costa Rica',PA:'Panamá',NI:'Nicaragua',CO:'Colombia',PE:'Perú',MX:'México',CL:'Chile',EC:'Ecuador',AR:'Argentina'};
+    const macNoCouponCountries = new Set(['SV','DO','NI','PE','MX','CL','EC','AR']);
     function renderMacCountry(country) {
       const evidence = macCountryEvidence[country];
       const label = macNames[country];
       document.getElementById('macMarket').textContent = country;
       document.getElementById('macCountrySummary').innerHTML = '<strong>' + label + ':</strong> GA4 <code>' + evidence.ga4MeasurementId + '</code> · Meta Pixel <code>' + evidence.metaPixel + '</code>.';
-      const couponFound = evidence.couponStatus === 'coupon_redirect_observed';
-      document.getElementById('macScenarioNote').textContent = 'Prueba de etiquetado: ' + evidence.scenario + '. “No observado” indica el resultado de estas corridas; no confirma ausencia del tag.';
-      const destination = couponFound ? '<strong>Salida del cupón:</strong> <code>' + evidence.couponDestinationHost + evidence.couponDestinationPath + '</code>' + (evidence.finalDestinationHost && evidence.finalDestinationHost !== evidence.couponDestinationHost ? ' → <code>' + evidence.finalDestinationHost + '</code>' : '') + '. ' + evidence.afterClaimSummary : '<strong>Salida del cupón:</strong> no apareció CTA ni modal con 10 o 25 sentadillas; el recorrido termina en resultado.';
+      const noCoupon = macNoCouponCountries.has(country);
+      const couponFound = !noCoupon && evidence.couponStatus === 'coupon_redirect_observed';
+      document.getElementById('macScenarioNote').textContent = 'Señales de red: QA automatizado (' + evidence.scenario + '). Las capturas del resultado sin cupón fueron aportadas como referencia visual y no están atribuidas a un país específico.';
+      const destination = noCoupon ? '<strong>Tramo final:</strong> resultado sin cupón, según la revisión indicada por el equipo. No hay botón de cupón en este recorrido; la ausencia de envío de eventos de cupón requiere verificación de red.' : couponFound ? '<strong>Salida del cupón capturada en QA:</strong> <code>' + evidence.couponDestinationHost + evidence.couponDestinationPath + '</code>' + (evidence.finalDestinationHost && evidence.finalDestinationHost !== evidence.couponDestinationHost ? ' → <code>' + evidence.finalDestinationHost + '</code>' : '') + '. ' + evidence.afterClaimSummary : '<strong>Salida del cupón:</strong> pendiente de validación manual.';
       document.getElementById('macCountryCoupon').innerHTML = destination;
       document.getElementById('macCouponStep').innerHTML = destination;
       document.getElementById('macResultCouponImage').hidden = !couponFound;
+      document.getElementById('macResultNoCouponImages').hidden = !noCoupon;
       document.getElementById('macCouponModalImage').hidden = !couponFound;
-      document.getElementById('macResultTitle').textContent = couponFound ? 'Resultado y cupón' : 'Resultado sin cupón observado';
-      document.getElementById('macResultDescription').textContent = couponFound ? 'El CTA abre un modal de confirmación y luego sale al destino del cupón.' : 'El test terminó con resultado visible; en estas pruebas no apareció botón para obtener cupón.';
-      document.getElementById('macResultChip').textContent = couponFound ? 'test_complete · coupon_get_click · coupon_claim_click' : 'test_complete';
+      document.getElementById('macResultTitle').textContent = noCoupon ? 'Resultado final sin cupón' : couponFound ? 'Resultado y cupón' : 'Resultado y tramo final por validar';
+      document.getElementById('macResultDescription').textContent = noCoupon ? 'Aquí termina el recorrido mostrado. Las tres capturas son ejemplos de resultado aportados por el equipo; no identifican el país de origen.' : couponFound ? 'En la corrida de QA, el CTA abrió un modal y luego salió al destino del cupón.' : 'El comportamiento final está pendiente de validación manual.';
+      document.getElementById('macResultChip').textContent = noCoupon ? 'test_complete' : 'test_complete · coupon_get_click · coupon_claim_click';
+      document.getElementById('macResultEvidence').dataset.macEvents = noCoupon ? 'test_complete' : 'test_complete,coupon_get_click,coupon_claim_click';
       document.querySelectorAll('[data-mac-events]').forEach((container) => {
         const rows = container.dataset.macEvents.split(',').map((name) => {
           const status = evidence.eventStatus[name];
