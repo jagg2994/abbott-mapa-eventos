@@ -120,6 +120,17 @@
     .hidden { display: none !important; }
     .mac-map { max-width: 700px; margin: 22px auto 0; }
     .mac-note { margin: 0 0 16px; color: var(--muted); }
+    #macCountry { display: block; width: min(100%, 420px); margin: 8px 0 14px; padding: 11px 12px; border: 1px solid var(--line); border-radius: 10px; background: var(--white); color: var(--text); font: inherit; }
+    .mac-event-evidence { overflow-x: auto; margin: 12px 0; }
+    .mac-event-evidence table { width: 100%; min-width: 440px; border-collapse: collapse; }
+    .mac-event-evidence th, .mac-event-evidence td { padding: 7px 9px; text-align: left; border-bottom: 1px solid var(--line); }
+    @media (max-width: 650px) {
+      .mac-event-evidence table { min-width: 0; }
+      .mac-event-evidence thead { display: none; }
+      .mac-event-evidence tr { display: block; padding: 9px 0; border-bottom: 1px solid var(--line); }
+      .mac-event-evidence td { display: block; border: 0; overflow-wrap: anywhere; padding: 3px 0; }
+      .mac-event-evidence td::before { content: attr(data-label) ': '; font-weight: 700; }
+    }
     .mac-step { position: relative; padding: 18px; border: 1px solid var(--line); border-radius: 16px; background: var(--white); }
     .mac-step + .mac-step { margin-top: 34px; }
     .mac-step + .mac-step::before { content: ''; position: absolute; left: 50%; top: -35px; width: 3px; height: 22px; background: var(--brand); transform: translateX(-50%); }
@@ -127,6 +138,7 @@
     .mac-step h2 { margin: 0 0 5px; font-size: 18px; }
     .mac-step > p { margin: 0 0 12px; color: var(--muted); }
     .mac-step img { width: 100%; max-height: 520px; object-fit: contain; object-position: center; display: block; border: 1px solid var(--line); border-radius: 12px; background: var(--surface); }
+    .mac-step img[hidden] { display: none; }
     .event-chip { display: inline-block; margin: 13px 0 8px; padding: 7px 10px; border-radius: 999px; background: var(--brand-soft); color: var(--ink); font: 700 13px ui-monospace, SFMono-Regular, Menlo, monospace; }
     .param-table { width: 100%; margin-top: 4px; }
     .param-table th { width: 34%; }
@@ -212,44 +224,31 @@
       <div class="toolbar"><button class="button" data-back="home">← Herramientas</button></div>
       <h1>Calculadora de masa muscular</h1>
       <p>MAC 2.0 · flujo móvil lineal. Propiedad GA4: 505260213.</p>
-      <details class="mac-note" open>
-        <summary><strong>Colombia · evidencia de flujo principal</strong></summary>
-        <p>Validado con pixel Meta <code>1999301237250549</code>. Los eventos Meta confirmados conservan el mismo nombre del evento GA4.</p>
-        <div class="table-scroll"><table class="param-table"><thead><tr><th>Acción</th><th>GA4</th><th>Meta</th></tr></thead><tbody>
-          <tr><td>Empieza el formulario</td><td><code>form_start</code></td><td>Sin evento Meta personalizado observado en esta interacción.</td></tr>
-          <tr><td>Envía formulario</td><td><code>start_form_submit</code></td><td><code>1999301237250549 · start_form_submit</code></td></tr>
-          <tr><td>Finaliza calibración</td><td><code>calibration_start</code></td><td><code>1999301237250549 · calibration_start</code></td></tr>
-          <tr><td>Empieza test</td><td><code>test_start</code></td><td><code>1999301237250549 · test_start</code></td></tr>
-          <tr><td>Sin movimiento</td><td><code>test_error</code></td><td>Evento configurado en dataLayer; entrega de red pendiente de confirmar.</td></tr>
-          <tr><td>Termina test con reps</td><td><code>test_complete</code></td><td><code>1999301237250549 · test_complete</code></td></tr>
-          <tr><td>Obtiene cupón</td><td><code>coupon_get_click</code></td><td><code>1999301237250549 · coupon_get_click</code></td></tr>
-          <tr><td>Reclama cupón</td><td><code>coupon_claim_click</code></td><td><code>1999301237250549 · coupon_claim_click</code></td></tr>
-        </tbody></table></div>
-      </details>
-      <details class="mac-note">
-        <summary><strong>Píxeles observados y cobertura por país</strong></summary>
-        <p><strong>GA4:</strong> <code>G-H5GS56Y0JN</code>. Se observaron <code>page_view</code> y, en la puerta desktop, <code>desktop_gate_view</code>. <strong>Meta:</strong> <code>PageView</code> con IDs distintos por mercado. TikTok, Google Ads y Floodlight no aparecieron en este alcance inicial.</p>
-        <p>La captura cubre desktop gate y el inicio del recorrido móvil; los eventos del sensor, resultado y cupón requieren validación en teléfono físico. “No observado” no significa que un tag se haya retirado.</p>
-        <div class="table-scroll"><table class="param-table"><thead><tr><th>País</th><th>GA4 observado</th><th>Meta Pixel observado</th></tr></thead><tbody>
-          <tr><td>SV</td><td>G-H5GS56Y0JN</td><td>2140470496120302</td></tr><tr><td>GT</td><td>G-H5GS56Y0JN</td><td>2140470496120302</td></tr><tr><td>DO</td><td>G-H5GS56Y0JN</td><td>2140470496120302</td></tr><tr><td>HN</td><td>G-H5GS56Y0JN</td><td>2140470496120302</td></tr><tr><td>CR</td><td>No observado en esta pasada</td><td>2140470496120302</td></tr><tr><td>PA</td><td>G-H5GS56Y0JN</td><td>2140470496120302</td></tr><tr><td>NI</td><td>G-H5GS56Y0JN</td><td>2140470496120302</td></tr><tr><td>CO</td><td>G-H5GS56Y0JN</td><td>1999301237250549</td></tr><tr><td>PE</td><td>G-H5GS56Y0JN</td><td>No observado en esta pasada</td></tr><tr><td>MX</td><td>G-H5GS56Y0JN</td><td>660002019720896</td></tr><tr><td>CL</td><td>G-H5GS56Y0JN</td><td>501017246045410</td></tr><tr><td>EC</td><td>G-H5GS56Y0JN</td><td>1269273480833297</td></tr><tr><td>AR</td><td>G-H5GS56Y0JN</td><td>623050263474902</td></tr>
-        </tbody></table></div>
-      </details>
+      <div class="mac-note">
+        <label for="macCountry"><strong>Selecciona un país</strong></label>
+        <select id="macCountry" aria-label="País del mapa MAC">
+          <option value="CO">Colombia</option><option value="PE">Perú</option><option value="MX">México</option><option value="CL">Chile</option><option value="EC">Ecuador</option><option value="AR">Argentina</option><option value="SV">El Salvador</option><option value="GT">Guatemala</option><option value="DO">República Dominicana</option><option value="HN">Honduras</option><option value="CR">Costa Rica</option><option value="PA">Panamá</option><option value="NI">Nicaragua</option>
+        </select>
+        <p id="macCountrySummary"></p>
+        <p id="macCountryCoupon"></p>
+        <small id="macScenarioNote"></small>
+      </div>
       <div class="mac-map">
-        <p class="mac-note">Boceto en revisión: cada bloque muestra la funcionalidad que activa la medición, no una captura completa de la página.</p>
+        <p class="mac-note">Las capturas ilustran la interfaz de Colombia; la tabla de cada paso muestra las señales observadas del país seleccionado.</p>
         <article class="mac-step mac-branch">
           <h2>Acceso desde desktop</h2>
           <p>Única bifurcación: el test no se ejecuta en desktop; se invita a continuar desde móvil mediante QR.</p>
           <img src="assets/0b3de5127e6856ea.png" alt="Acceso desktop de MAC con código QR para continuar desde móvil">
           <span class="event-chip">desktop_gate_view</span>
-          <p><strong>Meta:</strong> <code>PageView</code> observado al cargar MAC; no es un clic de QR.</p>
-          <table class="param-table"><tr><th>Parámetro</th><th>Ejemplo confirmado</th></tr><tr><td>market</td><td>CO</td></tr><tr><td>route_clean</td><td>/desktop</td></tr><tr><td>flow_step</td><td>home</td></tr></table>
+          <p>La captura de escritorio es referencia visual de Colombia. <code>PageView</code> de Meta corresponde a la carga inicial.</p>
+          <table class="param-table"><tr><th>Parámetro</th><th>Ejemplo confirmado</th></tr><tr><td>market</td><td id="macMarket">CO</td></tr><tr><td>route_clean</td><td>/desktop</td></tr><tr><td>flow_step</td><td>home</td></tr></table>
         </article>
         <article class="mac-step">
           <h2>Formulario de inicio</h2>
           <p>La persona ingresa edad y sexo. El CTA <strong>Siguiente</strong> habilitado envía el formulario.</p>
           <img src="assets/81cd0253412e63b1.png" alt="Formulario de MAC con edad, sexo y botón Siguiente">
           <span class="event-chip">form_start · start_form_submit</span>
-          <p><strong>Meta CO:</strong> <code>1999301237250549 · start_form_submit</code>. No se observó un Meta personalizado para <code>form_start</code>.</p>
+          <div class="mac-event-evidence" data-mac-events="form_start,start_form_submit"></div>
           <table class="param-table"><tr><th>Acción</th><th>Medición</th></tr><tr><td>Interacción con campos</td><td>form_start</td></tr><tr><td>Clic en Siguiente</td><td>start_form_submit</td></tr></table>
         </article>
         <article class="mac-step">
@@ -263,7 +262,7 @@
           <p>La persona confirma la posición inicial. El sensor valida el movimiento antes de habilitar el test.</p>
           <img src="assets/a4a11305aa3c7ed7.png" alt="Estado de calibración de MAC">
           <span class="event-chip">calibration_start</span>
-          <p><strong>Meta CO:</strong> <code>1999301237250549 · calibration_start</code>.</p>
+          <div class="mac-event-evidence" data-mac-events="calibration_start"></div>
           <table class="param-table"><tr><th>Disparador</th><th>Parámetros GA4</th></tr><tr><td>Finaliza la calibración</td><td>market, route_clean: /calibration, flow_step: calibration, test_id, test_version</td></tr></table>
         </article>
         <article class="mac-step">
@@ -271,7 +270,7 @@
           <p>Después de la calibración, comienza la cuenta regresiva y el contador de sentadillas.</p>
           <img src="assets/1600d430c0274073.png" alt="Cuenta regresiva de inicio del test">
           <span class="event-chip">test_start</span>
-          <p><strong>Meta CO:</strong> <code>1999301237250549 · test_start</code>.</p>
+          <div class="mac-event-evidence" data-mac-events="test_start"></div>
           <table class="param-table"><tr><th>Disparador</th><th>Estado</th></tr><tr><td>Inicio de cuenta regresiva</td><td>Capturado; parámetros por validar en teléfono físico</td></tr></table>
         </article>
         <article class="mac-step mac-branch">
@@ -279,16 +278,16 @@
           <p>Si no se detecta movimiento, se muestra el mensaje de error y se permite reiniciar la experiencia.</p>
           <img src="assets/1c18bc4dda12c6e9.png" alt="Mensaje de error de MAC y botón Reiniciar test">
           <span class="event-chip">test_error</span>
-          <p><strong>Meta CO:</strong> <code>test_error</code> está configurado en dataLayer; la solicitud Meta aún debe confirmarse con la rama de cero sentadillas.</p>
+          <div class="mac-event-evidence" data-mac-events="test_error"></div>
         </article>
         <article class="mac-step">
-          <h2>Resultado y cupón</h2>
-          <p>Al finalizar el test se muestra el resultado. El CTA abre un modal de confirmación antes de redirigir al cupón.</p>
-          <img src="assets/3c313a0cb6f6d3a5.png" alt="Resultado de MAC y botón Obtener cupón">
-          <span class="event-chip">test_complete · coupon_get_click · coupon_claim_click</span>
-          <p><strong>Meta CO:</strong> <code>1999301237250549 · test_complete</code>, <code>coupon_get_click</code> y <code>coupon_claim_click</code>.</p>
-          <table class="param-table"><tr><th>Disparador</th><th>Medición</th></tr><tr><td>Resultado visible</td><td>test_complete</td></tr><tr><td>CTA Obtener cupón</td><td>coupon_get_click</td></tr><tr><td>Salida a scan.abbott.com</td><td>coupon_claim_click</td></tr><tr><td>Después de salir</td><td>GA4 automático <code>click</code> y <code>PageView</code> externo observado; no es un evento MAC ni tiene ID Meta atribuible desde la página origen.</td></tr></table>
-          <img src="assets/6835dc97815a515a.png" alt="Modal de confirmación y CTA Reclamar cupón">
+          <h2 id="macResultTitle">Resultado y cupón</h2>
+          <p id="macResultDescription">Al finalizar el test se muestra el resultado. El CTA abre un modal de confirmación antes de redirigir al cupón.</p>
+          <img id="macResultCouponImage" src="assets/3c313a0cb6f6d3a5.png" alt="Resultado de referencia de Colombia y botón Obtener cupón">
+          <span class="event-chip" id="macResultChip">test_complete · coupon_get_click · coupon_claim_click</span>
+          <div class="mac-event-evidence" data-mac-events="test_complete,coupon_get_click,coupon_claim_click"></div>
+          <p id="macCouponStep"></p>
+          <img id="macCouponModalImage" src="assets/6835dc97815a515a.png" alt="Modal de confirmación de referencia de Colombia y CTA Reclamar cupón">
         </article>
       </div>
     </section>
@@ -319,7 +318,7 @@
     </section>
   </main>
 
-  <script>// Generated from client-tag-map.yaml. Do not edit.
+    <script>// Generated from client-tag-map.yaml. Do not edit.
 const tagMapData = {
   "CL": {
     "rojo": {
@@ -1557,8 +1556,638 @@ const tagMapData = {
 };
 
 </script>
-  <script>
+    <script>const macCountryEvidence = {
+  "SV": {
+    "source": "https://www.calculadoramuscular.com/es-sv",
+    "ga4MeasurementId": "G-H5GS56Y0JN",
+    "metaPixel": "2140470496120302",
+    "scenario": "edad 30, 10 y 25 sentadillas simuladas",
+    "resultRepetitions": "10",
+    "couponStatus": "no_coupon_cta_observed",
+    "couponDestinationHost": "",
+    "couponDestinationPath": "",
+    "finalDestinationHost": "",
+    "afterClaimSummary": "",
+    "eventStatus": {
+      "form_start": {
+        "ga4": false,
+        "meta": false
+      },
+      "start_form_submit": {
+        "ga4": false,
+        "meta": false
+      },
+      "calibration_start": {
+        "ga4": true,
+        "meta": true
+      },
+      "test_start": {
+        "ga4": true,
+        "meta": true
+      },
+      "test_error": {
+        "ga4": false,
+        "meta": false
+      },
+      "test_complete": {
+        "ga4": true,
+        "meta": true
+      },
+      "coupon_get_click": {
+        "ga4": false,
+        "meta": false
+      },
+      "coupon_claim_click": {
+        "ga4": false,
+        "meta": false
+      }
+    }
+  },
+  "GT": {
+    "source": "https://www.calculadoramuscular.com/es-gt",
+    "ga4MeasurementId": "G-H5GS56Y0JN",
+    "metaPixel": "2140470496120302",
+    "scenario": "edad 30, 10 sentadillas simuladas",
+    "resultRepetitions": "10",
+    "couponStatus": "coupon_redirect_observed",
+    "couponDestinationHost": "www.aboxplan.com",
+    "couponDestinationPath": "/calculadoraaltura/",
+    "finalDestinationHost": "www.aboxplan.com",
+    "afterClaimSummary": "Abox Plan muestra instrucciones y formulario de PediaSure.",
+    "eventStatus": {
+      "form_start": {
+        "ga4": true,
+        "meta": false
+      },
+      "start_form_submit": {
+        "ga4": false,
+        "meta": false
+      },
+      "calibration_start": {
+        "ga4": true,
+        "meta": true
+      },
+      "test_start": {
+        "ga4": true,
+        "meta": true
+      },
+      "test_error": {
+        "ga4": false,
+        "meta": false
+      },
+      "test_complete": {
+        "ga4": true,
+        "meta": true
+      },
+      "coupon_get_click": {
+        "ga4": true,
+        "meta": true
+      },
+      "coupon_claim_click": {
+        "ga4": true,
+        "meta": true
+      }
+    }
+  },
+  "DO": {
+    "source": "https://www.calculadoramuscular.com/es-do",
+    "ga4MeasurementId": "G-H5GS56Y0JN",
+    "metaPixel": "2140470496120302",
+    "scenario": "edad 30, 10 y 25 sentadillas simuladas",
+    "resultRepetitions": "10",
+    "couponStatus": "no_coupon_cta_observed",
+    "couponDestinationHost": "",
+    "couponDestinationPath": "",
+    "finalDestinationHost": "",
+    "afterClaimSummary": "",
+    "eventStatus": {
+      "form_start": {
+        "ga4": false,
+        "meta": false
+      },
+      "start_form_submit": {
+        "ga4": false,
+        "meta": false
+      },
+      "calibration_start": {
+        "ga4": true,
+        "meta": true
+      },
+      "test_start": {
+        "ga4": true,
+        "meta": true
+      },
+      "test_error": {
+        "ga4": false,
+        "meta": false
+      },
+      "test_complete": {
+        "ga4": true,
+        "meta": true
+      },
+      "coupon_get_click": {
+        "ga4": false,
+        "meta": false
+      },
+      "coupon_claim_click": {
+        "ga4": false,
+        "meta": false
+      }
+    }
+  },
+  "HN": {
+    "source": "https://www.calculadoramuscular.com/es-hn",
+    "ga4MeasurementId": "G-H5GS56Y0JN",
+    "metaPixel": "2140470496120302",
+    "scenario": "edad 30, 10 sentadillas simuladas",
+    "resultRepetitions": "10",
+    "couponStatus": "coupon_redirect_observed",
+    "couponDestinationHost": "www.aboxplan.com",
+    "couponDestinationPath": "/calculadoraaltura/",
+    "finalDestinationHost": "www.aboxplan.com",
+    "afterClaimSummary": "Abox Plan muestra instrucciones y formulario de PediaSure.",
+    "eventStatus": {
+      "form_start": {
+        "ga4": true,
+        "meta": false
+      },
+      "start_form_submit": {
+        "ga4": false,
+        "meta": false
+      },
+      "calibration_start": {
+        "ga4": true,
+        "meta": true
+      },
+      "test_start": {
+        "ga4": true,
+        "meta": true
+      },
+      "test_error": {
+        "ga4": false,
+        "meta": false
+      },
+      "test_complete": {
+        "ga4": true,
+        "meta": true
+      },
+      "coupon_get_click": {
+        "ga4": true,
+        "meta": true
+      },
+      "coupon_claim_click": {
+        "ga4": true,
+        "meta": true
+      }
+    }
+  },
+  "CR": {
+    "source": "https://www.calculadoramuscular.com/es-cr",
+    "ga4MeasurementId": "G-H5GS56Y0JN",
+    "metaPixel": "2140470496120302",
+    "scenario": "edad 30, 10 sentadillas simuladas",
+    "resultRepetitions": "10",
+    "couponStatus": "coupon_redirect_observed",
+    "couponDestinationHost": "www.aboxplan.com",
+    "couponDestinationPath": "/calculadoraaltura/",
+    "finalDestinationHost": "www.aboxplan.com",
+    "afterClaimSummary": "Abox Plan muestra instrucciones y formulario de PediaSure.",
+    "eventStatus": {
+      "form_start": {
+        "ga4": true,
+        "meta": false
+      },
+      "start_form_submit": {
+        "ga4": false,
+        "meta": false
+      },
+      "calibration_start": {
+        "ga4": true,
+        "meta": true
+      },
+      "test_start": {
+        "ga4": true,
+        "meta": true
+      },
+      "test_error": {
+        "ga4": false,
+        "meta": false
+      },
+      "test_complete": {
+        "ga4": true,
+        "meta": true
+      },
+      "coupon_get_click": {
+        "ga4": true,
+        "meta": true
+      },
+      "coupon_claim_click": {
+        "ga4": true,
+        "meta": true
+      }
+    }
+  },
+  "PA": {
+    "source": "https://www.calculadoramuscular.com/es-pa",
+    "ga4MeasurementId": "G-H5GS56Y0JN",
+    "metaPixel": "2140470496120302",
+    "scenario": "edad 30, 10 sentadillas simuladas",
+    "resultRepetitions": "10",
+    "couponStatus": "coupon_redirect_observed",
+    "couponDestinationHost": "www.aboxplan.com",
+    "couponDestinationPath": "/calculadoraaltura/",
+    "finalDestinationHost": "www.aboxplan.com",
+    "afterClaimSummary": "Abox Plan muestra instrucciones y formulario de PediaSure.",
+    "eventStatus": {
+      "form_start": {
+        "ga4": true,
+        "meta": false
+      },
+      "start_form_submit": {
+        "ga4": false,
+        "meta": false
+      },
+      "calibration_start": {
+        "ga4": true,
+        "meta": true
+      },
+      "test_start": {
+        "ga4": true,
+        "meta": true
+      },
+      "test_error": {
+        "ga4": false,
+        "meta": false
+      },
+      "test_complete": {
+        "ga4": true,
+        "meta": true
+      },
+      "coupon_get_click": {
+        "ga4": true,
+        "meta": true
+      },
+      "coupon_claim_click": {
+        "ga4": true,
+        "meta": true
+      }
+    }
+  },
+  "NI": {
+    "source": "https://www.calculadoramuscular.com/es-ni",
+    "ga4MeasurementId": "G-H5GS56Y0JN",
+    "metaPixel": "2140470496120302",
+    "scenario": "edad 30, 10 y 25 sentadillas simuladas",
+    "resultRepetitions": "10",
+    "couponStatus": "no_coupon_cta_observed",
+    "couponDestinationHost": "",
+    "couponDestinationPath": "",
+    "finalDestinationHost": "",
+    "afterClaimSummary": "",
+    "eventStatus": {
+      "form_start": {
+        "ga4": true,
+        "meta": false
+      },
+      "start_form_submit": {
+        "ga4": false,
+        "meta": false
+      },
+      "calibration_start": {
+        "ga4": true,
+        "meta": true
+      },
+      "test_start": {
+        "ga4": true,
+        "meta": true
+      },
+      "test_error": {
+        "ga4": false,
+        "meta": false
+      },
+      "test_complete": {
+        "ga4": true,
+        "meta": true
+      },
+      "coupon_get_click": {
+        "ga4": false,
+        "meta": false
+      },
+      "coupon_claim_click": {
+        "ga4": false,
+        "meta": false
+      }
+    }
+  },
+  "CO": {
+    "source": "https://www.calculadoramuscular.com/es-co",
+    "ga4MeasurementId": "G-H5GS56Y0JN",
+    "metaPixel": "1999301237250549",
+    "scenario": "edad 30, 10 sentadillas simuladas",
+    "resultRepetitions": "10",
+    "couponStatus": "coupon_redirect_observed",
+    "couponDestinationHost": "scan.abbott.com",
+    "couponDestinationPath": "/",
+    "finalDestinationHost": "api.whatsapp.com",
+    "afterClaimSummary": "WhatsApp abre una conversación con mensaje de cupón precargado.",
+    "eventStatus": {
+      "form_start": {
+        "ga4": true,
+        "meta": false
+      },
+      "start_form_submit": {
+        "ga4": true,
+        "meta": true
+      },
+      "calibration_start": {
+        "ga4": true,
+        "meta": true
+      },
+      "test_start": {
+        "ga4": true,
+        "meta": true
+      },
+      "test_error": {
+        "ga4": false,
+        "meta": false
+      },
+      "test_complete": {
+        "ga4": true,
+        "meta": true
+      },
+      "coupon_get_click": {
+        "ga4": true,
+        "meta": true
+      },
+      "coupon_claim_click": {
+        "ga4": true,
+        "meta": true
+      }
+    }
+  },
+  "PE": {
+    "source": "https://www.calculadoramuscular.com/es-pe",
+    "ga4MeasurementId": "G-H5GS56Y0JN",
+    "metaPixel": "555176130370853",
+    "scenario": "edad 30, 10 y 25 sentadillas simuladas",
+    "resultRepetitions": "10",
+    "couponStatus": "no_coupon_cta_observed",
+    "couponDestinationHost": "",
+    "couponDestinationPath": "",
+    "finalDestinationHost": "",
+    "afterClaimSummary": "",
+    "eventStatus": {
+      "form_start": {
+        "ga4": true,
+        "meta": false
+      },
+      "start_form_submit": {
+        "ga4": false,
+        "meta": false
+      },
+      "calibration_start": {
+        "ga4": true,
+        "meta": true
+      },
+      "test_start": {
+        "ga4": true,
+        "meta": true
+      },
+      "test_error": {
+        "ga4": false,
+        "meta": false
+      },
+      "test_complete": {
+        "ga4": true,
+        "meta": true
+      },
+      "coupon_get_click": {
+        "ga4": false,
+        "meta": false
+      },
+      "coupon_claim_click": {
+        "ga4": false,
+        "meta": false
+      }
+    }
+  },
+  "MX": {
+    "source": "https://www.calculadoramuscular.com/es-mx",
+    "ga4MeasurementId": "G-H5GS56Y0JN",
+    "metaPixel": "660002019720896",
+    "scenario": "edad 30, 10 y 25 sentadillas simuladas",
+    "resultRepetitions": "10",
+    "couponStatus": "no_coupon_cta_observed",
+    "couponDestinationHost": "",
+    "couponDestinationPath": "",
+    "finalDestinationHost": "",
+    "afterClaimSummary": "",
+    "eventStatus": {
+      "form_start": {
+        "ga4": false,
+        "meta": false
+      },
+      "start_form_submit": {
+        "ga4": true,
+        "meta": true
+      },
+      "calibration_start": {
+        "ga4": true,
+        "meta": true
+      },
+      "test_start": {
+        "ga4": true,
+        "meta": true
+      },
+      "test_error": {
+        "ga4": false,
+        "meta": false
+      },
+      "test_complete": {
+        "ga4": true,
+        "meta": true
+      },
+      "coupon_get_click": {
+        "ga4": false,
+        "meta": false
+      },
+      "coupon_claim_click": {
+        "ga4": false,
+        "meta": false
+      }
+    }
+  },
+  "CL": {
+    "source": "https://www.calculadoramuscular.com/es-cl",
+    "ga4MeasurementId": "G-H5GS56Y0JN",
+    "metaPixel": "501017246045410",
+    "scenario": "edad 30, 10 y 25 sentadillas simuladas",
+    "resultRepetitions": "10",
+    "couponStatus": "no_coupon_cta_observed",
+    "couponDestinationHost": "",
+    "couponDestinationPath": "",
+    "finalDestinationHost": "",
+    "afterClaimSummary": "",
+    "eventStatus": {
+      "form_start": {
+        "ga4": true,
+        "meta": false
+      },
+      "start_form_submit": {
+        "ga4": false,
+        "meta": false
+      },
+      "calibration_start": {
+        "ga4": true,
+        "meta": true
+      },
+      "test_start": {
+        "ga4": true,
+        "meta": true
+      },
+      "test_error": {
+        "ga4": false,
+        "meta": false
+      },
+      "test_complete": {
+        "ga4": true,
+        "meta": true
+      },
+      "coupon_get_click": {
+        "ga4": false,
+        "meta": false
+      },
+      "coupon_claim_click": {
+        "ga4": false,
+        "meta": false
+      }
+    }
+  },
+  "EC": {
+    "source": "https://www.calculadoramuscular.com/es-ec",
+    "ga4MeasurementId": "G-H5GS56Y0JN",
+    "metaPixel": "1269273480833297",
+    "scenario": "edad 30, 10 y 25 sentadillas simuladas",
+    "resultRepetitions": "10",
+    "couponStatus": "no_coupon_cta_observed",
+    "couponDestinationHost": "",
+    "couponDestinationPath": "",
+    "finalDestinationHost": "",
+    "afterClaimSummary": "",
+    "eventStatus": {
+      "form_start": {
+        "ga4": true,
+        "meta": false
+      },
+      "start_form_submit": {
+        "ga4": true,
+        "meta": true
+      },
+      "calibration_start": {
+        "ga4": true,
+        "meta": true
+      },
+      "test_start": {
+        "ga4": true,
+        "meta": true
+      },
+      "test_error": {
+        "ga4": false,
+        "meta": false
+      },
+      "test_complete": {
+        "ga4": true,
+        "meta": true
+      },
+      "coupon_get_click": {
+        "ga4": false,
+        "meta": false
+      },
+      "coupon_claim_click": {
+        "ga4": false,
+        "meta": false
+      }
+    }
+  },
+  "AR": {
+    "source": "https://www.calculadoramuscular.com/es-ar",
+    "ga4MeasurementId": "G-H5GS56Y0JN",
+    "metaPixel": "623050263474902",
+    "scenario": "edad 30, 10 y 25 sentadillas simuladas",
+    "resultRepetitions": "10",
+    "couponStatus": "no_coupon_cta_observed",
+    "couponDestinationHost": "",
+    "couponDestinationPath": "",
+    "finalDestinationHost": "",
+    "afterClaimSummary": "",
+    "eventStatus": {
+      "form_start": {
+        "ga4": false,
+        "meta": false
+      },
+      "start_form_submit": {
+        "ga4": true,
+        "meta": true
+      },
+      "calibration_start": {
+        "ga4": true,
+        "meta": true
+      },
+      "test_start": {
+        "ga4": true,
+        "meta": true
+      },
+      "test_error": {
+        "ga4": false,
+        "meta": false
+      },
+      "test_complete": {
+        "ga4": true,
+        "meta": true
+      },
+      "coupon_get_click": {
+        "ga4": false,
+        "meta": false
+      },
+      "coupon_claim_click": {
+        "ga4": false,
+        "meta": false
+      }
+    }
+  }
+};
+
+</script>
+    <script>
     const countryNames = {CO:'Colombia',CL:'Chile',PE:'Perú',MX:'México',EC:'Ecuador',AR:'Argentina',CR:'Costa Rica'};
+    const macNames = {SV:'El Salvador',GT:'Guatemala',DO:'República Dominicana',HN:'Honduras',CR:'Costa Rica',PA:'Panamá',NI:'Nicaragua',CO:'Colombia',PE:'Perú',MX:'México',CL:'Chile',EC:'Ecuador',AR:'Argentina'};
+    function renderMacCountry(country) {
+      const evidence = macCountryEvidence[country];
+      const label = macNames[country];
+      document.getElementById('macMarket').textContent = country;
+      document.getElementById('macCountrySummary').innerHTML = '<strong>' + label + ':</strong> GA4 <code>' + evidence.ga4MeasurementId + '</code> · Meta Pixel <code>' + evidence.metaPixel + '</code>.';
+      const couponFound = evidence.couponStatus === 'coupon_redirect_observed';
+      document.getElementById('macScenarioNote').textContent = 'Prueba de etiquetado: ' + evidence.scenario + '. “No observado” indica el resultado de estas corridas; no confirma ausencia del tag.';
+      const destination = couponFound ? '<strong>Salida del cupón:</strong> <code>' + evidence.couponDestinationHost + evidence.couponDestinationPath + '</code>' + (evidence.finalDestinationHost && evidence.finalDestinationHost !== evidence.couponDestinationHost ? ' → <code>' + evidence.finalDestinationHost + '</code>' : '') + '. ' + evidence.afterClaimSummary : '<strong>Salida del cupón:</strong> no apareció CTA ni modal con 10 o 25 sentadillas; el recorrido termina en resultado.';
+      document.getElementById('macCountryCoupon').innerHTML = destination;
+      document.getElementById('macCouponStep').innerHTML = destination;
+      document.getElementById('macResultCouponImage').hidden = !couponFound;
+      document.getElementById('macCouponModalImage').hidden = !couponFound;
+      document.getElementById('macResultTitle').textContent = couponFound ? 'Resultado y cupón' : 'Resultado sin cupón observado';
+      document.getElementById('macResultDescription').textContent = couponFound ? 'El CTA abre un modal de confirmación y luego sale al destino del cupón.' : 'El test terminó con resultado visible; en estas pruebas no apareció botón para obtener cupón.';
+      document.getElementById('macResultChip').textContent = couponFound ? 'test_complete · coupon_get_click · coupon_claim_click' : 'test_complete';
+      document.querySelectorAll('[data-mac-events]').forEach((container) => {
+        const rows = container.dataset.macEvents.split(',').map((name) => {
+          const status = evidence.eventStatus[name];
+          const ga4 = status.ga4 ? '<code>' + name + '</code> · observado' : 'No observado en esta corrida';
+          const meta = status.meta ? '<code>' + evidence.metaPixel + ' · ' + name + '</code> · observado' : 'No observado en esta corrida';
+          return '<tr><td data-label="Evento"><code>' + name + '</code></td><td data-label="GA4">' + ga4 + '</td><td data-label="Meta">' + meta + '</td></tr>';
+        }).join('');
+        container.innerHTML = '<table><thead><tr><th>Acción / evento</th><th>GA4</th><th>Meta Pixel</th></tr></thead><tbody>' + rows + '</tbody></table>';
+      });
+    }
+    document.getElementById('macCountry').addEventListener('change', (event) => renderMacCountry(event.target.value));
+    renderMacCountry('CO');
     const groups = {
       direct: ['CO', 'PE', 'MX'],
       redirect: ['CL', 'EC', 'AR'],
