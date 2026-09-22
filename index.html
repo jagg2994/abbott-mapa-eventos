@@ -122,8 +122,11 @@
     .mac-note { margin: 0 0 16px; color: var(--muted); }
     #macCountry { display: block; width: min(100%, 420px); margin: 8px 0 14px; padding: 11px 12px; border: 1px solid var(--line); border-radius: 10px; background: var(--white); color: var(--text); font: inherit; }
     .mac-event-evidence { overflow-x: auto; margin: 12px 0; }
-    .mac-event-evidence table { width: 100%; min-width: 440px; border-collapse: collapse; }
+    .mac-event-evidence table { width: 100%; min-width: 620px; border-collapse: collapse; }
     .mac-event-evidence th, .mac-event-evidence td { padding: 7px 9px; text-align: left; border-bottom: 1px solid var(--line); }
+    .mac-event-evidence td code { overflow-wrap: anywhere; white-space: normal; }
+    .mac-param-example + .mac-param-example { margin-top: 8px; }
+    .mac-param-example strong { display: block; margin-bottom: 3px; }
     .mac-coupon-overview { margin: 18px 0 26px; }
     .mac-coupon-overview h2 { font-size: 18px; margin: 0 0 6px; }
     .mac-coupon-overview p { color: var(--muted); font-size: 13px; margin: 0 0 10px; }
@@ -262,7 +265,7 @@
           <img src="assets/0b3de5127e6856ea.png" alt="Acceso desktop de MAC con código QR para continuar desde móvil">
           <span class="event-chip">desktop_gate_view</span>
           <p>La captura de escritorio es referencia visual de Colombia. <code>PageView</code> de Meta corresponde a la carga inicial.</p>
-          <table class="param-table"><tr><th>Parámetro</th><th>Ejemplo confirmado</th></tr><tr><td>market</td><td id="macMarket">CO</td></tr><tr><td>route_clean</td><td>/desktop</td></tr><tr><td>flow_step</td><td>home</td></tr></table>
+          <div class="mac-event-evidence" data-mac-events="desktop_gate_view"></div>
         </article>
         <article class="mac-step">
           <h2>Formulario de inicio</h2>
@@ -284,7 +287,6 @@
           <img src="assets/a4a11305aa3c7ed7.png" alt="Estado de calibración de MAC">
           <span class="event-chip">calibration_start</span>
           <div class="mac-event-evidence" data-mac-events="calibration_start"></div>
-          <table class="param-table"><tr><th>Disparador</th><th>Parámetros GA4</th></tr><tr><td>Finaliza la calibración</td><td>market, route_clean: /calibration, flow_step: calibration, test_id, test_version</td></tr></table>
         </article>
         <article class="mac-step">
           <h2>Inicio y ejecución del test</h2>
@@ -292,7 +294,6 @@
           <img src="assets/1600d430c0274073.png" alt="Cuenta regresiva de inicio del test">
           <span class="event-chip">test_start</span>
           <div class="mac-event-evidence" data-mac-events="test_start"></div>
-          <table class="param-table"><tr><th>Disparador</th><th>Estado</th></tr><tr><td>Inicio de cuenta regresiva</td><td>Capturado; parámetros por validar en teléfono físico</td></tr></table>
         </article>
         <article class="mac-step mac-branch">
           <h2>Rama de error y reintento</h2>
@@ -1595,6 +1596,10 @@ const tagMapData = {
     "finalDestinationHost": "",
     "afterClaimSummary": "",
     "eventStatus": {
+      "desktop_gate_view": {
+        "ga4": true,
+        "meta": false
+      },
       "form_start": {
         "ga4": false,
         "meta": false
@@ -1627,6 +1632,73 @@ const tagMapData = {
         "ga4": false,
         "meta": false
       }
+    },
+    "ga4Parameters": {
+      "desktop_gate_view": [
+        {
+          "repetitions": 10,
+          "parameters": {
+            "market": "SV",
+            "route_clean": "/desktop",
+            "flow_step": "home"
+          }
+        }
+      ],
+      "form_start": [],
+      "start_form_submit": [],
+      "calibration_start": [
+        {
+          "repetitions": 10,
+          "parameters": {
+            "market": "SV",
+            "route_clean": "/calibration",
+            "flow_step": "calibration",
+            "test_id": "strength_test",
+            "test_version": "v1"
+          }
+        }
+      ],
+      "test_start": [
+        {
+          "repetitions": 10,
+          "parameters": {
+            "market": "SV",
+            "route_clean": "/test",
+            "flow_step": "test",
+            "test_id": "strength_test",
+            "test_version": "v1"
+          }
+        }
+      ],
+      "test_error": [],
+      "test_complete": [
+        {
+          "repetitions": 10,
+          "parameters": {
+            "route_clean": "/results",
+            "flow_step": "results",
+            "test_id": "strength_test",
+            "test_version": "v1",
+            "repititions": "10",
+            "muscular_age_range": "45-49",
+            "age_range": "30"
+          }
+        },
+        {
+          "repetitions": 25,
+          "parameters": {
+            "route_clean": "/results",
+            "flow_step": "results",
+            "test_id": "strength_test",
+            "test_version": "v1",
+            "repititions": "25",
+            "muscular_age_range": "20-24",
+            "age_range": "30"
+          }
+        }
+      ],
+      "coupon_get_click": [],
+      "coupon_claim_click": []
     }
   },
   "GT": {
@@ -1641,6 +1713,10 @@ const tagMapData = {
     "finalDestinationHost": "www.aboxplan.com",
     "afterClaimSummary": "Abox Plan muestra instrucciones y formulario de PediaSure.",
     "eventStatus": {
+      "desktop_gate_view": {
+        "ga4": true,
+        "meta": false
+      },
       "form_start": {
         "ga4": true,
         "meta": false
@@ -1673,6 +1749,99 @@ const tagMapData = {
         "ga4": true,
         "meta": true
       }
+    },
+    "ga4Parameters": {
+      "desktop_gate_view": [
+        {
+          "repetitions": 10,
+          "parameters": {
+            "market": "GT",
+            "route_clean": "/desktop",
+            "flow_step": "home"
+          }
+        }
+      ],
+      "form_start": [
+        {
+          "repetitions": 10,
+          "parameters": {
+            "form_id": "",
+            "form_destination": "https://services.abbott/[ruta omitida]",
+            "form_length": "2",
+            "first_field_id": "age",
+            "first_field_name": "age",
+            "first_field_type": "number",
+            "first_field_position": "1"
+          }
+        }
+      ],
+      "start_form_submit": [],
+      "calibration_start": [
+        {
+          "repetitions": 10,
+          "parameters": {
+            "market": "GT",
+            "route_clean": "/calibration",
+            "flow_step": "calibration",
+            "test_id": "strength_test",
+            "test_version": "v1"
+          }
+        }
+      ],
+      "test_start": [
+        {
+          "repetitions": 10,
+          "parameters": {
+            "market": "GT",
+            "route_clean": "/test",
+            "flow_step": "test",
+            "test_id": "strength_test",
+            "test_version": "v1"
+          }
+        }
+      ],
+      "test_error": [],
+      "test_complete": [
+        {
+          "repetitions": 10,
+          "parameters": {
+            "route_clean": "/results",
+            "flow_step": "results",
+            "test_id": "strength_test",
+            "test_version": "v1",
+            "repititions": "10",
+            "muscular_age_range": "45-49",
+            "age_range": "30"
+          }
+        }
+      ],
+      "coupon_get_click": [
+        {
+          "repetitions": 10,
+          "parameters": {
+            "market": "GT",
+            "route_clean": "/results",
+            "flow_step": "results",
+            "test_id": "strength_test",
+            "test_version": "v1",
+            "placement": "results_screen"
+          }
+        }
+      ],
+      "coupon_claim_click": [
+        {
+          "repetitions": 10,
+          "parameters": {
+            "market": "GT",
+            "route_clean": "/results",
+            "flow_step": "coupon_modal",
+            "test_id": "strength_test",
+            "test_version": "v1",
+            "outbound_url": "https://www.aboxplan.com/calculadoraaltura/?marca=ensure&origen=ensuredigital",
+            "accepted_exit": "true"
+          }
+        }
+      ]
     }
   },
   "DO": {
@@ -1687,6 +1856,10 @@ const tagMapData = {
     "finalDestinationHost": "",
     "afterClaimSummary": "",
     "eventStatus": {
+      "desktop_gate_view": {
+        "ga4": true,
+        "meta": false
+      },
       "form_start": {
         "ga4": false,
         "meta": false
@@ -1719,6 +1892,73 @@ const tagMapData = {
         "ga4": false,
         "meta": false
       }
+    },
+    "ga4Parameters": {
+      "desktop_gate_view": [
+        {
+          "repetitions": 10,
+          "parameters": {
+            "market": "DO",
+            "route_clean": "/desktop",
+            "flow_step": "home"
+          }
+        }
+      ],
+      "form_start": [],
+      "start_form_submit": [],
+      "calibration_start": [
+        {
+          "repetitions": 10,
+          "parameters": {
+            "market": "DO",
+            "route_clean": "/calibration",
+            "flow_step": "calibration",
+            "test_id": "strength_test",
+            "test_version": "v1"
+          }
+        }
+      ],
+      "test_start": [
+        {
+          "repetitions": 10,
+          "parameters": {
+            "market": "DO",
+            "route_clean": "/test",
+            "flow_step": "test",
+            "test_id": "strength_test",
+            "test_version": "v1"
+          }
+        }
+      ],
+      "test_error": [],
+      "test_complete": [
+        {
+          "repetitions": 10,
+          "parameters": {
+            "route_clean": "/results",
+            "flow_step": "results",
+            "test_id": "strength_test",
+            "test_version": "v1",
+            "repititions": "10",
+            "muscular_age_range": "45-49",
+            "age_range": "30"
+          }
+        },
+        {
+          "repetitions": 25,
+          "parameters": {
+            "route_clean": "/results",
+            "flow_step": "results",
+            "test_id": "strength_test",
+            "test_version": "v1",
+            "repititions": "25",
+            "muscular_age_range": "20-24",
+            "age_range": "30"
+          }
+        }
+      ],
+      "coupon_get_click": [],
+      "coupon_claim_click": []
     }
   },
   "HN": {
@@ -1733,6 +1973,10 @@ const tagMapData = {
     "finalDestinationHost": "www.aboxplan.com",
     "afterClaimSummary": "Abox Plan muestra instrucciones y formulario de PediaSure.",
     "eventStatus": {
+      "desktop_gate_view": {
+        "ga4": true,
+        "meta": false
+      },
       "form_start": {
         "ga4": true,
         "meta": false
@@ -1765,6 +2009,99 @@ const tagMapData = {
         "ga4": true,
         "meta": true
       }
+    },
+    "ga4Parameters": {
+      "desktop_gate_view": [
+        {
+          "repetitions": 10,
+          "parameters": {
+            "market": "HN",
+            "route_clean": "/desktop",
+            "flow_step": "home"
+          }
+        }
+      ],
+      "form_start": [
+        {
+          "repetitions": 10,
+          "parameters": {
+            "form_id": "",
+            "form_destination": "https://services.abbott/[ruta omitida]",
+            "form_length": "2",
+            "first_field_id": "age",
+            "first_field_name": "age",
+            "first_field_type": "number",
+            "first_field_position": "1"
+          }
+        }
+      ],
+      "start_form_submit": [],
+      "calibration_start": [
+        {
+          "repetitions": 10,
+          "parameters": {
+            "market": "HN",
+            "route_clean": "/calibration",
+            "flow_step": "calibration",
+            "test_id": "strength_test",
+            "test_version": "v1"
+          }
+        }
+      ],
+      "test_start": [
+        {
+          "repetitions": 10,
+          "parameters": {
+            "market": "HN",
+            "route_clean": "/test",
+            "flow_step": "test",
+            "test_id": "strength_test",
+            "test_version": "v1"
+          }
+        }
+      ],
+      "test_error": [],
+      "test_complete": [
+        {
+          "repetitions": 10,
+          "parameters": {
+            "route_clean": "/results",
+            "flow_step": "results",
+            "test_id": "strength_test",
+            "test_version": "v1",
+            "repititions": "10",
+            "muscular_age_range": "45-49",
+            "age_range": "30"
+          }
+        }
+      ],
+      "coupon_get_click": [
+        {
+          "repetitions": 10,
+          "parameters": {
+            "market": "HN",
+            "route_clean": "/results",
+            "flow_step": "results",
+            "test_id": "strength_test",
+            "test_version": "v1",
+            "placement": "results_screen"
+          }
+        }
+      ],
+      "coupon_claim_click": [
+        {
+          "repetitions": 10,
+          "parameters": {
+            "market": "HN",
+            "route_clean": "/results",
+            "flow_step": "coupon_modal",
+            "test_id": "strength_test",
+            "test_version": "v1",
+            "outbound_url": "https://www.aboxplan.com/calculadoraaltura/?marca=ensure&origen=ensuredigital",
+            "accepted_exit": "true"
+          }
+        }
+      ]
     }
   },
   "CR": {
@@ -1779,8 +2116,12 @@ const tagMapData = {
     "finalDestinationHost": "www.aboxplan.com",
     "afterClaimSummary": "Abox Plan muestra instrucciones y formulario de PediaSure.",
     "eventStatus": {
-      "form_start": {
+      "desktop_gate_view": {
         "ga4": true,
+        "meta": false
+      },
+      "form_start": {
+        "ga4": false,
         "meta": false
       },
       "start_form_submit": {
@@ -1811,6 +2152,86 @@ const tagMapData = {
         "ga4": true,
         "meta": true
       }
+    },
+    "ga4Parameters": {
+      "desktop_gate_view": [
+        {
+          "repetitions": 10,
+          "parameters": {
+            "market": "CR",
+            "route_clean": "/desktop",
+            "flow_step": "home"
+          }
+        }
+      ],
+      "form_start": [],
+      "start_form_submit": [],
+      "calibration_start": [
+        {
+          "repetitions": 10,
+          "parameters": {
+            "market": "CR",
+            "route_clean": "/calibration",
+            "flow_step": "calibration",
+            "test_id": "strength_test",
+            "test_version": "v1"
+          }
+        }
+      ],
+      "test_start": [
+        {
+          "repetitions": 10,
+          "parameters": {
+            "market": "CR",
+            "route_clean": "/test",
+            "flow_step": "test",
+            "test_id": "strength_test",
+            "test_version": "v1"
+          }
+        }
+      ],
+      "test_error": [],
+      "test_complete": [
+        {
+          "repetitions": 10,
+          "parameters": {
+            "route_clean": "/results",
+            "flow_step": "results",
+            "test_id": "strength_test",
+            "test_version": "v1",
+            "repititions": "10",
+            "muscular_age_range": "45-49",
+            "age_range": "30"
+          }
+        }
+      ],
+      "coupon_get_click": [
+        {
+          "repetitions": 10,
+          "parameters": {
+            "market": "CR",
+            "route_clean": "/results",
+            "flow_step": "results",
+            "test_id": "strength_test",
+            "test_version": "v1",
+            "placement": "results_screen"
+          }
+        }
+      ],
+      "coupon_claim_click": [
+        {
+          "repetitions": 10,
+          "parameters": {
+            "market": "CR",
+            "route_clean": "/results",
+            "flow_step": "coupon_modal",
+            "test_id": "strength_test",
+            "test_version": "v1",
+            "outbound_url": "https://www.aboxplan.com/calculadoraaltura/?marca=ensure&origen=ensuredigital",
+            "accepted_exit": "true"
+          }
+        }
+      ]
     }
   },
   "PA": {
@@ -1825,6 +2246,10 @@ const tagMapData = {
     "finalDestinationHost": "www.aboxplan.com",
     "afterClaimSummary": "Abox Plan muestra instrucciones y formulario de PediaSure.",
     "eventStatus": {
+      "desktop_gate_view": {
+        "ga4": true,
+        "meta": false
+      },
       "form_start": {
         "ga4": true,
         "meta": false
@@ -1857,6 +2282,99 @@ const tagMapData = {
         "ga4": true,
         "meta": true
       }
+    },
+    "ga4Parameters": {
+      "desktop_gate_view": [
+        {
+          "repetitions": 10,
+          "parameters": {
+            "market": "PA",
+            "route_clean": "/desktop",
+            "flow_step": "home"
+          }
+        }
+      ],
+      "form_start": [
+        {
+          "repetitions": 10,
+          "parameters": {
+            "form_id": "",
+            "form_destination": "https://services.abbott/[ruta omitida]",
+            "form_length": "2",
+            "first_field_id": "age",
+            "first_field_name": "age",
+            "first_field_type": "number",
+            "first_field_position": "1"
+          }
+        }
+      ],
+      "start_form_submit": [],
+      "calibration_start": [
+        {
+          "repetitions": 10,
+          "parameters": {
+            "market": "PA",
+            "route_clean": "/calibration",
+            "flow_step": "calibration",
+            "test_id": "strength_test",
+            "test_version": "v1"
+          }
+        }
+      ],
+      "test_start": [
+        {
+          "repetitions": 10,
+          "parameters": {
+            "market": "PA",
+            "route_clean": "/test",
+            "flow_step": "test",
+            "test_id": "strength_test",
+            "test_version": "v1"
+          }
+        }
+      ],
+      "test_error": [],
+      "test_complete": [
+        {
+          "repetitions": 10,
+          "parameters": {
+            "route_clean": "/results",
+            "flow_step": "results",
+            "test_id": "strength_test",
+            "test_version": "v1",
+            "repititions": "10",
+            "muscular_age_range": "45-49",
+            "age_range": "30"
+          }
+        }
+      ],
+      "coupon_get_click": [
+        {
+          "repetitions": 10,
+          "parameters": {
+            "market": "PA",
+            "route_clean": "/results",
+            "flow_step": "results",
+            "test_id": "strength_test",
+            "test_version": "v1",
+            "placement": "results_screen"
+          }
+        }
+      ],
+      "coupon_claim_click": [
+        {
+          "repetitions": 10,
+          "parameters": {
+            "market": "PA",
+            "route_clean": "/results",
+            "flow_step": "coupon_modal",
+            "test_id": "strength_test",
+            "test_version": "v1",
+            "outbound_url": "https://www.aboxplan.com/calculadoraaltura/?marca=ensure&origen=ensuredigital",
+            "accepted_exit": "true"
+          }
+        }
+      ]
     }
   },
   "NI": {
@@ -1871,6 +2389,10 @@ const tagMapData = {
     "finalDestinationHost": "",
     "afterClaimSummary": "",
     "eventStatus": {
+      "desktop_gate_view": {
+        "ga4": true,
+        "meta": false
+      },
       "form_start": {
         "ga4": true,
         "meta": false
@@ -1903,6 +2425,86 @@ const tagMapData = {
         "ga4": false,
         "meta": false
       }
+    },
+    "ga4Parameters": {
+      "desktop_gate_view": [
+        {
+          "repetitions": 10,
+          "parameters": {
+            "market": "NI",
+            "route_clean": "/desktop",
+            "flow_step": "home"
+          }
+        }
+      ],
+      "form_start": [
+        {
+          "repetitions": 10,
+          "parameters": {
+            "form_id": "",
+            "form_destination": "https://services.abbott/[ruta omitida]",
+            "form_length": "2",
+            "first_field_id": "age",
+            "first_field_name": "age",
+            "first_field_type": "number",
+            "first_field_position": "1"
+          }
+        }
+      ],
+      "start_form_submit": [],
+      "calibration_start": [
+        {
+          "repetitions": 10,
+          "parameters": {
+            "market": "NI",
+            "route_clean": "/calibration",
+            "flow_step": "calibration",
+            "test_id": "strength_test",
+            "test_version": "v1"
+          }
+        }
+      ],
+      "test_start": [
+        {
+          "repetitions": 10,
+          "parameters": {
+            "market": "NI",
+            "route_clean": "/test",
+            "flow_step": "test",
+            "test_id": "strength_test",
+            "test_version": "v1"
+          }
+        }
+      ],
+      "test_error": [],
+      "test_complete": [
+        {
+          "repetitions": 10,
+          "parameters": {
+            "route_clean": "/results",
+            "flow_step": "results",
+            "test_id": "strength_test",
+            "test_version": "v1",
+            "repititions": "10",
+            "muscular_age_range": "45-49",
+            "age_range": "30"
+          }
+        },
+        {
+          "repetitions": 25,
+          "parameters": {
+            "route_clean": "/results",
+            "flow_step": "results",
+            "test_id": "strength_test",
+            "test_version": "v1",
+            "repititions": "25",
+            "muscular_age_range": "20-24",
+            "age_range": "30"
+          }
+        }
+      ],
+      "coupon_get_click": [],
+      "coupon_claim_click": []
     }
   },
   "CO": {
@@ -1917,6 +2519,10 @@ const tagMapData = {
     "finalDestinationHost": "api.whatsapp.com",
     "afterClaimSummary": "WhatsApp abre una conversación con mensaje de cupón precargado.",
     "eventStatus": {
+      "desktop_gate_view": {
+        "ga4": true,
+        "meta": false
+      },
       "form_start": {
         "ga4": true,
         "meta": false
@@ -1949,6 +2555,122 @@ const tagMapData = {
         "ga4": true,
         "meta": true
       }
+    },
+    "ga4Parameters": {
+      "desktop_gate_view": [
+        {
+          "repetitions": 10,
+          "parameters": {
+            "market": "CO",
+            "route_clean": "/desktop",
+            "flow_step": "home"
+          }
+        }
+      ],
+      "form_start": [
+        {
+          "repetitions": 10,
+          "parameters": {
+            "form_id": "",
+            "form_destination": "https://services.abbott/[ruta omitida]",
+            "form_length": "2",
+            "first_field_id": "age",
+            "first_field_name": "age",
+            "first_field_type": "number",
+            "first_field_position": "1"
+          }
+        }
+      ],
+      "start_form_submit": [
+        {
+          "repetitions": 25,
+          "parameters": {
+            "market": "CO",
+            "route_clean": "/",
+            "flow_step": "home",
+            "age_range": "30",
+            "gender": "male"
+          }
+        }
+      ],
+      "calibration_start": [
+        {
+          "repetitions": 10,
+          "parameters": {
+            "market": "CO",
+            "route_clean": "/calibration",
+            "flow_step": "calibration",
+            "test_id": "strength_test",
+            "test_version": "v1"
+          }
+        }
+      ],
+      "test_start": [
+        {
+          "repetitions": 10,
+          "parameters": {
+            "market": "CO",
+            "route_clean": "/test",
+            "flow_step": "test",
+            "test_id": "strength_test",
+            "test_version": "v1"
+          }
+        }
+      ],
+      "test_error": [],
+      "test_complete": [
+        {
+          "repetitions": 10,
+          "parameters": {
+            "route_clean": "/results",
+            "flow_step": "results",
+            "test_id": "strength_test",
+            "test_version": "v1",
+            "repititions": "10",
+            "muscular_age_range": "45-49",
+            "age_range": "30"
+          }
+        },
+        {
+          "repetitions": 25,
+          "parameters": {
+            "route_clean": "/results",
+            "flow_step": "results",
+            "test_id": "strength_test",
+            "test_version": "v1",
+            "repititions": "25",
+            "muscular_age_range": "20-24",
+            "age_range": "30"
+          }
+        }
+      ],
+      "coupon_get_click": [
+        {
+          "repetitions": 10,
+          "parameters": {
+            "market": "CO",
+            "route_clean": "/results",
+            "flow_step": "results",
+            "test_id": "strength_test",
+            "test_version": "v1",
+            "placement": "results_screen"
+          }
+        }
+      ],
+      "coupon_claim_click": [
+        {
+          "repetitions": 10,
+          "parameters": {
+            "market": "CO",
+            "route_clean": "/results",
+            "flow_step": "coupon_modal",
+            "test_id": "strength_test",
+            "test_version": "v1",
+            "outbound_url": "https://scan.abbott.com/?c=%5Boculto%5D",
+            "accepted_exit": "true"
+          }
+        }
+      ]
     }
   },
   "PE": {
@@ -1963,6 +2685,10 @@ const tagMapData = {
     "finalDestinationHost": "",
     "afterClaimSummary": "",
     "eventStatus": {
+      "desktop_gate_view": {
+        "ga4": true,
+        "meta": false
+      },
       "form_start": {
         "ga4": true,
         "meta": false
@@ -1995,6 +2721,86 @@ const tagMapData = {
         "ga4": false,
         "meta": false
       }
+    },
+    "ga4Parameters": {
+      "desktop_gate_view": [
+        {
+          "repetitions": 10,
+          "parameters": {
+            "market": "PE",
+            "route_clean": "/desktop",
+            "flow_step": "home"
+          }
+        }
+      ],
+      "form_start": [
+        {
+          "repetitions": 10,
+          "parameters": {
+            "form_id": "",
+            "form_destination": "https://services.abbott/[ruta omitida]",
+            "form_length": "2",
+            "first_field_id": "age",
+            "first_field_name": "age",
+            "first_field_type": "number",
+            "first_field_position": "1"
+          }
+        }
+      ],
+      "start_form_submit": [],
+      "calibration_start": [
+        {
+          "repetitions": 10,
+          "parameters": {
+            "market": "PE",
+            "route_clean": "/calibration",
+            "flow_step": "calibration",
+            "test_id": "strength_test",
+            "test_version": "v1"
+          }
+        }
+      ],
+      "test_start": [
+        {
+          "repetitions": 10,
+          "parameters": {
+            "market": "PE",
+            "route_clean": "/test",
+            "flow_step": "test",
+            "test_id": "strength_test",
+            "test_version": "v1"
+          }
+        }
+      ],
+      "test_error": [],
+      "test_complete": [
+        {
+          "repetitions": 10,
+          "parameters": {
+            "route_clean": "/results",
+            "flow_step": "results",
+            "test_id": "strength_test",
+            "test_version": "v1",
+            "repititions": "10",
+            "muscular_age_range": "45-49",
+            "age_range": "30"
+          }
+        },
+        {
+          "repetitions": 25,
+          "parameters": {
+            "route_clean": "/results",
+            "flow_step": "results",
+            "test_id": "strength_test",
+            "test_version": "v1",
+            "repititions": "25",
+            "muscular_age_range": "20-24",
+            "age_range": "30"
+          }
+        }
+      ],
+      "coupon_get_click": [],
+      "coupon_claim_click": []
     }
   },
   "MX": {
@@ -2009,6 +2815,10 @@ const tagMapData = {
     "finalDestinationHost": "",
     "afterClaimSummary": "",
     "eventStatus": {
+      "desktop_gate_view": {
+        "ga4": true,
+        "meta": false
+      },
       "form_start": {
         "ga4": false,
         "meta": false
@@ -2041,6 +2851,84 @@ const tagMapData = {
         "ga4": false,
         "meta": false
       }
+    },
+    "ga4Parameters": {
+      "desktop_gate_view": [
+        {
+          "repetitions": 10,
+          "parameters": {
+            "market": "MX",
+            "route_clean": "/desktop",
+            "flow_step": "home"
+          }
+        }
+      ],
+      "form_start": [],
+      "start_form_submit": [
+        {
+          "repetitions": 25,
+          "parameters": {
+            "market": "MX",
+            "route_clean": "/",
+            "flow_step": "home",
+            "age_range": "30",
+            "gender": "male"
+          }
+        }
+      ],
+      "calibration_start": [
+        {
+          "repetitions": 10,
+          "parameters": {
+            "market": "MX",
+            "route_clean": "/calibration",
+            "flow_step": "calibration",
+            "test_id": "strength_test",
+            "test_version": "v1"
+          }
+        }
+      ],
+      "test_start": [
+        {
+          "repetitions": 10,
+          "parameters": {
+            "market": "MX",
+            "route_clean": "/test",
+            "flow_step": "test",
+            "test_id": "strength_test",
+            "test_version": "v1"
+          }
+        }
+      ],
+      "test_error": [],
+      "test_complete": [
+        {
+          "repetitions": 10,
+          "parameters": {
+            "route_clean": "/results",
+            "flow_step": "results",
+            "test_id": "strength_test",
+            "test_version": "v1",
+            "repititions": "10",
+            "muscular_age_range": "45-49",
+            "age_range": "30"
+          }
+        },
+        {
+          "repetitions": 25,
+          "parameters": {
+            "route_clean": "/results",
+            "flow_step": "results",
+            "test_id": "strength_test",
+            "test_version": "v1",
+            "repititions": "25",
+            "muscular_age_range": "20-24",
+            "age_range": "30"
+          }
+        }
+      ],
+      "coupon_get_click": [],
+      "coupon_claim_click": []
     }
   },
   "CL": {
@@ -2055,6 +2943,10 @@ const tagMapData = {
     "finalDestinationHost": "",
     "afterClaimSummary": "",
     "eventStatus": {
+      "desktop_gate_view": {
+        "ga4": true,
+        "meta": false
+      },
       "form_start": {
         "ga4": true,
         "meta": false
@@ -2087,6 +2979,86 @@ const tagMapData = {
         "ga4": false,
         "meta": false
       }
+    },
+    "ga4Parameters": {
+      "desktop_gate_view": [
+        {
+          "repetitions": 10,
+          "parameters": {
+            "market": "CL",
+            "route_clean": "/desktop",
+            "flow_step": "home"
+          }
+        }
+      ],
+      "form_start": [
+        {
+          "repetitions": 10,
+          "parameters": {
+            "form_id": "",
+            "form_destination": "https://services.abbott/[ruta omitida]",
+            "form_length": "2",
+            "first_field_id": "age",
+            "first_field_name": "age",
+            "first_field_type": "number",
+            "first_field_position": "1"
+          }
+        }
+      ],
+      "start_form_submit": [],
+      "calibration_start": [
+        {
+          "repetitions": 10,
+          "parameters": {
+            "market": "CL",
+            "route_clean": "/calibration",
+            "flow_step": "calibration",
+            "test_id": "strength_test",
+            "test_version": "v1"
+          }
+        }
+      ],
+      "test_start": [
+        {
+          "repetitions": 10,
+          "parameters": {
+            "market": "CL",
+            "route_clean": "/test",
+            "flow_step": "test",
+            "test_id": "strength_test",
+            "test_version": "v1"
+          }
+        }
+      ],
+      "test_error": [],
+      "test_complete": [
+        {
+          "repetitions": 10,
+          "parameters": {
+            "route_clean": "/results",
+            "flow_step": "results",
+            "test_id": "strength_test",
+            "test_version": "v1",
+            "repititions": "10",
+            "muscular_age_range": "45-49",
+            "age_range": "30"
+          }
+        },
+        {
+          "repetitions": 25,
+          "parameters": {
+            "route_clean": "/results",
+            "flow_step": "results",
+            "test_id": "strength_test",
+            "test_version": "v1",
+            "repititions": "25",
+            "muscular_age_range": "20-24",
+            "age_range": "30"
+          }
+        }
+      ],
+      "coupon_get_click": [],
+      "coupon_claim_click": []
     }
   },
   "EC": {
@@ -2101,6 +3073,10 @@ const tagMapData = {
     "finalDestinationHost": "",
     "afterClaimSummary": "",
     "eventStatus": {
+      "desktop_gate_view": {
+        "ga4": true,
+        "meta": false
+      },
       "form_start": {
         "ga4": true,
         "meta": false
@@ -2133,6 +3109,97 @@ const tagMapData = {
         "ga4": false,
         "meta": false
       }
+    },
+    "ga4Parameters": {
+      "desktop_gate_view": [
+        {
+          "repetitions": 10,
+          "parameters": {
+            "market": "EC",
+            "route_clean": "/desktop",
+            "flow_step": "home"
+          }
+        }
+      ],
+      "form_start": [
+        {
+          "repetitions": 25,
+          "parameters": {
+            "form_id": "",
+            "form_destination": "https://services.abbott/[ruta omitida]",
+            "form_length": "2",
+            "first_field_id": "age",
+            "first_field_name": "age",
+            "first_field_type": "number",
+            "first_field_position": "1"
+          }
+        }
+      ],
+      "start_form_submit": [
+        {
+          "repetitions": 10,
+          "parameters": {
+            "market": "EC",
+            "route_clean": "/",
+            "flow_step": "home",
+            "age_range": "30",
+            "gender": "male"
+          }
+        }
+      ],
+      "calibration_start": [
+        {
+          "repetitions": 10,
+          "parameters": {
+            "market": "EC",
+            "route_clean": "/calibration",
+            "flow_step": "calibration",
+            "test_id": "strength_test",
+            "test_version": "v1"
+          }
+        }
+      ],
+      "test_start": [
+        {
+          "repetitions": 10,
+          "parameters": {
+            "market": "EC",
+            "route_clean": "/test",
+            "flow_step": "test",
+            "test_id": "strength_test",
+            "test_version": "v1"
+          }
+        }
+      ],
+      "test_error": [],
+      "test_complete": [
+        {
+          "repetitions": 10,
+          "parameters": {
+            "route_clean": "/results",
+            "flow_step": "results",
+            "test_id": "strength_test",
+            "test_version": "v1",
+            "repititions": "10",
+            "muscular_age_range": "45-49",
+            "age_range": "30"
+          }
+        },
+        {
+          "repetitions": 25,
+          "parameters": {
+            "route_clean": "/results",
+            "flow_step": "results",
+            "test_id": "strength_test",
+            "test_version": "v1",
+            "repititions": "25",
+            "muscular_age_range": "20-24",
+            "age_range": "30"
+          }
+        }
+      ],
+      "coupon_get_click": [],
+      "coupon_claim_click": []
     }
   },
   "AR": {
@@ -2147,6 +3214,10 @@ const tagMapData = {
     "finalDestinationHost": "",
     "afterClaimSummary": "",
     "eventStatus": {
+      "desktop_gate_view": {
+        "ga4": true,
+        "meta": false
+      },
       "form_start": {
         "ga4": false,
         "meta": false
@@ -2179,6 +3250,84 @@ const tagMapData = {
         "ga4": false,
         "meta": false
       }
+    },
+    "ga4Parameters": {
+      "desktop_gate_view": [
+        {
+          "repetitions": 10,
+          "parameters": {
+            "market": "AR",
+            "route_clean": "/desktop",
+            "flow_step": "home"
+          }
+        }
+      ],
+      "form_start": [],
+      "start_form_submit": [
+        {
+          "repetitions": 10,
+          "parameters": {
+            "market": "AR",
+            "route_clean": "/",
+            "flow_step": "home",
+            "age_range": "30",
+            "gender": "male"
+          }
+        }
+      ],
+      "calibration_start": [
+        {
+          "repetitions": 10,
+          "parameters": {
+            "market": "AR",
+            "route_clean": "/calibration",
+            "flow_step": "calibration",
+            "test_id": "strength_test",
+            "test_version": "v1"
+          }
+        }
+      ],
+      "test_start": [
+        {
+          "repetitions": 10,
+          "parameters": {
+            "market": "AR",
+            "route_clean": "/test",
+            "flow_step": "test",
+            "test_id": "strength_test",
+            "test_version": "v1"
+          }
+        }
+      ],
+      "test_error": [],
+      "test_complete": [
+        {
+          "repetitions": 10,
+          "parameters": {
+            "route_clean": "/results",
+            "flow_step": "results",
+            "test_id": "strength_test",
+            "test_version": "v1",
+            "repititions": "10",
+            "muscular_age_range": "45-49",
+            "age_range": "30"
+          }
+        },
+        {
+          "repetitions": 25,
+          "parameters": {
+            "route_clean": "/results",
+            "flow_step": "results",
+            "test_id": "strength_test",
+            "test_version": "v1",
+            "repititions": "25",
+            "muscular_age_range": "20-24",
+            "age_range": "30"
+          }
+        }
+      ],
+      "coupon_get_click": [],
+      "coupon_claim_click": []
     }
   }
 };
@@ -2192,6 +3341,15 @@ const tagMapData = {
       CO:'WhatsApp (vía scan.abbott.com)',
       GT:'aboxplan.com/calculadoraaltura/', HN:'aboxplan.com/calculadoraaltura/', CR:'aboxplan.com/calculadoraaltura/', PA:'aboxplan.com/calculadoraaltura/'
     };
+    const escapeMacHtml = (value) => String(value).replace(/[&<>"']/g, (char) => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[char]));
+    function renderGa4Parameters(examples) {
+      if (!examples?.length) return 'No capturado en estas corridas';
+      return examples.map((example) => {
+        const label = examples.length > 1 ? '<strong>' + escapeMacHtml(example.repetitions) + ' repeticiones (QA)</strong>' : '';
+        const pairs = Object.entries(example.parameters).map(([key, value]) => '<code>' + escapeMacHtml(key) + ' = ' + escapeMacHtml(value === '' ? '(vacío)' : value) + '</code>').join('');
+        return '<div class="mac-param-example">' + label + (pairs || 'Sin parámetros personalizados') + '</div>';
+      }).join('');
+    }
     function renderMacCouponMatrix(selectedCountry) {
       document.getElementById('macCouponMatrixRows').innerHTML = Object.keys(macNames).map((country) => {
         const noCoupon = macNoCouponCountries.has(country);
@@ -2204,7 +3362,6 @@ const tagMapData = {
       const evidence = macCountryEvidence[country];
       const label = macNames[country];
       renderMacCouponMatrix(country);
-      document.getElementById('macMarket').textContent = country;
       document.getElementById('macCountrySummary').innerHTML = '<strong>' + label + ':</strong> GA4 <code>' + evidence.ga4MeasurementId + '</code> · Meta Pixel <code>' + evidence.metaPixel + '</code>.';
       const noCoupon = macNoCouponCountries.has(country);
       const couponFound = !noCoupon && evidence.couponStatus === 'coupon_redirect_observed';
@@ -2224,9 +3381,10 @@ const tagMapData = {
           const status = evidence.eventStatus[name];
           const ga4 = status.ga4 ? '<code>' + name + '</code> · observado' : 'No observado en esta corrida';
           const meta = status.meta ? '<code>' + evidence.metaPixel + ' · ' + name + '</code> · observado' : 'No observado en esta corrida';
-          return '<tr><td data-label="Evento"><code>' + name + '</code></td><td data-label="GA4">' + ga4 + '</td><td data-label="Meta">' + meta + '</td></tr>';
+          const parameters = renderGa4Parameters(evidence.ga4Parameters[name]);
+          return '<tr><td data-label="Evento"><code>' + name + '</code></td><td data-label="GA4">' + ga4 + '</td><td data-label="Parámetros GA4">' + parameters + '</td><td data-label="Meta">' + meta + '</td></tr>';
         }).join('');
-        container.innerHTML = '<table><thead><tr><th>Acción / evento</th><th>GA4</th><th>Meta Pixel</th></tr></thead><tbody>' + rows + '</tbody></table>';
+        container.innerHTML = '<table><thead><tr><th>Evento</th><th>GA4</th><th>Parámetros GA4</th><th>Meta Pixel</th></tr></thead><tbody>' + rows + '</tbody></table>';
       });
     }
     document.getElementById('macCountry').addEventListener('change', (event) => renderMacCountry(event.target.value));
