@@ -212,6 +212,20 @@
       <div class="toolbar"><button class="button" data-back="home">← Herramientas</button></div>
       <h1>Calculadora de masa muscular</h1>
       <p>MAC 2.0 · flujo móvil lineal. Propiedad GA4: 505260213.</p>
+      <details class="mac-note" open>
+        <summary><strong>Colombia · evidencia de flujo principal</strong></summary>
+        <p>Validado con pixel Meta <code>1999301237250549</code>. Los eventos Meta confirmados conservan el mismo nombre del evento GA4.</p>
+        <div class="table-scroll"><table class="param-table"><thead><tr><th>Acción</th><th>GA4</th><th>Meta</th></tr></thead><tbody>
+          <tr><td>Empieza el formulario</td><td><code>form_start</code></td><td>Sin evento Meta personalizado observado en esta interacción.</td></tr>
+          <tr><td>Envía formulario</td><td><code>start_form_submit</code></td><td><code>1999301237250549 · start_form_submit</code></td></tr>
+          <tr><td>Finaliza calibración</td><td><code>calibration_start</code></td><td><code>1999301237250549 · calibration_start</code></td></tr>
+          <tr><td>Empieza test</td><td><code>test_start</code></td><td><code>1999301237250549 · test_start</code></td></tr>
+          <tr><td>Sin movimiento</td><td><code>test_error</code></td><td>Evento configurado en dataLayer; entrega de red pendiente de confirmar.</td></tr>
+          <tr><td>Termina test con reps</td><td><code>test_complete</code></td><td><code>1999301237250549 · test_complete</code></td></tr>
+          <tr><td>Obtiene cupón</td><td><code>coupon_get_click</code></td><td><code>1999301237250549 · coupon_get_click</code></td></tr>
+          <tr><td>Reclama cupón</td><td><code>coupon_claim_click</code></td><td><code>1999301237250549 · coupon_claim_click</code></td></tr>
+        </tbody></table></div>
+      </details>
       <details class="mac-note">
         <summary><strong>Píxeles observados y cobertura por país</strong></summary>
         <p><strong>GA4:</strong> <code>G-H5GS56Y0JN</code>. Se observaron <code>page_view</code> y, en la puerta desktop, <code>desktop_gate_view</code>. <strong>Meta:</strong> <code>PageView</code> con IDs distintos por mercado. TikTok, Google Ads y Floodlight no aparecieron en este alcance inicial.</p>
@@ -234,48 +248,46 @@
           <h2>Formulario de inicio</h2>
           <p>La persona ingresa edad y sexo. El CTA <strong>Siguiente</strong> habilitado envía el formulario.</p>
           <img src="assets/81cd0253412e63b1.png" alt="Formulario de MAC con edad, sexo y botón Siguiente">
-          <span class="event-chip">start_form_view · form_start · start_form_submit</span>
-          <p><strong>Meta:</strong> <code>PageView</code> corresponde a la carga inicial; evento de interacción de formulario pendiente de traza completa.</p>
-          <table class="param-table"><tr><th>Acción</th><th>Medición</th></tr><tr><td>Vista del formulario</td><td>start_form_view</td></tr><tr><td>Interacción con campos</td><td>form_start</td></tr><tr><td>Clic en Siguiente</td><td>start_form_submit</td></tr></table>
+          <span class="event-chip">form_start · start_form_submit</span>
+          <p><strong>Meta CO:</strong> <code>1999301237250549 · start_form_submit</code>. No se observó un Meta personalizado para <code>form_start</code>.</p>
+          <table class="param-table"><tr><th>Acción</th><th>Medición</th></tr><tr><td>Interacción con campos</td><td>form_start</td></tr><tr><td>Clic en Siguiente</td><td>start_form_submit</td></tr></table>
         </article>
         <article class="mac-step">
           <h2>Instrucciones y permiso de movimiento</h2>
           <p>El CTA <strong>Siguiente</strong> lleva a la calibración después de solicitar o confirmar el acceso al sensor.</p>
           <img src="assets/9fc9abcfe535e7b8.png" alt="Instrucciones de movimiento y botón Siguiente">
-          <span class="event-chip">motion_permission_prompt · motion_permission_result</span>
-          <p><strong>Meta:</strong> evento específico de permiso pendiente de validar con una traza completa.</p>
-          <table class="param-table"><tr><th>Parámetro</th><th>Ejemplo confirmado</th></tr><tr><td>market</td><td>CO</td></tr><tr><td>route_clean</td><td>/instructions</td></tr><tr><td>permission_status</td><td>granted</td></tr></table>
+          <p><strong>Sin evento incluido en este flujo acordado.</strong> Esta pantalla conduce a calibración.</p>
         </article>
         <article class="mac-step">
           <h2>Calibración</h2>
           <p>La persona confirma la posición inicial. El sensor valida el movimiento antes de habilitar el test.</p>
           <img src="assets/a4a11305aa3c7ed7.png" alt="Estado de calibración de MAC">
-          <span class="event-chip">muscle_calculator_start · calibration_start</span>
-          <p><strong>Meta:</strong> evento específico de calibración pendiente de validar con una traza completa.</p>
-          <table class="param-table"><tr><th>Disparador</th><th>Estado</th></tr><tr><td>Clic en Calibrar</td><td>Configurado; parámetros por validar en teléfono físico</td></tr></table>
+          <span class="event-chip">calibration_start</span>
+          <p><strong>Meta CO:</strong> <code>1999301237250549 · calibration_start</code>.</p>
+          <table class="param-table"><tr><th>Disparador</th><th>Parámetros GA4</th></tr><tr><td>Finaliza la calibración</td><td>market, route_clean: /calibration, flow_step: calibration, test_id, test_version</td></tr></table>
         </article>
         <article class="mac-step">
           <h2>Inicio y ejecución del test</h2>
           <p>Después de la calibración, comienza la cuenta regresiva y el contador de sentadillas.</p>
           <img src="assets/1600d430c0274073.png" alt="Cuenta regresiva de inicio del test">
           <span class="event-chip">test_start</span>
-          <p><strong>Meta:</strong> <code>test_start</code> observado en CO (pixel <code>1999301237250549</code>).</p>
+          <p><strong>Meta CO:</strong> <code>1999301237250549 · test_start</code>.</p>
           <table class="param-table"><tr><th>Disparador</th><th>Estado</th></tr><tr><td>Inicio de cuenta regresiva</td><td>Capturado; parámetros por validar en teléfono físico</td></tr></table>
         </article>
         <article class="mac-step mac-branch">
           <h2>Rama de error y reintento</h2>
           <p>Si no se detecta movimiento, se muestra el mensaje de error y se permite reiniciar la experiencia.</p>
           <img src="assets/1c18bc4dda12c6e9.png" alt="Mensaje de error de MAC y botón Reiniciar test">
-          <span class="event-chip">test_error · test_retry_click · test_restart</span>
-          <p><strong>Meta:</strong> pendiente de validar en la rama de error.</p>
+          <span class="event-chip">test_error</span>
+          <p><strong>Meta CO:</strong> <code>test_error</code> está configurado en dataLayer; la solicitud Meta aún debe confirmarse con la rama de cero sentadillas.</p>
         </article>
         <article class="mac-step">
           <h2>Resultado y cupón</h2>
           <p>Al finalizar el test se muestra el resultado. El CTA abre un modal de confirmación antes de redirigir al cupón.</p>
           <img src="assets/3c313a0cb6f6d3a5.png" alt="Resultado de MAC y botón Obtener cupón">
-          <span class="event-chip">test_complete · muscle_calculator_submission · coupon_get_click · coupon_modal_view · coupon_modal_accept_toggle · coupon_claim_click</span>
-          <p><strong>Meta:</strong> resultado, modal y cupón pendientes de traza completa; no se listan hasta capturarlos.</p>
-          <table class="param-table"><tr><th>Disparador</th><th>Medición</th></tr><tr><td>Resultado visible</td><td>test_complete / muscle_calculator_submission</td></tr><tr><td>CTA Obtener cupón</td><td>coupon_get_click</td></tr><tr><td>Confirmación y salida</td><td>coupon_modal_view / coupon_claim_click</td></tr></table>
+          <span class="event-chip">test_complete · coupon_get_click · coupon_claim_click</span>
+          <p><strong>Meta CO:</strong> <code>1999301237250549 · test_complete</code>, <code>coupon_get_click</code> y <code>coupon_claim_click</code>.</p>
+          <table class="param-table"><tr><th>Disparador</th><th>Medición</th></tr><tr><td>Resultado visible</td><td>test_complete</td></tr><tr><td>CTA Obtener cupón</td><td>coupon_get_click</td></tr><tr><td>Salida a scan.abbott.com</td><td>coupon_claim_click</td></tr></table>
           <img src="assets/6835dc97815a515a.png" alt="Modal de confirmación y CTA Reclamar cupón">
         </article>
       </div>
