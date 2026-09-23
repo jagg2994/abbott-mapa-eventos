@@ -157,6 +157,7 @@
     .param-table th { width: 34%; }
     .proposal-tool { grid-column: 1 / -1; min-height: 150px; border-left: 5px solid var(--red); }
     .proposal-tool strong { font-size: 23px; }
+    .mac-proposal-tool { border-left-color: var(--green); }
     .proposal-intro { padding: 14px; border-radius: 10px; background: #fff0f2; margin-bottom: 22px; line-height: 1.6; }
     .proposal-flow { max-width: 860px; margin: auto; }
     .proposal-step { border: 1px solid var(--line); border-radius: 12px; overflow: hidden; background: var(--white); }
@@ -172,6 +173,17 @@
     .proposal-branches { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; align-items: start; }
     .proposal-branch h3 { text-align: center; font-size: 16px; margin: 0 0 12px; }
     .proposal-note { padding: 14px; margin-top: 20px; border-radius: 10px; background: var(--surface); color: var(--muted); font-size: 13px; line-height: 1.6; }
+    .mac-proposal-card { border: 1px solid var(--line); border-radius: 12px; padding: 18px; margin: 16px 0; }
+    .mac-proposal-card h2 { margin: 0 0 12px; font-size: 18px; }
+    .mac-proposal-columns { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+    .mac-proposal-columns > div { background: var(--surface); border-radius: 8px; padding: 12px; min-width: 0; }
+    .mac-proposal-columns > .mac-proposal-new { background: #e9f7ed; color: #116b39; }
+    .mac-proposal-columns h3 { margin: 0 0 8px; font-size: 14px; }
+    .mac-proposal-columns ul { margin: 0; padding-left: 20px; font-size: 13px; }
+    .mac-proposal-columns li { margin: 4px 0; overflow-wrap: anywhere; }
+    .mac-proposal-card pre { overflow-x: auto; margin: 12px 0 0; padding: 12px; background: #eef3f5; border-radius: 8px; font-size: 12px; }
+    .mac-proposal-card code { overflow-wrap: anywhere; }
+    .mac-proposal-badge { color: #116b39; font-size: 13px; }
     .mac-branch { border-color: var(--yellow); background: #fff8df; }
     .mac-branch .event-chip { background: #f8e5b3; }
     .empty { padding: 14px; text-align: left; color: var(--muted); background: var(--surface); border-radius: 12px; }
@@ -198,6 +210,7 @@
       .proposal-step td, .proposal-step th { padding: 9px 10px; }
       .mac-result-references { grid-template-columns: minmax(0, 1fr); }
       .mac-result-references img:first-child { grid-column: auto; }
+      .mac-proposal-columns { grid-template-columns: minmax(0, 1fr); }
     }
   </style>
 </head>
@@ -225,6 +238,10 @@
         <strong>Propuesta de marcación · Growth Tool</strong>
         <span>Ejemplo rojo · pasos, parámetros y bifurcación de registro / inicio de sesión</span>
       </button>
+      <button class="tool proposal-tool mac-proposal-tool" data-tool="macProposal">
+        <strong>Propuesta de dataLayer · MAC</strong>
+        <span>Por evento: parámetros actuales, cambios propuestos y payload para desarrollo</span>
+      </button>
     </section>
 
     <section id="proposal" class="panel hidden" aria-labelledby="proposalTitle">
@@ -233,6 +250,13 @@
       <p>CO, PE, CL y MX · recorrido propuesto para un resultado rojo.</p>
       <div class="proposal-intro"><strong>Propuesta para implementación en GTM.</strong> Cada tabla muestra el evento y los parámetros que viajarían a Analytics. El rojo es el ejemplo de este recorrido; el resultado todavía no se conoce al empezar. La bifurcación ocurre cuando la persona elige registrarse o iniciar sesión.</div>
       <div id="proposalFlow" class="proposal-flow"></div>
+    </section>
+
+    <section id="macProposal" class="panel hidden" aria-labelledby="macProposalTitle">
+      <div class="toolbar"><button class="button" data-back="home">← Herramientas</button></div>
+      <h1 id="macProposalTitle">Propuesta de dataLayer · MAC</h1>
+      <p>Propuesta no implementada · Colombia como ejemplo · verde = parámetro o evento nuevo.</p>
+      <div id="macProposalFlow" class="proposal-flow"></div>
     </section>
 
     <section id="mac" class="panel hidden">
@@ -3398,10 +3422,88 @@ const tagMapData = {
     let step = 0;
     let selectedCountry = 'CO';
 
-    const screens = ['home', 'mac', 'growth', 'proposal'];
+    const macProposalEvents = [
+      {
+        name:'desktop_gate_view',
+        current:['market = CO','route_clean = /desktop','flow_step = home'],
+        changes:[],
+        payload:{event:'desktop_gate_view',market:'CO',route_clean:'/desktop',flow_step:'home'}
+      },
+      {
+        name:'form_start',
+        current:['GA4 automático: form_id, form_destination, form_length, first_field_id, first_field_name, first_field_type, first_field_position'],
+        changes:['market','flow_step','test_id','test_version','attempt_number'],
+        payload:{event:'form_start',market:'CO',flow_step:'form',test_id:'strength_test',test_version:'v1',attempt_number:1},
+        note:'Emitir una vez al iniciar el formulario MAC; evitar duplicarlo con el form_start automático del modal.'
+      },
+      {
+        name:'start_form_submit',
+        current:['market = CO','route_clean = /','flow_step = home','age_range = 30 (edad exacta)','gender = male'],
+        changes:['test_id','test_version','attempt_number','age_band = 30-34; sustituye edad exacta'],
+        payload:{event:'start_form_submit',market:'CO',route_clean:'/',flow_step:'home',test_id:'strength_test',test_version:'v1',attempt_number:1,age_band:'30-34',gender:'male'}
+      },
+      {
+        name:'calibration_start',
+        current:['market = CO','route_clean = /calibration','flow_step = calibration','test_id = strength_test','test_version = v1'],
+        changes:['attempt_number','motion_permission_status'],
+        payload:{event:'calibration_start',market:'CO',route_clean:'/calibration',flow_step:'calibration',test_id:'strength_test',test_version:'v1',attempt_number:1,motion_permission_status:'granted'}
+      },
+      {
+        name:'test_start',
+        current:['market = CO','route_clean = /test','flow_step = test','test_id = strength_test','test_version = v1'],
+        changes:['attempt_number','motion_permission_status'],
+        payload:{event:'test_start',market:'CO',route_clean:'/test',flow_step:'test',test_id:'strength_test',test_version:'v1',attempt_number:1,motion_permission_status:'granted'}
+      },
+      {
+        name:'test_error',
+        current:['Sin parámetros confirmados en las capturas de red'],
+        changes:['market','flow_step','test_id','test_version','attempt_number','error_reason','repetitions'],
+        payload:{event:'test_error',market:'CO',flow_step:'test',test_id:'strength_test',test_version:'v1',attempt_number:1,error_reason:'no_movement',repetitions:0},
+        note:'no_movement es un valor ilustrativo; desarrollo debe confirmar el catálogo de errores.'
+      },
+      {
+        name:'test_complete',
+        current:['route_clean = /results','flow_step = results','test_id = strength_test','test_version = v1','repititions = 10','muscular_age_range = 45-49','age_range = 30 (edad exacta)'],
+        changes:['market','attempt_number','repetitions (nombre corregido; repititions temporal)','age_band','result_category','coupon_available'],
+        payload:{event:'test_complete',market:'CO',route_clean:'/results',flow_step:'results',test_id:'strength_test',test_version:'v1',attempt_number:1,repititions:10,repetitions:10,age_band:'30-34',muscular_age_range:'45-49',result_category:'low',coupon_available:true},
+        note:'low es ilustrativo. En recorridos sin CTA, coupon_available = false.'
+      },
+      {
+        name:'coupon_get_click',
+        current:['market = CO','route_clean = /results','flow_step = results','test_id = strength_test','test_version = v1','placement = results_screen'],
+        changes:['attempt_number','destination_type'],
+        payload:{event:'coupon_get_click',market:'CO',route_clean:'/results',flow_step:'results',test_id:'strength_test',test_version:'v1',attempt_number:1,placement:'results_screen',destination_type:'whatsapp'}
+      },
+      {
+        name:'coupon_claim_click',
+        current:['market = CO','route_clean = /results','flow_step = coupon_modal','test_id = strength_test','test_version = v1','outbound_url con código','accepted_exit = "true" (texto)'],
+        changes:['attempt_number','destination_type','outbound_host en lugar de URL con código','accepted_exit como booleano'],
+        payload:{event:'coupon_claim_click',market:'CO',route_clean:'/results',flow_step:'coupon_modal',test_id:'strength_test',test_version:'v1',attempt_number:1,destination_type:'whatsapp',outbound_host:'scan.abbott.com',accepted_exit:true}
+      },
+      {
+        name:'mac_step_view',newEvent:true,
+        current:['Evento no implementado'],
+        changes:['market','flow_step','test_id','test_version','attempt_number'],
+        payload:{event:'mac_step_view',market:'CO',flow_step:'instructions',test_id:'strength_test',test_version:'v1',attempt_number:1},
+        note:'Propuesto al mostrar form, instructions, calibration, test, results y coupon_modal para medir abandono.'
+      }
+    ];
+    function renderMacProposal() {
+      document.getElementById('macProposalFlow').innerHTML = macProposalEvents.map((item, index) => {
+        const current = item.current.map((field) => '<li><code>' + escapeMacHtml(field) + '</code></li>').join('');
+        const changes = item.changes.length ? item.changes.map((field) => '<li><code>' + escapeMacHtml(field) + '</code></li>').join('') : '<li>Sin cambios</li>';
+        const code = 'dataLayer.push(' + JSON.stringify(item.payload, null, 2) + ');';
+        return '<article class="mac-proposal-card"><h2>' + (index + 1) + '. <code>' + escapeMacHtml(item.name) + '</code>' + (item.newEvent ? ' <span class="mac-proposal-badge">🟢 Evento nuevo</span>' : '') + '</h2>' +
+          '<div class="mac-proposal-columns"><div><h3>Parámetros actuales (GA4)</h3><ul>' + current + '</ul></div><div class="mac-proposal-new"><h3>🟢 Agregar o cambiar</h3><ul>' + changes + '</ul></div></div>' +
+          '<pre><code>' + escapeMacHtml(code) + '</code></pre>' + (item.note ? '<p>' + escapeMacHtml(item.note) + '</p>' : '') + '</article>';
+      }).join('');
+    }
+    renderMacProposal();
+
+    const screens = ['home', 'mac', 'growth', 'proposal', 'macProposal'];
     function showScreen(id) {
       screens.forEach(screen => document.getElementById(screen).classList.toggle('hidden', screen !== id));
-      document.getElementById('crumb').textContent = id === 'home' ? 'Herramientas' : id === 'mac' ? 'Herramientas / MAC' : id === 'proposal' ? 'Herramientas / Propuesta de marcación' : 'Herramientas / Growth Tool';
+      document.getElementById('crumb').textContent = id === 'home' ? 'Herramientas' : id === 'mac' ? 'Herramientas / MAC' : id === 'proposal' ? 'Herramientas / Propuesta de marcación' : id === 'macProposal' ? 'Herramientas / Propuesta MAC' : 'Herramientas / Growth Tool';
     }
 
     function proposalCard(number, title, eventName, description, extra = [], color = 'red') {
