@@ -184,6 +184,11 @@
     .mac-proposal-card pre { overflow-x: auto; margin: 12px 0 0; padding: 12px; background: #eef3f5; border-radius: 8px; font-size: 12px; }
     .mac-proposal-card code { overflow-wrap: anywhere; }
     .mac-proposal-badge { color: #116b39; font-size: 13px; }
+    .mac-future { margin-top: 28px; padding-top: 20px; border-top: 2px solid var(--line); }
+    .mac-future h2 { margin: 0 0 10px; }
+    .mac-future p { margin: 8px 0; line-height: 1.5; }
+    .mac-future td code { overflow-wrap: anywhere; }
+    .mac-future .new-event { color: #116b39; font-weight: 700; }
     .mac-branch { border-color: var(--yellow); background: #fff8df; }
     .mac-branch .event-chip { background: #f8e5b3; }
     .empty { padding: 14px; text-align: left; color: var(--muted); background: var(--surface); border-radius: 12px; }
@@ -255,8 +260,26 @@
     <section id="macProposal" class="panel hidden" aria-labelledby="macProposalTitle">
       <div class="toolbar"><button class="button" data-back="home">← Herramientas</button></div>
       <h1 id="macProposalTitle">Propuesta de dataLayer · MAC</h1>
-      <p>Propuesta no implementada · Colombia como ejemplo · verde = parámetro o evento nuevo.</p>
+      <p>Propuesta no implementada · el recorrido actual usa Colombia como ejemplo · verde = parámetro o evento nuevo.</p>
       <div id="macProposalFlow" class="proposal-flow"></div>
+      <section class="mac-future" aria-labelledby="macFutureTitle">
+        <h2 id="macFutureTitle">Migración a Contigo · registro y cupón</h2>
+        <p><strong>AR, BR, CL, EC y PE:</strong> resultado MAC → registro nuevo o login existente → mismo popup de cupón. <strong>CO y MX:</strong> enlace directo a WhatsApp; no aplicarles el flujo de cuenta.</p>
+        <p>Se propone conservar <code>flow_origin=mac</code> hasta confirmar la autenticación. <code>auth_path=new_registration|existing_login</code> distingue las dos rutas. Los eventos de esta tabla son una <strong>solicitud de implementación</strong>, no evidencia de producción.</p>
+        <div class="table-scroll"><table><thead><tr><th>Paso</th><th>Evento GA4</th><th>Parámetros propuestos</th><th>Señal necesaria</th></tr></thead><tbody>
+          <tr><td>Error del test</td><td><code>test_error</code></td><td><code>market</code>, <code>flow_origin</code>, <code>error_reason</code></td><td>Dev: motivo real del error.</td></tr>
+          <tr><td>Reiniciar test</td><td><code>test_retry_click</code></td><td><code>market</code>, <code>flow_origin</code>, <code>flow_step</code></td><td>GTM: clic en el botón.</td></tr>
+          <tr><td>Formulario visible</td><td><code>registration_start</code></td><td><code>market</code>, <code>flow_origin</code>, <code>form_name</code></td><td>GTM: vista; Dev: conservar origen MAC.</td></tr>
+          <tr><td>Formulario inválido</td><td><code class="new-event">form_validation_error · nuevo</code></td><td><code>field_name</code>, <code>error_type</code>, <code>flow_origin</code></td><td>Dev: validación de la app o servidor. GTM solo puede leer errores HTML visibles.</td></tr>
+          <tr><td>Registro confirmado</td><td><code class="new-event">registro_exitoso_mac · nuevo</code></td><td><code>auth_path=new_registration</code>, <code>whatsapp_provided_form=true|false</code>, <code>flow_origin</code></td><td>Dev: confirmación, no clic en «Crear cuenta».</td></tr>
+          <tr><td>Ir a inicio de sesión</td><td><code>login_click</code></td><td><code>flow_origin=mac</code>, <code>auth_purpose=claim_coupon</code></td><td>GTM: clic; Dev: persistir contexto.</td></tr>
+          <tr><td>Login confirmado</td><td><code>login</code></td><td><code>auth_path=existing_login</code>, <code>flow_origin=mac</code>, <code>auth_purpose=claim_coupon</code></td><td>Dev: autenticación exitosa.</td></tr>
+          <tr><td>Popup visible</td><td><code class="new-event">view_popup · nuevo</code></td><td><code>auth_path</code>, <code>popup_type=coupon_ready|technical_error</code>, <code>flow_origin</code></td><td>GTM: vista; Dev: tipo real del popup.</td></tr>
+          <tr><td>Enviar a WhatsApp</td><td><code class="new-event">coupon_whatsapp_click · nuevo</code></td><td><code>auth_path</code>, <code>whatsapp_source=popup</code></td><td>GTM: clic; mide intención, no entrega.</td></tr>
+          <tr><td>Resultado del envío</td><td><code class="new-event">coupon_delivery_result · nuevo</code></td><td><code>auth_path</code>, <code>delivery_channel=email|whatsapp</code>, <code>delivery_status=success|error</code>, <code>whatsapp_source=form|popup</code> si aplica</td><td>Dev/backend: confirmar el resultado por canal.</td></tr>
+        </tbody></table></div>
+        <p>La bandera de WhatsApp indica solo si se diligenció en el formulario nuevo; se omite en login existente. No enviar números, correos, contraseñas ni códigos de cupón a GA4. Para CO/MX se conservan <code>coupon_get_click</code> y <code>coupon_claim_click</code>; su disparo en el flujo nuevo requiere validación para no duplicarlos.</p>
+      </section>
     </section>
 
     <section id="mac" class="panel hidden">
