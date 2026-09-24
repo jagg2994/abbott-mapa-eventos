@@ -3481,7 +3481,7 @@ const tagMapData = {
       {number:'7', title:'Resultado', images:[["assets/72150379b58c33e0.png",'Resultado verde'],["assets/c5431d6a27142ef0.png",'Resultado amarillo'],["assets/e4abc596109c110f.png",'Resultado rojo']], events:[
         {name:'test_complete', rows:[['test_id','a1b2c3'],['test_version','v2'],['repetitions','43'],['muscular_age_range','<40'],['age_range','35-49'],['test_result','green / yellow / red',true],['mac_result (propiedad de usuario)','yellow',true],['mac_age_group (propiedad de usuario)','35-49',true]], note:'Corregir: hoy el parámetro se envía como repititions.'},
         {name:'test_restart', rows:[['test_id','a1b2c3'],['test_version','v2']]},
-        {name:'coupon_get_click', rows:[['test_id','a1b2c3'],['test_version','v2'],['placement','result'],['test_result','yellow',true]]}
+        {name:'coupon_get_click', rows:[['test_id','a1b2c3'],['test_version','v2'],['placement','result'],['test_result','yellow',true],['age_range','35-49',true]]}
       ]},
       {number:'8', title:'Modal del cupón (CO y MX)', images:[["assets/76ba12481bb2bd61.png",'Modal de confirmación']], events:[
         {name:'coupon_modal_view', rows:[['test_id','a1b2c3'],['test_version','v2'],['test_result','green',true]]},
@@ -3500,23 +3500,13 @@ const tagMapData = {
         {name:'login', newEvent:true, rows:[['method','email',true],['auth_purpose','claim_coupon',true],['auth_path','existing_login',true],['whatsapp_on_file','true / false',true],['test_result','red',true]]},
         {name:'form_validation_error', newEvent:true, rows:[['field_name','email / password',true],['error_type','format / invalid_credentials',true],['form_location','login',true]]}
       ]},
-      {number:'11', title:'Selector de tienda (países por confirmar)', events:[
-        {name:'store_select', newEvent:true, rows:[['store_id','POS_001',true],['form_location','registration / popup',true]]}
+      {number:'11', title:'Popup verde: cupón listo', images:[["assets/ea35d3704b2c7cd9.png",'Cupón listo']], events:[
+        {name:'coupon_status_view', newEvent:true, rows:[['coupon_status','ready',true],['display','popup',true],['auth_path','new_registration / existing_login',true],['test_result','green',true]], note:'Mismo evento para el popup verde, el rojo y la página de cupón ya utilizado; cambia coupon_status.'}
       ]},
-      {number:'12', title:'Popup verde: cupón listo', images:[["assets/ea35d3704b2c7cd9.png",'Cupón listo']], events:[
-        {name:'coupon_status_view', newEvent:true, rows:[['coupon_status','ready',true],['display','popup',true],['auth_path','new_registration / existing_login',true],['test_result','green',true]]},
-        {name:'coupon_delivery_result', newEvent:true, rows:[['delivery_channel','email / whatsapp',true],['delivery_status','success / error',true],['whatsapp_source','form',true]], note:'Se envía uno por canal.'}
-      ]},
-      {number:'13', title:'Popup: usuario logueado sin WhatsApp', images:[["assets/4debdbba7049d93b.png",'Ingreso opcional de WhatsApp']], events:[
-        {name:'coupon_status_view', newEvent:true, rows:[['coupon_status','ready',true],['display','popup',true],['auth_path','existing_login',true]]},
-        {name:'coupon_whatsapp_click', newEvent:true, rows:[['whatsapp_source','popup',true]]},
-        {name:'form_validation_error', newEvent:true, rows:[['field_name','whatsapp',true],['error_type','format / already_registered',true],['form_location','popup',true]]},
-        {name:'coupon_delivery_result', newEvent:true, rows:[['delivery_channel','whatsapp',true],['delivery_status','success / error',true],['whatsapp_source','popup',true]]}
-      ]},
-      {number:'14', title:'Página: cupón ya utilizado', events:[
+      {number:'12', title:'Página: cupón ya utilizado', events:[
         {name:'coupon_status_view', newEvent:true, rows:[['coupon_status','already_used',true],['display','page',true],['auth_path','existing_login',true]]}
       ]},
-      {number:'15', title:'Popup rojo: error técnico', images:[["assets/b58a28f312214649.png",'Error técnico']], events:[
+      {number:'13', title:'Popup rojo: error técnico', images:[["assets/b58a28f312214649.png",'Error técnico']], events:[
         {name:'coupon_status_view', newEvent:true, rows:[['coupon_status','technical_error',true],['display','popup',true],['auth_path','new_registration / existing_login',true]]}
       ]}
     ];
