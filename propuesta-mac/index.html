@@ -14,7 +14,253 @@
   .mac-spec-table th,.mac-spec-table td{border:1px solid #d9d9d9;padding:7px 10px;text-align:left;vertical-align:middle;overflow-wrap:anywhere}
   .mac-spec-table th:first-child,.mac-spec-table td:first-child{width:40%}.mac-spec-table tr:first-child th{background:#f7f8f9}.mac-spec-table tr:nth-child(2) th{background:#fff}
   .mac-spec-note{margin:-16px 0 24px;color:#a45418;font-style:italic;font-size:14px}
+  .mac-spec-datalayer{margin:-10px 0 26px;border:1px solid var(--line);border-radius:6px;padding:9px 12px}
+  .mac-spec-datalayer summary{cursor:pointer;color:#3b75b0;font-weight:600}
+  .mac-spec-datalayer pre{margin:12px 0 2px;padding:12px;background:#f7f8f9;overflow-x:auto;white-space:pre-wrap;overflow-wrap:anywhere}
+  .mac-spec-datalayer code{display:block;font-size:12px;white-space:pre-wrap}
   code{font-size:.9em;white-space:normal}@media(max-width:650px){main{margin:0;padding:20px 14px;border:0;border-radius:0}h1{font-size:24px}.mac-spec-table{font-size:12px}.mac-spec-table th,.mac-spec-table td{padding:7px 6px}}
 </style></head>
-<body><main><h1>Mapa de taggeo · MAC y cupón (Abbott)</h1><div class="mac-spec"><p class="mac-spec-legend">Texto en negro: ya existe en GTM. <span class="mac-spec-new">Texto en verde: nuevo, hay que crearlo.</span></p><h2>Parámetros globales (van en todos los eventos)</h2><table class="mac-spec-table"><thead><tr><th>Evento</th><th>Todos los eventos</th></tr><tr><th>Parámetro</th><th>Valor</th></tr></thead><tbody><tr><td><code>market</code></td><td><code>pe</code></td></tr><tr><td><code>route_clean</code></td><td><code>/es-pe/...</code></td></tr><tr><td><code>flow_step</code></td><td><code>result</code></td></tr><tr class="mac-spec-new"><td><code>flow_origin</code></td><td><code>mac</code></td></tr><tr class="mac-spec-new"><td><code>flow_type</code></td><td><code>whatsapp_direct / account</code></td></tr></tbody></table><section class="mac-spec-step"><h2>Paso 1 · Acceso desde desktop (QR)</h2><div class="mac-spec-images"><figure><img src="../assets/0b3de5127e6856ea.png" alt="Acceso desde desktop" loading="lazy"><figcaption>Acceso desde desktop</figcaption></figure></div><table class="mac-spec-table"><thead><tr><th>Evento</th><th><code>desktop_gate_view</code></th></tr><tr><th>Parámetro</th><th>Valor</th></tr></thead><tbody><tr><td><code>Solo parámetros globales</code></td><td><code>—</code></td></tr></tbody></table></section><section class="mac-spec-step"><h2>Paso 2 · Formulario de inicio</h2><div class="mac-spec-images"><figure><img src="../assets/f26fe62d9868a13d.png" alt="Formulario vacío" loading="lazy"><figcaption>Formulario vacío</figcaption></figure><figure><img src="../assets/fddffc2049fb160e.png" alt="Formulario diligenciado" loading="lazy"><figcaption>Formulario diligenciado</figcaption></figure></div><table class="mac-spec-table"><thead><tr><th>Evento</th><th><code>start_form_view</code></th></tr><tr><th>Parámetro</th><th>Valor</th></tr></thead><tbody><tr><td><code>Solo parámetros globales</code></td><td><code>—</code></td></tr></tbody></table><table class="mac-spec-table"><thead><tr><th>Evento</th><th><code>start_form_submit</code></th></tr><tr><th>Parámetro</th><th>Valor</th></tr></thead><tbody><tr><td><code>age_range</code></td><td><code>35-49</code></td></tr><tr><td><code>gender</code></td><td><code>female</code></td></tr><tr><td><code>terms_accepted</code></td><td><code>true</code></td></tr></tbody></table></section><section class="mac-spec-step"><h2>Paso 3 · Permiso de movimiento</h2><p class="mac-spec-placeholder">[Imagen pendiente]</p><table class="mac-spec-table"><thead><tr><th>Evento</th><th><code>motion_permission_prompt</code></th></tr><tr><th>Parámetro</th><th>Valor</th></tr></thead><tbody><tr><td><code>Solo parámetros globales</code></td><td><code>—</code></td></tr></tbody></table><table class="mac-spec-table"><thead><tr><th>Evento</th><th><code>motion_permission_result</code></th></tr><tr><th>Parámetro</th><th>Valor</th></tr></thead><tbody><tr><td><code>permission_status</code></td><td><code>granted / denied</code></td></tr></tbody></table></section><section class="mac-spec-step"><h2>Paso 4 · Calibración</h2><div class="mac-spec-images"><figure><img src="../assets/4f5721974bfdf3d6.png" alt="Calibración" loading="lazy"><figcaption>Calibración</figcaption></figure></div><table class="mac-spec-table"><thead><tr><th>Evento</th><th><code>calibration_start</code></th></tr><tr><th>Parámetro</th><th>Valor</th></tr></thead><tbody><tr><td><code>test_id</code></td><td><code>a1b2c3</code></td></tr><tr><td><code>test_version</code></td><td><code>v2</code></td></tr></tbody></table></section><section class="mac-spec-step"><h2>Paso 5 · Inicio del test</h2><div class="mac-spec-images"><figure><img src="../assets/45baa2b75703cc62.png" alt="Test en progreso" loading="lazy"><figcaption>Test en progreso</figcaption></figure></div><table class="mac-spec-table"><thead><tr><th>Evento</th><th><code>test_start</code></th></tr><tr><th>Parámetro</th><th>Valor</th></tr></thead><tbody><tr><td><code>test_id</code></td><td><code>a1b2c3</code></td></tr><tr><td><code>test_version</code></td><td><code>v2</code></td></tr></tbody></table></section><section class="mac-spec-step"><h2>Paso 6 · Error del test</h2><div class="mac-spec-images"><figure><img src="../assets/3e631df1137a11dc.png" alt="Error y reinicio del test" loading="lazy"><figcaption>Error y reinicio del test</figcaption></figure></div><table class="mac-spec-table"><thead><tr><th>Evento</th><th><code>test_error</code></th></tr><tr><th>Parámetro</th><th>Valor</th></tr></thead><tbody><tr><td><code>test_id</code></td><td><code>a1b2c3</code></td></tr><tr><td><code>test_version</code></td><td><code>v2</code></td></tr><tr><td><code>error_code</code></td><td><code>no_motion</code></td></tr></tbody></table><table class="mac-spec-table"><thead><tr><th>Evento</th><th><code>test_retry_click</code></th></tr><tr><th>Parámetro</th><th>Valor</th></tr></thead><tbody><tr><td><code>test_id</code></td><td><code>a1b2c3</code></td></tr><tr><td><code>test_version</code></td><td><code>v2</code></td></tr></tbody></table><p class="mac-spec-note">Corregir: hoy el tag envía el nombre test_restart.</p></section><section class="mac-spec-step"><h2>Paso 7 · Resultado</h2><div class="mac-spec-images"><figure><img src="../assets/72150379b58c33e0.png" alt="Resultado verde" loading="lazy"><figcaption>Resultado verde</figcaption></figure><figure><img src="../assets/c5431d6a27142ef0.png" alt="Resultado amarillo" loading="lazy"><figcaption>Resultado amarillo</figcaption></figure><figure><img src="../assets/e4abc596109c110f.png" alt="Resultado rojo" loading="lazy"><figcaption>Resultado rojo</figcaption></figure></div><table class="mac-spec-table"><thead><tr><th>Evento</th><th><code>test_complete</code></th></tr><tr><th>Parámetro</th><th>Valor</th></tr></thead><tbody><tr><td><code>test_id</code></td><td><code>a1b2c3</code></td></tr><tr><td><code>test_version</code></td><td><code>v2</code></td></tr><tr><td><code>repetitions</code></td><td><code>43</code></td></tr><tr><td><code>muscular_age_range</code></td><td><code>&lt;40</code></td></tr><tr><td><code>age_range</code></td><td><code>35-49</code></td></tr><tr class="mac-spec-new"><td><code>test_result</code></td><td><code>green / yellow / red</code></td></tr><tr class="mac-spec-new"><td><code>mac_result (propiedad de usuario)</code></td><td><code>yellow</code></td></tr><tr class="mac-spec-new"><td><code>mac_age_group (propiedad de usuario)</code></td><td><code>35-49</code></td></tr></tbody></table><p class="mac-spec-note">Corregir: hoy el parámetro se envía como repititions.</p><table class="mac-spec-table"><thead><tr><th>Evento</th><th><code>test_restart</code></th></tr><tr><th>Parámetro</th><th>Valor</th></tr></thead><tbody><tr><td><code>test_id</code></td><td><code>a1b2c3</code></td></tr><tr><td><code>test_version</code></td><td><code>v2</code></td></tr></tbody></table><table class="mac-spec-table"><thead><tr><th>Evento</th><th><code>coupon_get_click</code></th></tr><tr><th>Parámetro</th><th>Valor</th></tr></thead><tbody><tr><td><code>test_id</code></td><td><code>a1b2c3</code></td></tr><tr><td><code>test_version</code></td><td><code>v2</code></td></tr><tr><td><code>placement</code></td><td><code>result</code></td></tr><tr class="mac-spec-new"><td><code>test_result</code></td><td><code>yellow</code></td></tr><tr class="mac-spec-new"><td><code>age_range</code></td><td><code>35-49</code></td></tr></tbody></table></section><section class="mac-spec-step"><h2>Paso 8 · Modal del cupón (CO y MX)</h2><div class="mac-spec-images"><figure><img src="../assets/76ba12481bb2bd61.png" alt="Modal de confirmación" loading="lazy"><figcaption>Modal de confirmación</figcaption></figure></div><table class="mac-spec-table"><thead><tr><th>Evento</th><th><code>coupon_modal_view</code></th></tr><tr><th>Parámetro</th><th>Valor</th></tr></thead><tbody><tr><td><code>test_id</code></td><td><code>a1b2c3</code></td></tr><tr><td><code>test_version</code></td><td><code>v2</code></td></tr><tr class="mac-spec-new"><td><code>test_result</code></td><td><code>green</code></td></tr></tbody></table><table class="mac-spec-table"><thead><tr><th>Evento</th><th><code>coupon_modal_accept_toggle</code></th></tr><tr><th>Parámetro</th><th>Valor</th></tr></thead><tbody><tr><td><code>accepted_exit</code></td><td><code>true / false</code></td></tr></tbody></table><table class="mac-spec-table"><thead><tr><th>Evento</th><th><code>coupon_claim_click</code></th></tr><tr><th>Parámetro</th><th>Valor</th></tr></thead><tbody><tr><td><code>test_id</code></td><td><code>a1b2c3</code></td></tr><tr><td><code>test_version</code></td><td><code>v2</code></td></tr><tr><td><code>outbound_url</code></td><td><code>https://wa.me/...</code></td></tr><tr><td><code>outbound_domain</code></td><td><code>wa.me</code></td></tr><tr><td><code>accepted_exit</code></td><td><code>true</code></td></tr><tr class="mac-spec-new"><td><code>claim_channel</code></td><td><code>whatsapp_redirect</code></td></tr><tr class="mac-spec-new"><td><code>test_result</code></td><td><code>green</code></td></tr></tbody></table></section><section class="mac-spec-step"><h2>Paso 8 · Formulario de registro (rama cuenta)</h2><div class="mac-spec-images"><figure><img src="../assets/122bb1ca1bd991c5.png" alt="Formulario de registro" loading="lazy"><figcaption>Formulario de registro</figcaption></figure></div><table class="mac-spec-table"><thead><tr class="mac-spec-new"><th>Evento</th><th><code>registration_start</code></th></tr><tr><th>Parámetro</th><th>Valor</th></tr></thead><tbody><tr class="mac-spec-new"><td><code>form_name</code></td><td><code>mac</code></td></tr></tbody></table><table class="mac-spec-table"><thead><tr class="mac-spec-new"><th>Evento</th><th><code>sign_up</code></th></tr><tr><th>Parámetro</th><th>Valor</th></tr></thead><tbody><tr class="mac-spec-new"><td><code>method</code></td><td><code>email</code></td></tr><tr class="mac-spec-new"><td><code>auth_purpose</code></td><td><code>claim_coupon</code></td></tr><tr class="mac-spec-new"><td><code>auth_path</code></td><td><code>new_registration</code></td></tr><tr class="mac-spec-new"><td><code>whatsapp_provided</code></td><td><code>true / false</code></td></tr><tr class="mac-spec-new"><td><code>test_result</code></td><td><code>yellow</code></td></tr></tbody></table><p class="mac-spec-note">Reemplaza a registro_exitoso_mac.</p></section><section class="mac-spec-step"><h2>Paso 9 · Errores del registro</h2><p class="mac-spec-placeholder">[Imagen pendiente]</p><table class="mac-spec-table"><thead><tr class="mac-spec-new"><th>Evento</th><th><code>form_validation_error</code></th></tr><tr><th>Parámetro</th><th>Valor</th></tr></thead><tbody><tr class="mac-spec-new"><td><code>field_name</code></td><td><code>email / password / whatsapp</code></td></tr><tr class="mac-spec-new"><td><code>error_type</code></td><td><code>format / required / already_registered</code></td></tr><tr class="mac-spec-new"><td><code>form_location</code></td><td><code>registration</code></td></tr></tbody></table></section><section class="mac-spec-step"><h2>Paso 10 · Login</h2><div class="mac-spec-images"><figure><img src="../assets/adf4a06281b6fbd5.png" alt="Formulario de login" loading="lazy"><figcaption>Formulario de login</figcaption></figure></div><table class="mac-spec-table"><thead><tr class="mac-spec-new"><th>Evento</th><th><code>login_click</code></th></tr><tr><th>Parámetro</th><th>Valor</th></tr></thead><tbody><tr class="mac-spec-new"><td><code>auth_purpose</code></td><td><code>claim_coupon</code></td></tr></tbody></table><table class="mac-spec-table"><thead><tr class="mac-spec-new"><th>Evento</th><th><code>login</code></th></tr><tr><th>Parámetro</th><th>Valor</th></tr></thead><tbody><tr class="mac-spec-new"><td><code>method</code></td><td><code>email</code></td></tr><tr class="mac-spec-new"><td><code>auth_purpose</code></td><td><code>claim_coupon</code></td></tr><tr class="mac-spec-new"><td><code>auth_path</code></td><td><code>existing_login</code></td></tr><tr class="mac-spec-new"><td><code>whatsapp_on_file</code></td><td><code>true / false</code></td></tr><tr class="mac-spec-new"><td><code>test_result</code></td><td><code>red</code></td></tr></tbody></table><table class="mac-spec-table"><thead><tr class="mac-spec-new"><th>Evento</th><th><code>form_validation_error</code></th></tr><tr><th>Parámetro</th><th>Valor</th></tr></thead><tbody><tr class="mac-spec-new"><td><code>field_name</code></td><td><code>email / password</code></td></tr><tr class="mac-spec-new"><td><code>error_type</code></td><td><code>format / invalid_credentials</code></td></tr><tr class="mac-spec-new"><td><code>form_location</code></td><td><code>login</code></td></tr></tbody></table></section><section class="mac-spec-step"><h2>Paso 11 · Popup verde: cupón listo</h2><div class="mac-spec-images"><figure><img src="../assets/ea35d3704b2c7cd9.png" alt="Cupón listo" loading="lazy"><figcaption>Cupón listo</figcaption></figure></div><table class="mac-spec-table"><thead><tr class="mac-spec-new"><th>Evento</th><th><code>coupon_status_view</code></th></tr><tr><th>Parámetro</th><th>Valor</th></tr></thead><tbody><tr class="mac-spec-new"><td><code>coupon_status</code></td><td><code>ready</code></td></tr><tr class="mac-spec-new"><td><code>display</code></td><td><code>popup</code></td></tr><tr class="mac-spec-new"><td><code>auth_path</code></td><td><code>new_registration / existing_login</code></td></tr><tr class="mac-spec-new"><td><code>test_result</code></td><td><code>green</code></td></tr></tbody></table><p class="mac-spec-note">Mismo evento para el popup verde, el rojo y la página de cupón ya utilizado; cambia coupon_status.</p></section><section class="mac-spec-step"><h2>Paso 12 · Página: cupón ya utilizado</h2><p class="mac-spec-placeholder">[Imagen pendiente]</p><table class="mac-spec-table"><thead><tr class="mac-spec-new"><th>Evento</th><th><code>coupon_status_view</code></th></tr><tr><th>Parámetro</th><th>Valor</th></tr></thead><tbody><tr class="mac-spec-new"><td><code>coupon_status</code></td><td><code>already_used</code></td></tr><tr class="mac-spec-new"><td><code>display</code></td><td><code>page</code></td></tr><tr class="mac-spec-new"><td><code>auth_path</code></td><td><code>existing_login</code></td></tr></tbody></table></section><section class="mac-spec-step"><h2>Paso 13 · Popup rojo: error técnico</h2><div class="mac-spec-images"><figure><img src="../assets/b58a28f312214649.png" alt="Error técnico" loading="lazy"><figcaption>Error técnico</figcaption></figure></div><table class="mac-spec-table"><thead><tr class="mac-spec-new"><th>Evento</th><th><code>coupon_status_view</code></th></tr><tr><th>Parámetro</th><th>Valor</th></tr></thead><tbody><tr class="mac-spec-new"><td><code>coupon_status</code></td><td><code>technical_error</code></td></tr><tr class="mac-spec-new"><td><code>display</code></td><td><code>popup</code></td></tr><tr class="mac-spec-new"><td><code>auth_path</code></td><td><code>new_registration / existing_login</code></td></tr></tbody></table></section></div></main></body>
+<body><main><h1>Mapa de taggeo · MAC y cupón (Abbott)</h1><div class="mac-spec"><p class="mac-spec-legend">Texto en negro: ya existe en GTM. <span class="mac-spec-new">Texto en verde: nuevo, hay que crearlo.</span> En el código, los valores entre &lt; &gt; son marcadores; el desarrollo debe enviar valores reales.</p><h2>Parámetros globales (van en todos los eventos)</h2><table class="mac-spec-table"><thead><tr><th>Evento</th><th>Todos los eventos</th></tr><tr><th>Parámetro</th><th>Valor</th></tr></thead><tbody><tr><td><code>market</code></td><td><code>pe</code></td></tr><tr><td><code>route_clean</code></td><td><code>/es-pe/...</code></td></tr><tr><td><code>flow_step</code></td><td><code>result</code></td></tr><tr class="mac-spec-new"><td><code>flow_origin</code></td><td><code>mac</code></td></tr><tr class="mac-spec-new"><td><code>flow_type</code></td><td><code>whatsapp_direct / account</code></td></tr></tbody></table><section class="mac-spec-step"><h2>Paso 1 · Acceso desde desktop (QR)</h2><div class="mac-spec-images"><figure><img src="../assets/0b3de5127e6856ea.png" alt="Acceso desde desktop" loading="lazy"><figcaption>Acceso desde desktop</figcaption></figure></div><table class="mac-spec-table"><thead><tr><th>Evento</th><th><code>desktop_gate_view</code></th></tr><tr><th>Parámetro</th><th>Valor</th></tr></thead><tbody><tr><td><code>Solo parámetros globales</code></td><td><code>—</code></td></tr></tbody></table><details class="mac-spec-datalayer"><summary>Ejemplo de dataLayer.push para desarrollo</summary><pre><code>window.dataLayer = window.dataLayer || [];
+dataLayer.push({
+  event: &#39;desktop_gate_view&#39;,
+  market: &#39;&lt;país desde URL&gt;&#39;,
+  route_clean: &#39;&lt;ruta actual&gt;&#39;,
+  flow_step: &#39;&lt;paso actual&gt;&#39;,
+<span class="mac-spec-new">  flow_origin: &#39;mac&#39;,</span>
+<span class="mac-spec-new">  flow_type: &#39;&lt;whatsapp_direct | account&gt;&#39;,</span>
+});</code></pre></details></section><section class="mac-spec-step"><h2>Paso 2 · Formulario de inicio</h2><div class="mac-spec-images"><figure><img src="../assets/f26fe62d9868a13d.png" alt="Formulario vacío" loading="lazy"><figcaption>Formulario vacío</figcaption></figure><figure><img src="../assets/fddffc2049fb160e.png" alt="Formulario diligenciado" loading="lazy"><figcaption>Formulario diligenciado</figcaption></figure></div><table class="mac-spec-table"><thead><tr><th>Evento</th><th><code>start_form_view</code></th></tr><tr><th>Parámetro</th><th>Valor</th></tr></thead><tbody><tr><td><code>Solo parámetros globales</code></td><td><code>—</code></td></tr></tbody></table><details class="mac-spec-datalayer"><summary>Ejemplo de dataLayer.push para desarrollo</summary><pre><code>window.dataLayer = window.dataLayer || [];
+dataLayer.push({
+  event: &#39;start_form_view&#39;,
+  market: &#39;&lt;país desde URL&gt;&#39;,
+  route_clean: &#39;&lt;ruta actual&gt;&#39;,
+  flow_step: &#39;&lt;paso actual&gt;&#39;,
+<span class="mac-spec-new">  flow_origin: &#39;mac&#39;,</span>
+<span class="mac-spec-new">  flow_type: &#39;&lt;whatsapp_direct | account&gt;&#39;,</span>
+});</code></pre></details><table class="mac-spec-table"><thead><tr><th>Evento</th><th><code>start_form_submit</code></th></tr><tr><th>Parámetro</th><th>Valor</th></tr></thead><tbody><tr><td><code>age_range</code></td><td><code>35-49</code></td></tr><tr><td><code>gender</code></td><td><code>female</code></td></tr><tr><td><code>terms_accepted</code></td><td><code>true</code></td></tr></tbody></table><details class="mac-spec-datalayer"><summary>Ejemplo de dataLayer.push para desarrollo</summary><pre><code>window.dataLayer = window.dataLayer || [];
+dataLayer.push({
+  event: &#39;start_form_submit&#39;,
+  market: &#39;&lt;país desde URL&gt;&#39;,
+  route_clean: &#39;&lt;ruta actual&gt;&#39;,
+  flow_step: &#39;&lt;paso actual&gt;&#39;,
+<span class="mac-spec-new">  flow_origin: &#39;mac&#39;,</span>
+<span class="mac-spec-new">  flow_type: &#39;&lt;whatsapp_direct | account&gt;&#39;,</span>
+  age_range: &#39;35-49&#39;,
+  gender: &#39;female&#39;,
+  terms_accepted: true,
+});</code></pre></details></section><section class="mac-spec-step"><h2>Paso 3 · Calibración</h2><div class="mac-spec-images"><figure><img src="../assets/4f5721974bfdf3d6.png" alt="Calibración" loading="lazy"><figcaption>Calibración</figcaption></figure></div><table class="mac-spec-table"><thead><tr><th>Evento</th><th><code>calibration_start</code></th></tr><tr><th>Parámetro</th><th>Valor</th></tr></thead><tbody><tr><td><code>test_id</code></td><td><code>a1b2c3</code></td></tr><tr><td><code>test_version</code></td><td><code>v2</code></td></tr></tbody></table><details class="mac-spec-datalayer"><summary>Ejemplo de dataLayer.push para desarrollo</summary><pre><code>window.dataLayer = window.dataLayer || [];
+dataLayer.push({
+  event: &#39;calibration_start&#39;,
+  market: &#39;&lt;país desde URL&gt;&#39;,
+  route_clean: &#39;&lt;ruta actual&gt;&#39;,
+  flow_step: &#39;&lt;paso actual&gt;&#39;,
+<span class="mac-spec-new">  flow_origin: &#39;mac&#39;,</span>
+<span class="mac-spec-new">  flow_type: &#39;&lt;whatsapp_direct | account&gt;&#39;,</span>
+  test_id: &#39;a1b2c3&#39;,
+  test_version: &#39;v2&#39;,
+});</code></pre></details></section><section class="mac-spec-step"><h2>Paso 4 · Inicio del test</h2><div class="mac-spec-images"><figure><img src="../assets/45baa2b75703cc62.png" alt="Test en progreso" loading="lazy"><figcaption>Test en progreso</figcaption></figure></div><table class="mac-spec-table"><thead><tr><th>Evento</th><th><code>test_start</code></th></tr><tr><th>Parámetro</th><th>Valor</th></tr></thead><tbody><tr><td><code>test_id</code></td><td><code>a1b2c3</code></td></tr><tr><td><code>test_version</code></td><td><code>v2</code></td></tr></tbody></table><details class="mac-spec-datalayer"><summary>Ejemplo de dataLayer.push para desarrollo</summary><pre><code>window.dataLayer = window.dataLayer || [];
+dataLayer.push({
+  event: &#39;test_start&#39;,
+  market: &#39;&lt;país desde URL&gt;&#39;,
+  route_clean: &#39;&lt;ruta actual&gt;&#39;,
+  flow_step: &#39;&lt;paso actual&gt;&#39;,
+<span class="mac-spec-new">  flow_origin: &#39;mac&#39;,</span>
+<span class="mac-spec-new">  flow_type: &#39;&lt;whatsapp_direct | account&gt;&#39;,</span>
+  test_id: &#39;a1b2c3&#39;,
+  test_version: &#39;v2&#39;,
+});</code></pre></details></section><section class="mac-spec-step"><h2>Paso 5 · Error del test</h2><div class="mac-spec-images"><figure><img src="../assets/3e631df1137a11dc.png" alt="Error y reinicio del test" loading="lazy"><figcaption>Error y reinicio del test</figcaption></figure></div><table class="mac-spec-table"><thead><tr><th>Evento</th><th><code>test_error</code></th></tr><tr><th>Parámetro</th><th>Valor</th></tr></thead><tbody><tr><td><code>test_id</code></td><td><code>a1b2c3</code></td></tr><tr><td><code>test_version</code></td><td><code>v2</code></td></tr><tr><td><code>error_code</code></td><td><code>no_motion</code></td></tr></tbody></table><details class="mac-spec-datalayer"><summary>Ejemplo de dataLayer.push para desarrollo</summary><pre><code>window.dataLayer = window.dataLayer || [];
+dataLayer.push({
+  event: &#39;test_error&#39;,
+  market: &#39;&lt;país desde URL&gt;&#39;,
+  route_clean: &#39;&lt;ruta actual&gt;&#39;,
+  flow_step: &#39;&lt;paso actual&gt;&#39;,
+<span class="mac-spec-new">  flow_origin: &#39;mac&#39;,</span>
+<span class="mac-spec-new">  flow_type: &#39;&lt;whatsapp_direct | account&gt;&#39;,</span>
+  test_id: &#39;a1b2c3&#39;,
+  test_version: &#39;v2&#39;,
+  error_code: &#39;no_motion&#39;,
+});</code></pre></details><table class="mac-spec-table"><thead><tr><th>Evento</th><th><code>test_retry_click</code></th></tr><tr><th>Parámetro</th><th>Valor</th></tr></thead><tbody><tr><td><code>test_id</code></td><td><code>a1b2c3</code></td></tr><tr><td><code>test_version</code></td><td><code>v2</code></td></tr></tbody></table><p class="mac-spec-note">Corregir: hoy el tag envía el nombre test_restart.</p><details class="mac-spec-datalayer"><summary>Ejemplo de dataLayer.push para desarrollo</summary><pre><code>window.dataLayer = window.dataLayer || [];
+dataLayer.push({
+  event: &#39;test_retry_click&#39;,
+  market: &#39;&lt;país desde URL&gt;&#39;,
+  route_clean: &#39;&lt;ruta actual&gt;&#39;,
+  flow_step: &#39;&lt;paso actual&gt;&#39;,
+<span class="mac-spec-new">  flow_origin: &#39;mac&#39;,</span>
+<span class="mac-spec-new">  flow_type: &#39;&lt;whatsapp_direct | account&gt;&#39;,</span>
+  test_id: &#39;a1b2c3&#39;,
+  test_version: &#39;v2&#39;,
+});</code></pre></details></section><section class="mac-spec-step"><h2>Paso 6 · Resultado</h2><div class="mac-spec-images"><figure><img src="../assets/72150379b58c33e0.png" alt="Resultado verde" loading="lazy"><figcaption>Resultado verde</figcaption></figure><figure><img src="../assets/c5431d6a27142ef0.png" alt="Resultado amarillo" loading="lazy"><figcaption>Resultado amarillo</figcaption></figure><figure><img src="../assets/e4abc596109c110f.png" alt="Resultado rojo" loading="lazy"><figcaption>Resultado rojo</figcaption></figure></div><table class="mac-spec-table"><thead><tr><th>Evento</th><th><code>test_complete</code></th></tr><tr><th>Parámetro</th><th>Valor</th></tr></thead><tbody><tr><td><code>test_id</code></td><td><code>a1b2c3</code></td></tr><tr><td><code>test_version</code></td><td><code>v2</code></td></tr><tr><td><code>repetitions</code></td><td><code>43</code></td></tr><tr><td><code>muscular_age_range</code></td><td><code>&lt;40</code></td></tr><tr><td><code>age_range</code></td><td><code>35-49</code></td></tr><tr class="mac-spec-new"><td><code>test_result</code></td><td><code>green / yellow / red</code></td></tr><tr class="mac-spec-new"><td><code>mac_result (propiedad de usuario)</code></td><td><code>yellow</code></td></tr><tr class="mac-spec-new"><td><code>mac_age_group (propiedad de usuario)</code></td><td><code>35-49</code></td></tr></tbody></table><p class="mac-spec-note">Corregir: hoy el parámetro se envía como repititions.</p><details class="mac-spec-datalayer"><summary>Ejemplo de dataLayer.push para desarrollo</summary><pre><code>window.dataLayer = window.dataLayer || [];
+dataLayer.push({
+  event: &#39;test_complete&#39;,
+  market: &#39;&lt;país desde URL&gt;&#39;,
+  route_clean: &#39;&lt;ruta actual&gt;&#39;,
+  flow_step: &#39;&lt;paso actual&gt;&#39;,
+<span class="mac-spec-new">  flow_origin: &#39;mac&#39;,</span>
+<span class="mac-spec-new">  flow_type: &#39;&lt;whatsapp_direct | account&gt;&#39;,</span>
+  test_id: &#39;a1b2c3&#39;,
+  test_version: &#39;v2&#39;,
+  repetitions: 43,
+  muscular_age_range: &#39;&lt;40&#39;,
+  age_range: &#39;35-49&#39;,
+<span class="mac-spec-new">  test_result: &#39;green&#39;,</span>
+<span class="mac-spec-new">  mac_result: &#39;yellow&#39;,</span>
+<span class="mac-spec-new">  mac_age_group: &#39;35-49&#39;,</span>
+});</code></pre></details><table class="mac-spec-table"><thead><tr><th>Evento</th><th><code>test_restart</code></th></tr><tr><th>Parámetro</th><th>Valor</th></tr></thead><tbody><tr><td><code>test_id</code></td><td><code>a1b2c3</code></td></tr><tr><td><code>test_version</code></td><td><code>v2</code></td></tr></tbody></table><details class="mac-spec-datalayer"><summary>Ejemplo de dataLayer.push para desarrollo</summary><pre><code>window.dataLayer = window.dataLayer || [];
+dataLayer.push({
+  event: &#39;test_restart&#39;,
+  market: &#39;&lt;país desde URL&gt;&#39;,
+  route_clean: &#39;&lt;ruta actual&gt;&#39;,
+  flow_step: &#39;&lt;paso actual&gt;&#39;,
+<span class="mac-spec-new">  flow_origin: &#39;mac&#39;,</span>
+<span class="mac-spec-new">  flow_type: &#39;&lt;whatsapp_direct | account&gt;&#39;,</span>
+  test_id: &#39;a1b2c3&#39;,
+  test_version: &#39;v2&#39;,
+});</code></pre></details><table class="mac-spec-table"><thead><tr><th>Evento</th><th><code>coupon_get_click</code></th></tr><tr><th>Parámetro</th><th>Valor</th></tr></thead><tbody><tr><td><code>test_id</code></td><td><code>a1b2c3</code></td></tr><tr><td><code>test_version</code></td><td><code>v2</code></td></tr><tr><td><code>placement</code></td><td><code>result</code></td></tr><tr class="mac-spec-new"><td><code>test_result</code></td><td><code>yellow</code></td></tr><tr class="mac-spec-new"><td><code>age_range</code></td><td><code>35-49</code></td></tr></tbody></table><details class="mac-spec-datalayer"><summary>Ejemplo de dataLayer.push para desarrollo</summary><pre><code>window.dataLayer = window.dataLayer || [];
+dataLayer.push({
+  event: &#39;coupon_get_click&#39;,
+  market: &#39;&lt;país desde URL&gt;&#39;,
+  route_clean: &#39;&lt;ruta actual&gt;&#39;,
+  flow_step: &#39;&lt;paso actual&gt;&#39;,
+<span class="mac-spec-new">  flow_origin: &#39;mac&#39;,</span>
+<span class="mac-spec-new">  flow_type: &#39;&lt;whatsapp_direct | account&gt;&#39;,</span>
+  test_id: &#39;a1b2c3&#39;,
+  test_version: &#39;v2&#39;,
+  placement: &#39;result&#39;,
+<span class="mac-spec-new">  test_result: &#39;yellow&#39;,</span>
+<span class="mac-spec-new">  age_range: &#39;35-49&#39;,</span>
+});</code></pre></details></section><section class="mac-spec-step"><h2>Paso 7 · Modal del cupón (CO y MX)</h2><div class="mac-spec-images"><figure><img src="../assets/76ba12481bb2bd61.png" alt="Modal de confirmación" loading="lazy"><figcaption>Modal de confirmación</figcaption></figure></div><table class="mac-spec-table"><thead><tr><th>Evento</th><th><code>coupon_modal_view</code></th></tr><tr><th>Parámetro</th><th>Valor</th></tr></thead><tbody><tr><td><code>test_id</code></td><td><code>a1b2c3</code></td></tr><tr><td><code>test_version</code></td><td><code>v2</code></td></tr><tr class="mac-spec-new"><td><code>test_result</code></td><td><code>green</code></td></tr></tbody></table><details class="mac-spec-datalayer"><summary>Ejemplo de dataLayer.push para desarrollo</summary><pre><code>window.dataLayer = window.dataLayer || [];
+dataLayer.push({
+  event: &#39;coupon_modal_view&#39;,
+  market: &#39;&lt;país desde URL&gt;&#39;,
+  route_clean: &#39;&lt;ruta actual&gt;&#39;,
+  flow_step: &#39;&lt;paso actual&gt;&#39;,
+<span class="mac-spec-new">  flow_origin: &#39;mac&#39;,</span>
+<span class="mac-spec-new">  flow_type: &#39;&lt;whatsapp_direct | account&gt;&#39;,</span>
+  test_id: &#39;a1b2c3&#39;,
+  test_version: &#39;v2&#39;,
+<span class="mac-spec-new">  test_result: &#39;green&#39;,</span>
+});</code></pre></details><table class="mac-spec-table"><thead><tr><th>Evento</th><th><code>coupon_modal_accept_toggle</code></th></tr><tr><th>Parámetro</th><th>Valor</th></tr></thead><tbody><tr><td><code>accepted_exit</code></td><td><code>true / false</code></td></tr></tbody></table><details class="mac-spec-datalayer"><summary>Ejemplo de dataLayer.push para desarrollo</summary><pre><code>window.dataLayer = window.dataLayer || [];
+dataLayer.push({
+  event: &#39;coupon_modal_accept_toggle&#39;,
+  market: &#39;&lt;país desde URL&gt;&#39;,
+  route_clean: &#39;&lt;ruta actual&gt;&#39;,
+  flow_step: &#39;&lt;paso actual&gt;&#39;,
+<span class="mac-spec-new">  flow_origin: &#39;mac&#39;,</span>
+<span class="mac-spec-new">  flow_type: &#39;&lt;whatsapp_direct | account&gt;&#39;,</span>
+  accepted_exit: true,
+});</code></pre></details><table class="mac-spec-table"><thead><tr><th>Evento</th><th><code>coupon_claim_click</code></th></tr><tr><th>Parámetro</th><th>Valor</th></tr></thead><tbody><tr><td><code>test_id</code></td><td><code>a1b2c3</code></td></tr><tr><td><code>test_version</code></td><td><code>v2</code></td></tr><tr><td><code>outbound_url</code></td><td><code>https://wa.me/...</code></td></tr><tr><td><code>outbound_domain</code></td><td><code>wa.me</code></td></tr><tr><td><code>accepted_exit</code></td><td><code>true</code></td></tr><tr class="mac-spec-new"><td><code>claim_channel</code></td><td><code>whatsapp_redirect</code></td></tr><tr class="mac-spec-new"><td><code>test_result</code></td><td><code>green</code></td></tr></tbody></table><details class="mac-spec-datalayer"><summary>Ejemplo de dataLayer.push para desarrollo</summary><pre><code>window.dataLayer = window.dataLayer || [];
+dataLayer.push({
+  event: &#39;coupon_claim_click&#39;,
+  market: &#39;&lt;país desde URL&gt;&#39;,
+  route_clean: &#39;&lt;ruta actual&gt;&#39;,
+  flow_step: &#39;&lt;paso actual&gt;&#39;,
+<span class="mac-spec-new">  flow_origin: &#39;mac&#39;,</span>
+<span class="mac-spec-new">  flow_type: &#39;&lt;whatsapp_direct | account&gt;&#39;,</span>
+  test_id: &#39;a1b2c3&#39;,
+  test_version: &#39;v2&#39;,
+  outbound_url: &#39;https://wa.me/...&#39;,
+  outbound_domain: &#39;wa.me&#39;,
+  accepted_exit: true,
+<span class="mac-spec-new">  claim_channel: &#39;whatsapp_redirect&#39;,</span>
+<span class="mac-spec-new">  test_result: &#39;green&#39;,</span>
+});</code></pre></details></section><section class="mac-spec-step"><h2>Paso 7 · Formulario de registro (rama cuenta)</h2><div class="mac-spec-images"><figure><img src="../assets/122bb1ca1bd991c5.png" alt="Formulario de registro" loading="lazy"><figcaption>Formulario de registro</figcaption></figure></div><table class="mac-spec-table"><thead><tr class="mac-spec-new"><th>Evento</th><th><code>registration_start</code></th></tr><tr><th>Parámetro</th><th>Valor</th></tr></thead><tbody><tr class="mac-spec-new"><td><code>form_name</code></td><td><code>mac</code></td></tr></tbody></table><details class="mac-spec-datalayer"><summary>Ejemplo de dataLayer.push para desarrollo</summary><pre><code>window.dataLayer = window.dataLayer || [];
+dataLayer.push({
+<span class="mac-spec-new">  event: &#39;registration_start&#39;,</span>
+  market: &#39;&lt;país desde URL&gt;&#39;,
+  route_clean: &#39;&lt;ruta actual&gt;&#39;,
+  flow_step: &#39;&lt;paso actual&gt;&#39;,
+<span class="mac-spec-new">  flow_origin: &#39;mac&#39;,</span>
+<span class="mac-spec-new">  flow_type: &#39;&lt;whatsapp_direct | account&gt;&#39;,</span>
+<span class="mac-spec-new">  form_name: &#39;mac&#39;,</span>
+});</code></pre></details><table class="mac-spec-table"><thead><tr class="mac-spec-new"><th>Evento</th><th><code>sign_up</code></th></tr><tr><th>Parámetro</th><th>Valor</th></tr></thead><tbody><tr class="mac-spec-new"><td><code>method</code></td><td><code>email</code></td></tr><tr class="mac-spec-new"><td><code>auth_purpose</code></td><td><code>claim_coupon</code></td></tr><tr class="mac-spec-new"><td><code>auth_path</code></td><td><code>new_registration</code></td></tr><tr class="mac-spec-new"><td><code>whatsapp_provided</code></td><td><code>true / false</code></td></tr><tr class="mac-spec-new"><td><code>test_result</code></td><td><code>yellow</code></td></tr></tbody></table><p class="mac-spec-note">Reemplaza a registro_exitoso_mac.</p><details class="mac-spec-datalayer"><summary>Ejemplo de dataLayer.push para desarrollo</summary><pre><code>window.dataLayer = window.dataLayer || [];
+dataLayer.push({
+<span class="mac-spec-new">  event: &#39;sign_up&#39;,</span>
+  market: &#39;&lt;país desde URL&gt;&#39;,
+  route_clean: &#39;&lt;ruta actual&gt;&#39;,
+  flow_step: &#39;&lt;paso actual&gt;&#39;,
+<span class="mac-spec-new">  flow_origin: &#39;mac&#39;,</span>
+<span class="mac-spec-new">  flow_type: &#39;&lt;whatsapp_direct | account&gt;&#39;,</span>
+<span class="mac-spec-new">  method: &#39;email&#39;,</span>
+<span class="mac-spec-new">  auth_purpose: &#39;claim_coupon&#39;,</span>
+<span class="mac-spec-new">  auth_path: &#39;new_registration&#39;,</span>
+<span class="mac-spec-new">  whatsapp_provided: true,</span>
+<span class="mac-spec-new">  test_result: &#39;yellow&#39;,</span>
+});</code></pre></details></section><section class="mac-spec-step"><h2>Paso 8 · Errores del registro</h2><div class="mac-spec-images"><figure><img src="../assets/8691611eabdf7627.png" alt="Correo ya registrado en el formulario" loading="lazy"><figcaption>Correo ya registrado en el formulario</figcaption></figure></div><table class="mac-spec-table"><thead><tr class="mac-spec-new"><th>Evento</th><th><code>form_validation_error</code></th></tr><tr><th>Parámetro</th><th>Valor</th></tr></thead><tbody><tr class="mac-spec-new"><td><code>field_name</code></td><td><code>email / password / whatsapp</code></td></tr><tr class="mac-spec-new"><td><code>error_type</code></td><td><code>format / required / already_registered</code></td></tr><tr class="mac-spec-new"><td><code>form_location</code></td><td><code>registration</code></td></tr></tbody></table><details class="mac-spec-datalayer"><summary>Ejemplo de dataLayer.push para desarrollo</summary><pre><code>window.dataLayer = window.dataLayer || [];
+dataLayer.push({
+<span class="mac-spec-new">  event: &#39;form_validation_error&#39;,</span>
+  market: &#39;&lt;país desde URL&gt;&#39;,
+  route_clean: &#39;&lt;ruta actual&gt;&#39;,
+  flow_step: &#39;&lt;paso actual&gt;&#39;,
+<span class="mac-spec-new">  flow_origin: &#39;mac&#39;,</span>
+<span class="mac-spec-new">  flow_type: &#39;&lt;whatsapp_direct | account&gt;&#39;,</span>
+<span class="mac-spec-new">  field_name: &#39;email&#39;,</span>
+<span class="mac-spec-new">  error_type: &#39;format&#39;,</span>
+<span class="mac-spec-new">  form_location: &#39;registration&#39;,</span>
+});</code></pre></details></section><section class="mac-spec-step"><h2>Paso 9 · Login</h2><div class="mac-spec-images"><figure><img src="../assets/adf4a06281b6fbd5.png" alt="Formulario de login" loading="lazy"><figcaption>Formulario de login</figcaption></figure></div><table class="mac-spec-table"><thead><tr class="mac-spec-new"><th>Evento</th><th><code>login_click</code></th></tr><tr><th>Parámetro</th><th>Valor</th></tr></thead><tbody><tr class="mac-spec-new"><td><code>auth_purpose</code></td><td><code>claim_coupon</code></td></tr></tbody></table><details class="mac-spec-datalayer"><summary>Ejemplo de dataLayer.push para desarrollo</summary><pre><code>window.dataLayer = window.dataLayer || [];
+dataLayer.push({
+<span class="mac-spec-new">  event: &#39;login_click&#39;,</span>
+  market: &#39;&lt;país desde URL&gt;&#39;,
+  route_clean: &#39;&lt;ruta actual&gt;&#39;,
+  flow_step: &#39;&lt;paso actual&gt;&#39;,
+<span class="mac-spec-new">  flow_origin: &#39;mac&#39;,</span>
+<span class="mac-spec-new">  flow_type: &#39;&lt;whatsapp_direct | account&gt;&#39;,</span>
+<span class="mac-spec-new">  auth_purpose: &#39;claim_coupon&#39;,</span>
+});</code></pre></details><table class="mac-spec-table"><thead><tr class="mac-spec-new"><th>Evento</th><th><code>login</code></th></tr><tr><th>Parámetro</th><th>Valor</th></tr></thead><tbody><tr class="mac-spec-new"><td><code>method</code></td><td><code>email</code></td></tr><tr class="mac-spec-new"><td><code>auth_purpose</code></td><td><code>claim_coupon</code></td></tr><tr class="mac-spec-new"><td><code>auth_path</code></td><td><code>existing_login</code></td></tr><tr class="mac-spec-new"><td><code>whatsapp_on_file</code></td><td><code>true / false</code></td></tr><tr class="mac-spec-new"><td><code>test_result</code></td><td><code>red</code></td></tr></tbody></table><details class="mac-spec-datalayer"><summary>Ejemplo de dataLayer.push para desarrollo</summary><pre><code>window.dataLayer = window.dataLayer || [];
+dataLayer.push({
+<span class="mac-spec-new">  event: &#39;login&#39;,</span>
+  market: &#39;&lt;país desde URL&gt;&#39;,
+  route_clean: &#39;&lt;ruta actual&gt;&#39;,
+  flow_step: &#39;&lt;paso actual&gt;&#39;,
+<span class="mac-spec-new">  flow_origin: &#39;mac&#39;,</span>
+<span class="mac-spec-new">  flow_type: &#39;&lt;whatsapp_direct | account&gt;&#39;,</span>
+<span class="mac-spec-new">  method: &#39;email&#39;,</span>
+<span class="mac-spec-new">  auth_purpose: &#39;claim_coupon&#39;,</span>
+<span class="mac-spec-new">  auth_path: &#39;existing_login&#39;,</span>
+<span class="mac-spec-new">  whatsapp_on_file: true,</span>
+<span class="mac-spec-new">  test_result: &#39;red&#39;,</span>
+});</code></pre></details><table class="mac-spec-table"><thead><tr class="mac-spec-new"><th>Evento</th><th><code>form_validation_error</code></th></tr><tr><th>Parámetro</th><th>Valor</th></tr></thead><tbody><tr class="mac-spec-new"><td><code>field_name</code></td><td><code>email / password</code></td></tr><tr class="mac-spec-new"><td><code>error_type</code></td><td><code>format / invalid_credentials</code></td></tr><tr class="mac-spec-new"><td><code>form_location</code></td><td><code>login</code></td></tr></tbody></table><details class="mac-spec-datalayer"><summary>Ejemplo de dataLayer.push para desarrollo</summary><pre><code>window.dataLayer = window.dataLayer || [];
+dataLayer.push({
+<span class="mac-spec-new">  event: &#39;form_validation_error&#39;,</span>
+  market: &#39;&lt;país desde URL&gt;&#39;,
+  route_clean: &#39;&lt;ruta actual&gt;&#39;,
+  flow_step: &#39;&lt;paso actual&gt;&#39;,
+<span class="mac-spec-new">  flow_origin: &#39;mac&#39;,</span>
+<span class="mac-spec-new">  flow_type: &#39;&lt;whatsapp_direct | account&gt;&#39;,</span>
+<span class="mac-spec-new">  field_name: &#39;email&#39;,</span>
+<span class="mac-spec-new">  error_type: &#39;format&#39;,</span>
+<span class="mac-spec-new">  form_location: &#39;login&#39;,</span>
+});</code></pre></details></section><section class="mac-spec-step"><h2>Paso 10 · Popup verde: cupón listo</h2><div class="mac-spec-images"><figure><img src="../assets/ea35d3704b2c7cd9.png" alt="Cupón listo" loading="lazy"><figcaption>Cupón listo</figcaption></figure></div><table class="mac-spec-table"><thead><tr class="mac-spec-new"><th>Evento</th><th><code>coupon_status_view</code></th></tr><tr><th>Parámetro</th><th>Valor</th></tr></thead><tbody><tr class="mac-spec-new"><td><code>coupon_status</code></td><td><code>ready</code></td></tr><tr class="mac-spec-new"><td><code>display</code></td><td><code>popup</code></td></tr><tr class="mac-spec-new"><td><code>auth_path</code></td><td><code>new_registration / existing_login</code></td></tr><tr class="mac-spec-new"><td><code>test_result</code></td><td><code>green</code></td></tr></tbody></table><p class="mac-spec-note">Mismo evento para el popup verde, el rojo y la página de cupón ya utilizado; cambia coupon_status.</p><details class="mac-spec-datalayer"><summary>Ejemplo de dataLayer.push para desarrollo</summary><pre><code>window.dataLayer = window.dataLayer || [];
+dataLayer.push({
+<span class="mac-spec-new">  event: &#39;coupon_status_view&#39;,</span>
+  market: &#39;&lt;país desde URL&gt;&#39;,
+  route_clean: &#39;&lt;ruta actual&gt;&#39;,
+  flow_step: &#39;&lt;paso actual&gt;&#39;,
+<span class="mac-spec-new">  flow_origin: &#39;mac&#39;,</span>
+<span class="mac-spec-new">  flow_type: &#39;&lt;whatsapp_direct | account&gt;&#39;,</span>
+<span class="mac-spec-new">  coupon_status: &#39;ready&#39;,</span>
+<span class="mac-spec-new">  display: &#39;popup&#39;,</span>
+<span class="mac-spec-new">  auth_path: &#39;new_registration&#39;,</span>
+<span class="mac-spec-new">  test_result: &#39;green&#39;,</span>
+});</code></pre></details></section><section class="mac-spec-step"><h2>Paso 11 · Página: cupón ya utilizado</h2><div class="mac-spec-images"><figure><img src="../assets/562f5ac59d5857d3.png" alt="Cupón ya utilizado" loading="lazy"><figcaption>Cupón ya utilizado</figcaption></figure></div><table class="mac-spec-table"><thead><tr class="mac-spec-new"><th>Evento</th><th><code>coupon_status_view</code></th></tr><tr><th>Parámetro</th><th>Valor</th></tr></thead><tbody><tr class="mac-spec-new"><td><code>coupon_status</code></td><td><code>already_used</code></td></tr><tr class="mac-spec-new"><td><code>display</code></td><td><code>page</code></td></tr><tr class="mac-spec-new"><td><code>auth_path</code></td><td><code>existing_login</code></td></tr></tbody></table><details class="mac-spec-datalayer"><summary>Ejemplo de dataLayer.push para desarrollo</summary><pre><code>window.dataLayer = window.dataLayer || [];
+dataLayer.push({
+<span class="mac-spec-new">  event: &#39;coupon_status_view&#39;,</span>
+  market: &#39;&lt;país desde URL&gt;&#39;,
+  route_clean: &#39;&lt;ruta actual&gt;&#39;,
+  flow_step: &#39;&lt;paso actual&gt;&#39;,
+<span class="mac-spec-new">  flow_origin: &#39;mac&#39;,</span>
+<span class="mac-spec-new">  flow_type: &#39;&lt;whatsapp_direct | account&gt;&#39;,</span>
+<span class="mac-spec-new">  coupon_status: &#39;already_used&#39;,</span>
+<span class="mac-spec-new">  display: &#39;page&#39;,</span>
+<span class="mac-spec-new">  auth_path: &#39;existing_login&#39;,</span>
+});</code></pre></details></section><section class="mac-spec-step"><h2>Paso 12 · Popup rojo: error técnico</h2><div class="mac-spec-images"><figure><img src="../assets/b58a28f312214649.png" alt="Error técnico" loading="lazy"><figcaption>Error técnico</figcaption></figure></div><table class="mac-spec-table"><thead><tr class="mac-spec-new"><th>Evento</th><th><code>coupon_status_view</code></th></tr><tr><th>Parámetro</th><th>Valor</th></tr></thead><tbody><tr class="mac-spec-new"><td><code>coupon_status</code></td><td><code>technical_error</code></td></tr><tr class="mac-spec-new"><td><code>display</code></td><td><code>popup</code></td></tr><tr class="mac-spec-new"><td><code>auth_path</code></td><td><code>new_registration / existing_login</code></td></tr></tbody></table><details class="mac-spec-datalayer"><summary>Ejemplo de dataLayer.push para desarrollo</summary><pre><code>window.dataLayer = window.dataLayer || [];
+dataLayer.push({
+<span class="mac-spec-new">  event: &#39;coupon_status_view&#39;,</span>
+  market: &#39;&lt;país desde URL&gt;&#39;,
+  route_clean: &#39;&lt;ruta actual&gt;&#39;,
+  flow_step: &#39;&lt;paso actual&gt;&#39;,
+<span class="mac-spec-new">  flow_origin: &#39;mac&#39;,</span>
+<span class="mac-spec-new">  flow_type: &#39;&lt;whatsapp_direct | account&gt;&#39;,</span>
+<span class="mac-spec-new">  coupon_status: &#39;technical_error&#39;,</span>
+<span class="mac-spec-new">  display: &#39;popup&#39;,</span>
+<span class="mac-spec-new">  auth_path: &#39;new_registration&#39;,</span>
+});</code></pre></details></section></div></main></body>
 </html>

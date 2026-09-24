@@ -195,6 +195,10 @@
     .mac-spec-table tr:first-child th { background: #f7f8f9; }
     .mac-spec-table tr:nth-child(2) th { background: #fff; }
     .mac-spec-note { margin: -16px 0 24px; color: #a45418; font-style: italic; font-size: 14px; }
+    .mac-spec-datalayer { margin: -10px 0 26px; border: 1px solid var(--line); border-radius: 6px; padding: 9px 12px; }
+    .mac-spec-datalayer summary { cursor: pointer; color: #3b75b0; font-weight: 600; }
+    .mac-spec-datalayer pre { margin: 12px 0 2px; padding: 12px; background: #f7f8f9; overflow-x: auto; white-space: pre-wrap; overflow-wrap: anywhere; }
+    .mac-spec-datalayer code { display: block; font-size: 12px; white-space: pre-wrap; }
     .mac-spec-missing { border-top: 1px solid var(--line); padding-top: 8px; }
     .mac-spec-missing ul { padding-left: 22px; line-height: 1.55; }
     .mac-branch { border-color: var(--yellow); background: #fff8df; }
@@ -3464,60 +3468,70 @@ const tagMapData = {
         {name:'start_form_view', rows:[['Solo parámetros globales','—']]},
         {name:'start_form_submit', rows:[['age_range','35-49'],['gender','female'],['terms_accepted','true']]}
       ]},
-      {number:'3', title:'Permiso de movimiento', events:[
-        {name:'motion_permission_prompt', rows:[['Solo parámetros globales','—']]},
-        {name:'motion_permission_result', rows:[['permission_status','granted / denied']]}
-      ]},
-      {number:'4', title:'Calibración', images:[["assets/4f5721974bfdf3d6.png",'Calibración']], events:[
+      {number:'3', title:'Calibración', images:[["assets/4f5721974bfdf3d6.png",'Calibración']], events:[
         {name:'calibration_start', rows:[['test_id','a1b2c3'],['test_version','v2']]}
       ]},
-      {number:'5', title:'Inicio del test', images:[["assets/45baa2b75703cc62.png",'Test en progreso']], events:[
+      {number:'4', title:'Inicio del test', images:[["assets/45baa2b75703cc62.png",'Test en progreso']], events:[
         {name:'test_start', rows:[['test_id','a1b2c3'],['test_version','v2']]}
       ]},
-      {number:'6', title:'Error del test', images:[["assets/3e631df1137a11dc.png",'Error y reinicio del test']], events:[
+      {number:'5', title:'Error del test', images:[["assets/3e631df1137a11dc.png",'Error y reinicio del test']], events:[
         {name:'test_error', rows:[['test_id','a1b2c3'],['test_version','v2'],['error_code','no_motion']]},
         {name:'test_retry_click', rows:[['test_id','a1b2c3'],['test_version','v2']], note:'Corregir: hoy el tag envía el nombre test_restart.'}
       ]},
-      {number:'7', title:'Resultado', images:[["assets/72150379b58c33e0.png",'Resultado verde'],["assets/c5431d6a27142ef0.png",'Resultado amarillo'],["assets/e4abc596109c110f.png",'Resultado rojo']], events:[
+      {number:'6', title:'Resultado', images:[["assets/72150379b58c33e0.png",'Resultado verde'],["assets/c5431d6a27142ef0.png",'Resultado amarillo'],["assets/e4abc596109c110f.png",'Resultado rojo']], events:[
         {name:'test_complete', rows:[['test_id','a1b2c3'],['test_version','v2'],['repetitions','43'],['muscular_age_range','<40'],['age_range','35-49'],['test_result','green / yellow / red',true],['mac_result (propiedad de usuario)','yellow',true],['mac_age_group (propiedad de usuario)','35-49',true]], note:'Corregir: hoy el parámetro se envía como repititions.'},
         {name:'test_restart', rows:[['test_id','a1b2c3'],['test_version','v2']]},
         {name:'coupon_get_click', rows:[['test_id','a1b2c3'],['test_version','v2'],['placement','result'],['test_result','yellow',true],['age_range','35-49',true]]}
       ]},
-      {number:'8', title:'Modal del cupón (CO y MX)', images:[["assets/76ba12481bb2bd61.png",'Modal de confirmación']], events:[
+      {number:'7', title:'Modal del cupón (CO y MX)', images:[["assets/76ba12481bb2bd61.png",'Modal de confirmación']], events:[
         {name:'coupon_modal_view', rows:[['test_id','a1b2c3'],['test_version','v2'],['test_result','green',true]]},
         {name:'coupon_modal_accept_toggle', rows:[['accepted_exit','true / false']]},
         {name:'coupon_claim_click', rows:[['test_id','a1b2c3'],['test_version','v2'],['outbound_url','https://wa.me/...'],['outbound_domain','wa.me'],['accepted_exit','true'],['claim_channel','whatsapp_redirect',true],['test_result','green',true]]}
       ]},
-      {number:'8', title:'Formulario de registro (rama cuenta)', images:[["assets/122bb1ca1bd991c5.png",'Formulario de registro']], events:[
+      {number:'7', title:'Formulario de registro (rama cuenta)', images:[["assets/122bb1ca1bd991c5.png",'Formulario de registro']], events:[
         {name:'registration_start', newEvent:true, rows:[['form_name','mac',true]]},
         {name:'sign_up', newEvent:true, rows:[['method','email',true],['auth_purpose','claim_coupon',true],['auth_path','new_registration',true],['whatsapp_provided','true / false',true],['test_result','yellow',true]], note:'Reemplaza a registro_exitoso_mac.'}
       ]},
-      {number:'9', title:'Errores del registro', events:[
+      {number:'8', title:'Errores del registro', images:[["assets/8691611eabdf7627.png",'Correo ya registrado en el formulario']], events:[
         {name:'form_validation_error', newEvent:true, rows:[['field_name','email / password / whatsapp',true],['error_type','format / required / already_registered',true],['form_location','registration',true]]}
       ]},
-      {number:'10', title:'Login', images:[["assets/adf4a06281b6fbd5.png",'Formulario de login']], events:[
+      {number:'9', title:'Login', images:[["assets/adf4a06281b6fbd5.png",'Formulario de login']], events:[
         {name:'login_click', newEvent:true, rows:[['auth_purpose','claim_coupon',true]]},
         {name:'login', newEvent:true, rows:[['method','email',true],['auth_purpose','claim_coupon',true],['auth_path','existing_login',true],['whatsapp_on_file','true / false',true],['test_result','red',true]]},
         {name:'form_validation_error', newEvent:true, rows:[['field_name','email / password',true],['error_type','format / invalid_credentials',true],['form_location','login',true]]}
       ]},
-      {number:'11', title:'Popup verde: cupón listo', images:[["assets/ea35d3704b2c7cd9.png",'Cupón listo']], events:[
+      {number:'10', title:'Popup verde: cupón listo', images:[["assets/ea35d3704b2c7cd9.png",'Cupón listo']], events:[
         {name:'coupon_status_view', newEvent:true, rows:[['coupon_status','ready',true],['display','popup',true],['auth_path','new_registration / existing_login',true],['test_result','green',true]], note:'Mismo evento para el popup verde, el rojo y la página de cupón ya utilizado; cambia coupon_status.'}
       ]},
-      {number:'12', title:'Página: cupón ya utilizado', events:[
+      {number:'11', title:'Página: cupón ya utilizado', images:[["assets/562f5ac59d5857d3.png",'Cupón ya utilizado']], events:[
         {name:'coupon_status_view', newEvent:true, rows:[['coupon_status','already_used',true],['display','page',true],['auth_path','existing_login',true]]}
       ]},
-      {number:'13', title:'Popup rojo: error técnico', images:[["assets/b58a28f312214649.png",'Error técnico']], events:[
+      {number:'12', title:'Popup rojo: error técnico', images:[["assets/b58a28f312214649.png",'Error técnico']], events:[
         {name:'coupon_status_view', newEvent:true, rows:[['coupon_status','technical_error',true],['display','popup',true],['auth_path','new_registration / existing_login',true]]}
       ]}
     ];
+    function renderMacDataLayer(event) {
+      const globals = macSpecGlobal.map(([key, value, isNew]) => [key, value, isNew]);
+      const local = event.rows.filter(([key]) => key !== 'Solo parámetros globales').map(([key, value, isNew]) => [key.replace(' (propiedad de usuario)', ''), value, isNew]);
+      const lines = ["window.dataLayer = window.dataLayer || [];", "dataLayer.push({"];
+      const values = [['event', event.name, !!event.newEvent], ...globals, ...local];
+      for (const [key, value, isNew] of values) {
+        const example = key === 'market' ? '<país desde URL>' : key === 'route_clean' ? '<ruta actual>' : key === 'flow_step' ? '<paso actual>' : key === 'flow_type' ? '<whatsapp_direct | account>' : String(value).split(' / ')[0];
+        const typed = example === 'true' || example === 'false' || /^\d+$/.test(example) ? example : "'" + example.replaceAll("'", "\\'") + "'";
+        const line = '  ' + key + ': ' + typed + ',';
+        lines.push(isNew ? '<span class="mac-spec-new">' + escapeMacHtml(line) + '</span>' : escapeMacHtml(line));
+      }
+      lines.push('});');
+      return '<details class="mac-spec-datalayer"><summary>Ejemplo de dataLayer.push para desarrollo</summary><pre><code>' + lines.join('\n') + '</code></pre></details>';
+    }
     function renderMacSpecTable(event) {
       const color = event.newEvent ? ' class="mac-spec-new"' : '';
       const rows = event.rows.map(([key, value, isNew]) => '<tr' + (isNew ? ' class="mac-spec-new"' : '') + '><td><code>' + escapeMacHtml(key) + '</code></td><td><code>' + escapeMacHtml(value) + '</code></td></tr>').join('');
-      return '<table class="mac-spec-table"><thead><tr' + color + '><th>Evento</th><th><code>' + escapeMacHtml(event.name) + '</code></th></tr><tr><th>Parámetro</th><th>Valor</th></tr></thead><tbody>' + rows + '</tbody></table>' + (event.note ? '<p class="mac-spec-note">' + escapeMacHtml(event.note) + '</p>' : '');
+      return '<table class="mac-spec-table"><thead><tr' + color + '><th>Evento</th><th><code>' + escapeMacHtml(event.name) + '</code></th></tr><tr><th>Parámetro</th><th>Valor</th></tr></thead><tbody>' + rows + '</tbody></table>' + (event.note ? '<p class="mac-spec-note">' + escapeMacHtml(event.note) + '</p>' : '') + renderMacDataLayer(event);
     }
     function renderMacProposal() {
       const globalRows = macSpecGlobal.map(([key, value, isNew]) => '<tr' + (isNew ? ' class="mac-spec-new"' : '') + '><td><code>' + escapeMacHtml(key) + '</code></td><td><code>' + escapeMacHtml(value) + '</code></td></tr>').join('');
-      const global = '<p class="mac-spec-legend">Texto en negro: ya existe en GTM. <span class="mac-spec-new">Texto en verde: nuevo, hay que crearlo.</span></p><h2>Parámetros globales (van en todos los eventos)</h2><table class="mac-spec-table"><thead><tr><th>Evento</th><th>Todos los eventos</th></tr><tr><th>Parámetro</th><th>Valor</th></tr></thead><tbody>' + globalRows + '</tbody></table>';
+      const global = '<p class="mac-spec-legend">Texto en negro: ya existe en GTM. <span class="mac-spec-new">Texto en verde: nuevo, hay que crearlo.</span> En el código, los valores entre &lt; &gt; son marcadores; el desarrollo debe enviar valores reales.</p><h2>Parámetros globales (van en todos los eventos)</h2><table class="mac-spec-table"><thead><tr><th>Evento</th><th>Todos los eventos</th></tr><tr><th>Parámetro</th><th>Valor</th></tr></thead><tbody>' + globalRows + '</tbody></table>';
       const steps = macSpecSteps.map((step) => {
         const images = step.images ? '<div class="mac-spec-images">' + step.images.map(([src, caption]) => '<figure><img src="' + escapeMacHtml(src) + '" alt="' + escapeMacHtml(caption) + '" loading="lazy"><figcaption>' + escapeMacHtml(caption) + '</figcaption></figure>').join('') + '</div>' : '<p class="mac-spec-placeholder">[Imagen pendiente]</p>';
         return '<section class="mac-spec-step"><h2>Paso ' + escapeMacHtml(step.number) + ' · ' + escapeMacHtml(step.title) + '</h2>' + images + step.events.map(renderMacSpecTable).join('') + '</section>';
