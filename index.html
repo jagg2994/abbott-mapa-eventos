@@ -152,6 +152,12 @@
     .mac-result-references img { max-height: 360px; }
     .mac-result-references img:first-child { grid-column: 1 / -1; max-height: 520px; }
     .mac-result-references[hidden] { display: none; }
+    .mac-feature-gallery { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; margin: 12px 0; }
+    .mac-feature-gallery figure { min-width: 0; margin: 0; }
+    .mac-feature-gallery img { width: 100%; max-height: 520px; object-fit: contain; border: 1px solid var(--line); border-radius: 12px; background: var(--surface); }
+    .mac-feature-gallery figcaption { margin-top: 6px; color: var(--muted); font-size: 12px; }
+    .mac-feature-gallery[hidden] { display: none; }
+    .mac-proposal-image { display: block; max-width: min(100%, 300px); max-height: 480px; object-fit: contain; object-position: left center; margin: 12px 0; border: 1px solid var(--line); border-radius: 10px; background: var(--surface); }
     .event-chip { display: inline-block; margin: 13px 0 8px; padding: 7px 10px; border-radius: 999px; background: var(--brand-soft); color: var(--ink); font: 700 13px ui-monospace, SFMono-Regular, Menlo, monospace; }
     .param-table { width: 100%; margin-top: 4px; }
     .param-table th { width: 34%; }
@@ -184,6 +190,10 @@
     .mac-proposal-card pre { overflow-x: auto; margin: 12px 0 0; padding: 12px; background: #eef3f5; border-radius: 8px; font-size: 12px; }
     .mac-proposal-card code { overflow-wrap: anywhere; }
     .mac-proposal-badge { color: #116b39; font-size: 13px; }
+    .mac-proposal-gallery { display: flex; flex-wrap: wrap; gap: 10px; padding: 0 12px; }
+    .mac-proposal-gallery figure { margin: 0; width: min(100%, 300px); }
+    .mac-proposal-gallery img { display: block; width: 100%; max-height: 460px; object-fit: contain; object-position: top center; border: 1px solid var(--line); border-radius: 8px; background: var(--surface); }
+    .mac-proposal-gallery figcaption { margin-top: 4px; color: var(--muted); font-size: 12px; }
     .mac-future { margin-top: 28px; padding-top: 20px; border-top: 2px solid var(--line); }
     .mac-future h2 { margin: 0 0 10px; }
     .mac-future p { margin: 8px 0; line-height: 1.5; }
@@ -213,7 +223,7 @@
       .proposal-branches { grid-template-columns: minmax(0, 1fr); gap: 28px; }
       .proposal-tool strong { font-size: 21px; }
       .proposal-step td, .proposal-step th { padding: 9px 10px; }
-      .mac-result-references { grid-template-columns: minmax(0, 1fr); }
+      .mac-result-references, .mac-feature-gallery { grid-template-columns: minmax(0, 1fr); }
       .mac-result-references img:first-child { grid-column: auto; }
       .mac-proposal-columns { grid-template-columns: minmax(0, 1fr); }
     }
@@ -305,7 +315,7 @@
         </div>
       </section>
       <div class="mac-map">
-        <p class="mac-note">Las capturas ilustran la interfaz de Colombia; la tabla de cada paso muestra las señales observadas del país seleccionado.</p>
+        <p class="mac-note">Las capturas recibidas ilustran pasos comunes del flujo Contigo. La tabla de cada paso muestra las señales observadas del país seleccionado; las referencias de cupón corresponden solo a CO y MX.</p>
         <article class="mac-step mac-branch">
           <h2>Acceso desde desktop</h2>
           <p>Única bifurcación: el test no se ejecuta en desktop; se invita a continuar desde móvil mediante QR.</p>
@@ -317,7 +327,10 @@
         <article class="mac-step">
           <h2>Formulario de inicio</h2>
           <p>La persona ingresa edad y sexo. El CTA <strong>Siguiente</strong> habilitado envía el formulario.</p>
-          <img src="assets/81cd0253412e63b1.png" alt="Formulario de MAC con edad, sexo y botón Siguiente">
+          <div class="mac-feature-gallery">
+            <figure><img src="assets/f26fe62d9868a13d.png" alt="Formulario inicial MAC antes de completar edad y sexo"><figcaption><code>form_start</code> · formulario inicial</figcaption></figure>
+            <figure><img src="assets/fddffc2049fb160e.png" alt="Formulario MAC diligenciado antes de pulsar Siguiente"><figcaption><code>start_form_submit</code> · formulario diligenciado</figcaption></figure>
+          </div>
           <span class="event-chip">form_start · start_form_submit</span>
           <div class="mac-event-evidence" data-mac-events="form_start,start_form_submit"></div>
           <table class="param-table"><tr><th>Acción</th><th>Medición</th></tr><tr><td>Interacción con campos</td><td>form_start</td></tr><tr><td>Clic en Siguiente</td><td>start_form_submit</td></tr></table>
@@ -331,28 +344,33 @@
         <article class="mac-step">
           <h2>Calibración</h2>
           <p>La persona confirma la posición inicial. El sensor valida el movimiento antes de habilitar el test.</p>
-          <img src="assets/a4a11305aa3c7ed7.png" alt="Estado de calibración de MAC">
+          <img src="assets/4f5721974bfdf3d6.png" alt="Instrucciones y botón Calibrar de MAC">
           <span class="event-chip">calibration_start</span>
           <div class="mac-event-evidence" data-mac-events="calibration_start"></div>
         </article>
         <article class="mac-step">
           <h2>Inicio y ejecución del test</h2>
           <p>Después de la calibración, comienza la cuenta regresiva y el contador de sentadillas.</p>
-          <img src="assets/1600d430c0274073.png" alt="Cuenta regresiva de inicio del test">
+          <img src="assets/45baa2b75703cc62.png" alt="Test MAC en progreso con contador y repeticiones">
           <span class="event-chip">test_start</span>
           <div class="mac-event-evidence" data-mac-events="test_start"></div>
         </article>
         <article class="mac-step mac-branch">
           <h2>Rama de error y reintento</h2>
           <p>Si no se detecta movimiento, se muestra el mensaje de error y se permite reiniciar la experiencia.</p>
-          <img src="assets/1c18bc4dda12c6e9.png" alt="Mensaje de error de MAC y botón Reiniciar test">
+          <img src="assets/3e631df1137a11dc.png" alt="Popup de error de MAC con botón Reiniciar test">
           <span class="event-chip">test_error</span>
           <div class="mac-event-evidence" data-mac-events="test_error"></div>
         </article>
         <article class="mac-step">
           <h2 id="macResultTitle">Resultado y cupón</h2>
           <p id="macResultDescription">Al finalizar el test se muestra el resultado. El tramo siguiente depende del país.</p>
-          <img id="macResultCouponImage" src="assets/3c313a0cb6f6d3a5.png" alt="Resultado de referencia de Colombia y botón Obtener cupón">
+          <img id="macResultCouponImage" src="assets/3c313a0cb6f6d3a5.png" alt="Resultado anterior de referencia de Colombia">
+          <div id="macResultContigoImages" class="mac-result-references" hidden>
+            <img src="assets/72150379b58c33e0.png" alt="test_complete verde: resultado menor a 40 años">
+            <img src="assets/c5431d6a27142ef0.png" alt="test_complete amarillo: resultado de 40 a 44 años">
+            <img src="assets/e4abc596109c110f.png" alt="test_complete rojo: resultado mayor a 80 años">
+          </div>
           <div id="macResultNoCouponImages" class="mac-result-references" hidden>
             <img src="assets/7fd5106e6e058dcc.png" alt="Ejemplo de resultado sin cupón: 11 repeticiones y edad real de 65 años">
             <img src="assets/36d770766fad5110.png" alt="Ejemplo de resultado sin cupón: 10 repeticiones y edad real de 55 años">
@@ -361,7 +379,8 @@
           <span class="event-chip" id="macResultChip">test_complete · coupon_get_click · coupon_claim_click</span>
           <div id="macResultEvidence" class="mac-event-evidence" data-mac-events="test_complete,coupon_get_click,coupon_claim_click"></div>
           <p id="macCouponStep"></p>
-          <img id="macCouponModalImage" src="assets/6835dc97815a515a.png" alt="Modal de confirmación de referencia de Colombia y CTA Reclamar cupón">
+          <img id="macCouponModalImage" src="assets/6835dc97815a515a.png" alt="Referencia previa del modal de cupón">
+          <img id="macCouponGetModalImage" class="mac-proposal-image" src="assets/76ba12481bb2bd61.png" alt="Modal Confirmar la acción de coupon_get_click en CO y MX" hidden>
         </article>
       </div>
     </section>
@@ -3383,9 +3402,10 @@ const tagMapData = {
     <script>
     const countryNames = {CO:'Colombia',CL:'Chile',PE:'Perú',MX:'México',EC:'Ecuador',AR:'Argentina',CR:'Costa Rica'};
     const macNames = {SV:'El Salvador',GT:'Guatemala',DO:'República Dominicana',HN:'Honduras',CR:'Costa Rica',PA:'Panamá',NI:'Nicaragua',CO:'Colombia',PE:'Perú',MX:'México',CL:'Chile',EC:'Ecuador',AR:'Argentina'};
-    const macNoCouponCountries = new Set(['SV','DO','NI','PE','MX','CL','EC','AR']);
+    const macNoCouponCountries = new Set(['SV','DO','NI','PE','CL','EC','AR']);
+    const macCouponGetCountries = new Set(['CO','MX']);
     const macCouponRoutes = {
-      CO:'WhatsApp (vía scan.abbott.com)',
+      CO:'WhatsApp (vía scan.abbott.com)', MX:'WhatsApp (destino técnico por validar)',
       GT:'aboxplan.com/calculadoraaltura/', HN:'aboxplan.com/calculadoraaltura/', CR:'aboxplan.com/calculadoraaltura/', PA:'aboxplan.com/calculadoraaltura/'
     };
     const escapeMacHtml = (value) => String(value).replace(/[&<>"']/g, (char) => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[char]));
@@ -3399,7 +3419,7 @@ const tagMapData = {
     }
     function renderMacCouponMatrix(selectedCountry) {
       document.getElementById('macCouponMatrixRows').innerHTML = Object.keys(macNames).map((country) => {
-        const noCoupon = macNoCouponCountries.has(country);
+        const noCoupon = macNoCouponCountries.has(country) && !macCouponGetCountries.has(country);
         const coupon = noCoupon ? 'No' : 'Sí';
         const route = noCoupon ? 'No aplica' : macCouponRoutes[country];
         return '<tr class="' + (country === selectedCountry ? 'selected' : '') + '"><th scope="row">' + macNames[country] + ' (' + country + ')</th><td>' + coupon + '</td><td>' + route + '</td></tr>';
@@ -3410,19 +3430,26 @@ const tagMapData = {
       const label = macNames[country];
       renderMacCouponMatrix(country);
       document.getElementById('macCountrySummary').innerHTML = '<strong>' + label + ':</strong> GA4 <code>' + evidence.ga4MeasurementId + '</code> · Meta Pixel <code>' + evidence.metaPixel + '</code>.';
-      const noCoupon = macNoCouponCountries.has(country);
-      const couponFound = !noCoupon && evidence.couponStatus === 'coupon_redirect_observed';
+      const couponEventCountry = macCouponGetCountries.has(country);
+      const noCoupon = macNoCouponCountries.has(country) && !couponEventCountry;
+      const couponCaptured = evidence.couponStatus === 'coupon_redirect_observed';
+      const couponFound = couponEventCountry || (!noCoupon && couponCaptured);
       document.getElementById('macScenarioNote').textContent = 'Señales de red: QA automatizado (' + evidence.scenario + '). Las capturas del resultado sin cupón fueron aportadas como referencia visual y no están atribuidas a un país específico.';
-      const destination = noCoupon ? '<strong>Tramo final:</strong> resultado sin cupón, según la revisión indicada por el equipo. No hay botón de cupón en este recorrido; la ausencia de envío de eventos de cupón requiere verificación de red.' : couponFound ? '<strong>Salida del cupón capturada en QA:</strong> <code>' + evidence.couponDestinationHost + evidence.couponDestinationPath + '</code>' + (evidence.finalDestinationHost && evidence.finalDestinationHost !== evidence.couponDestinationHost ? ' → <code>' + evidence.finalDestinationHost + '</code>' : '') + '. ' + evidence.afterClaimSummary : '<strong>Salida del cupón:</strong> pendiente de validación manual.';
+      const destination = noCoupon ? '<strong>Tramo final:</strong> resultado sin cupón, según la revisión indicada por el equipo. No hay botón de cupón en este recorrido; la ausencia de envío de eventos de cupón requiere verificación de red.' : couponEventCountry && !couponCaptured ? '<strong>Tramo de cupón:</strong> WhatsApp, según el flujo indicado por el equipo. El destino técnico no quedó capturado en esta corrida.' : couponCaptured ? '<strong>Salida del cupón capturada en QA:</strong> <code>' + evidence.couponDestinationHost + evidence.couponDestinationPath + '</code>' + (evidence.finalDestinationHost && evidence.finalDestinationHost !== evidence.couponDestinationHost ? ' → <code>' + evidence.finalDestinationHost + '</code>' : '') + '. ' + evidence.afterClaimSummary : '<strong>Salida del cupón:</strong> pendiente de validación manual.';
       document.getElementById('macCountryCoupon').innerHTML = destination;
       document.getElementById('macCouponStep').innerHTML = destination;
-      document.getElementById('macResultCouponImage').hidden = !couponFound;
+      document.getElementById('macResultCouponImage').hidden = !couponFound || couponEventCountry;
+      document.getElementById('macResultContigoImages').hidden = !couponEventCountry;
       document.getElementById('macResultNoCouponImages').hidden = !noCoupon;
-      document.getElementById('macCouponModalImage').hidden = !couponFound;
+      document.getElementById('macCouponModalImage').hidden = !couponFound || couponEventCountry;
+      document.getElementById('macCouponGetModalImage').hidden = !couponEventCountry;
       document.getElementById('macResultTitle').textContent = noCoupon ? 'Resultado final sin cupón' : couponFound ? 'Resultado y cupón' : 'Resultado y tramo final por validar';
-      document.getElementById('macResultDescription').textContent = noCoupon ? 'Aquí termina el recorrido mostrado. Las tres capturas son ejemplos de resultado aportados por el equipo; no identifican el país de origen.' : couponFound ? 'En la corrida de QA, el CTA abrió un modal y luego salió al destino del cupón.' : 'El comportamiento final está pendiente de validación manual.';
-      document.getElementById('macResultChip').textContent = noCoupon ? 'test_complete' : 'test_complete · coupon_get_click · coupon_claim_click';
-      document.getElementById('macResultEvidence').dataset.macEvents = noCoupon ? 'test_complete' : 'test_complete,coupon_get_click,coupon_claim_click';
+      document.getElementById('macResultDescription').textContent = noCoupon ? 'Aquí termina el recorrido mostrado. Las tres capturas son ejemplos de resultado aportados por el equipo; no identifican el país de origen.' : couponEventCountry && !couponCaptured ? 'Referencias recibidas del resultado y modal de cupón para CO/MX. El envío de eventos no quedó capturado en esta corrida.' : couponCaptured ? 'En la corrida de QA, el CTA abrió un modal y luego salió al destino del cupón.' : 'El comportamiento final está pendiente de validación manual.';
+      const resultEvents = ['test_complete'];
+      if (couponEventCountry) resultEvents.push('coupon_get_click');
+      if (evidence.eventStatus.coupon_claim_click.ga4 || evidence.eventStatus.coupon_claim_click.meta) resultEvents.push('coupon_claim_click');
+      document.getElementById('macResultChip').textContent = resultEvents.join(' · ');
+      document.getElementById('macResultEvidence').dataset.macEvents = resultEvents.join(',');
       document.querySelectorAll('[data-mac-events]').forEach((container) => {
         const rows = container.dataset.macEvents.split(',').map((name) => {
           const status = evidence.eventStatus[name];
@@ -3454,6 +3481,7 @@ const tagMapData = {
       },
       {
         name:'form_start',
+        images:[["assets/f26fe62d9868a13d.png",'Formulario inicial · captura recibida']],
         current:['GA4 automático: form_id, form_destination, form_length, first_field_id, first_field_name, first_field_type, first_field_position'],
         changes:['market','flow_step','test_id','test_version','attempt_number'],
         payload:{event:'form_start',market:'CO',flow_step:'form',test_id:'strength_test',test_version:'v1',attempt_number:1},
@@ -3461,24 +3489,28 @@ const tagMapData = {
       },
       {
         name:'start_form_submit',
+        images:[["assets/fddffc2049fb160e.png",'Formulario diligenciado · captura recibida']],
         current:['market = CO','route_clean = /','flow_step = home','age_range = 30 (edad exacta)','gender = male'],
         changes:['test_id','test_version','attempt_number','age_band = 30-34; sustituye edad exacta'],
         payload:{event:'start_form_submit',market:'CO',route_clean:'/',flow_step:'home',test_id:'strength_test',test_version:'v1',attempt_number:1,age_band:'30-34',gender:'male'}
       },
       {
         name:'calibration_start',
+        images:[["assets/4f5721974bfdf3d6.png",'Calibración · captura recibida']],
         current:['market = CO','route_clean = /calibration','flow_step = calibration','test_id = strength_test','test_version = v1'],
         changes:['attempt_number','motion_permission_status'],
         payload:{event:'calibration_start',market:'CO',route_clean:'/calibration',flow_step:'calibration',test_id:'strength_test',test_version:'v1',attempt_number:1,motion_permission_status:'granted'}
       },
       {
         name:'test_start',
+        images:[["assets/45baa2b75703cc62.png",'Test en progreso · captura recibida']],
         current:['market = CO','route_clean = /test','flow_step = test','test_id = strength_test','test_version = v1'],
         changes:['attempt_number','motion_permission_status'],
         payload:{event:'test_start',market:'CO',route_clean:'/test',flow_step:'test',test_id:'strength_test',test_version:'v1',attempt_number:1,motion_permission_status:'granted'}
       },
       {
         name:'test_error',
+        images:[["assets/3e631df1137a11dc.png",'Error y botón Reiniciar test · captura recibida']],
         current:['Sin parámetros confirmados en las capturas de red'],
         changes:['market','flow_step','test_id','test_version','attempt_number','error_reason','repetitions'],
         payload:{event:'test_error',market:'CO',flow_step:'test',test_id:'strength_test',test_version:'v1',attempt_number:1,error_reason:'no_movement',repetitions:0},
@@ -3486,6 +3518,7 @@ const tagMapData = {
       },
       {
         name:'test_complete',
+        images:[["assets/72150379b58c33e0.png",'CO/MX · resultado verde'],["assets/c5431d6a27142ef0.png",'CO/MX · resultado amarillo'],["assets/e4abc596109c110f.png",'CO/MX · resultado rojo']],
         current:['route_clean = /results','flow_step = results','test_id = strength_test','test_version = v1','repititions = 10','muscular_age_range = 45-49','age_range = 30 (edad exacta)'],
         changes:['market','attempt_number','repetitions (nombre corregido; repititions temporal)','age_band','result_category','coupon_available'],
         payload:{event:'test_complete',market:'CO',route_clean:'/results',flow_step:'results',test_id:'strength_test',test_version:'v1',attempt_number:1,repititions:10,repetitions:10,age_band:'30-34',muscular_age_range:'45-49',result_category:'low',coupon_available:true},
@@ -3493,6 +3526,7 @@ const tagMapData = {
       },
       {
         name:'coupon_get_click',
+        images:[["assets/76ba12481bb2bd61.png",'Modal «Confirmar la acción» · solo CO/MX']],
         current:['market = CO','route_clean = /results','flow_step = results','test_id = strength_test','test_version = v1','placement = results_screen'],
         changes:['attempt_number','destination_type'],
         payload:{event:'coupon_get_click',market:'CO',route_clean:'/results',flow_step:'results',test_id:'strength_test',test_version:'v1',attempt_number:1,placement:'results_screen',destination_type:'whatsapp'}
@@ -3516,7 +3550,9 @@ const tagMapData = {
         const current = item.current.map((field) => '<li><code>' + escapeMacHtml(field) + '</code></li>').join('');
         const changes = item.changes.length ? item.changes.map((field) => '<li><code>' + escapeMacHtml(field) + '</code></li>').join('') : '<li>Sin cambios</li>';
         const code = 'dataLayer.push(' + JSON.stringify(item.payload, null, 2) + ');';
+        const images = (item.images || []).map(([src, caption]) => '<figure><img src="' + escapeMacHtml(src) + '" alt="' + escapeMacHtml(item.name + ' · ' + caption) + '"><figcaption>' + escapeMacHtml(caption) + '</figcaption></figure>').join('');
         return '<article class="mac-proposal-card"><h2>' + (index + 1) + '. <code>' + escapeMacHtml(item.name) + '</code>' + (item.newEvent ? ' <span class="mac-proposal-badge">🟢 Evento nuevo</span>' : '') + '</h2>' +
+          (images ? '<div class="mac-proposal-gallery">' + images + '</div>' : '') +
           '<div class="mac-proposal-columns"><div><h3>Parámetros actuales (GA4)</h3><ul>' + current + '</ul></div><div class="mac-proposal-new"><h3>🟢 Agregar o cambiar</h3><ul>' + changes + '</ul></div></div>' +
           '<pre><code>' + escapeMacHtml(code) + '</code></pre>' + (item.note ? '<p>' + escapeMacHtml(item.note) + '</p>' : '') + '</article>';
       }).join('');
