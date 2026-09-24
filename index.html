@@ -179,26 +179,24 @@
     .proposal-branches { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; align-items: start; }
     .proposal-branch h3 { text-align: center; font-size: 16px; margin: 0 0 12px; }
     .proposal-note { padding: 14px; margin-top: 20px; border-radius: 10px; background: var(--surface); color: var(--muted); font-size: 13px; line-height: 1.6; }
-    .mac-proposal-card { border: 1px solid var(--line); border-radius: 12px; padding: 18px; margin: 16px 0; }
-    .mac-proposal-card h2 { margin: 0 0 12px; font-size: 18px; }
-    .mac-proposal-columns { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
-    .mac-proposal-columns > div { background: var(--surface); border-radius: 8px; padding: 12px; min-width: 0; }
-    .mac-proposal-columns > .mac-proposal-new { background: #e9f7ed; color: #116b39; }
-    .mac-proposal-columns h3 { margin: 0 0 8px; font-size: 14px; }
-    .mac-proposal-columns ul { margin: 0; padding-left: 20px; font-size: 13px; }
-    .mac-proposal-columns li { margin: 4px 0; overflow-wrap: anywhere; }
-    .mac-proposal-card pre { overflow-x: auto; margin: 12px 0 0; padding: 12px; background: #eef3f5; border-radius: 8px; font-size: 12px; }
-    .mac-proposal-card code { overflow-wrap: anywhere; }
-    .mac-proposal-badge { color: #116b39; font-size: 13px; }
-    .mac-proposal-gallery { display: flex; flex-wrap: wrap; gap: 10px; padding: 0 12px; }
-    .mac-proposal-gallery figure { margin: 0; width: min(100%, 300px); }
-    .mac-proposal-gallery img { display: block; width: 100%; max-height: 460px; object-fit: contain; object-position: top center; border: 1px solid var(--line); border-radius: 8px; background: var(--surface); }
-    .mac-proposal-gallery figcaption { margin-top: 4px; color: var(--muted); font-size: 12px; }
-    .mac-future { margin-top: 28px; padding-top: 20px; border-top: 2px solid var(--line); }
-    .mac-future h2 { margin: 0 0 10px; }
-    .mac-future p { margin: 8px 0; line-height: 1.5; }
-    .mac-future td code { overflow-wrap: anywhere; }
-    .mac-future .new-event { color: #116b39; font-weight: 700; }
+    .mac-spec { max-width: 960px; margin: auto; }
+    .mac-spec-legend { margin: 6px 0 28px; font-size: 15px; }
+    .mac-spec-new { color: #18743b; font-weight: 700; }
+    .mac-spec h2 { margin: 32px 0 10px; color: #3b75b0; font-size: 23px; font-weight: 500; }
+    .mac-spec-step { margin: 28px 0 42px; }
+    .mac-spec-images { display: flex; flex-wrap: wrap; align-items: start; gap: 12px; margin: 6px 0 14px; }
+    .mac-spec-images figure { margin: 0; width: min(100%, 260px); }
+    .mac-spec-images img { display: block; width: 100%; max-height: 480px; object-fit: contain; object-position: top center; border: 1px solid var(--line); border-radius: 6px; background: var(--surface); }
+    .mac-spec-images figcaption { margin: 5px 0; color: var(--muted); font-size: 12px; }
+    .mac-spec-placeholder { color: #888; font-style: italic; margin: 6px 0 14px; }
+    .mac-spec-table { width: 100%; table-layout: fixed; border-collapse: collapse; margin: 12px 0 24px; font-size: 14px; }
+    .mac-spec-table th, .mac-spec-table td { border: 1px solid #d9d9d9; padding: 7px 10px; text-align: left; vertical-align: middle; overflow-wrap: anywhere; }
+    .mac-spec-table th:first-child, .mac-spec-table td:first-child { width: 40%; }
+    .mac-spec-table tr:first-child th { background: #f7f8f9; }
+    .mac-spec-table tr:nth-child(2) th { background: #fff; }
+    .mac-spec-note { margin: -16px 0 24px; color: #a45418; font-style: italic; font-size: 14px; }
+    .mac-spec-missing { border-top: 1px solid var(--line); padding-top: 8px; }
+    .mac-spec-missing ul { padding-left: 22px; line-height: 1.55; }
     .mac-branch { border-color: var(--yellow); background: #fff8df; }
     .mac-branch .event-chip { background: #f8e5b3; }
     .empty { padding: 14px; text-align: left; color: var(--muted); background: var(--surface); border-radius: 12px; }
@@ -225,7 +223,8 @@
       .proposal-step td, .proposal-step th { padding: 9px 10px; }
       .mac-result-references, .mac-feature-gallery { grid-template-columns: minmax(0, 1fr); }
       .mac-result-references img:first-child { grid-column: auto; }
-      .mac-proposal-columns { grid-template-columns: minmax(0, 1fr); }
+      .mac-spec-table { font-size: 12px; }
+      .mac-spec-table th, .mac-spec-table td { padding: 7px 6px; }
     }
   </style>
 </head>
@@ -254,8 +253,8 @@
         <span>Ejemplo rojo · pasos, parámetros y bifurcación de registro / inicio de sesión</span>
       </button>
       <button class="tool proposal-tool mac-proposal-tool" data-tool="macProposal">
-        <strong>Propuesta de dataLayer · MAC</strong>
-        <span>Por evento: parámetros actuales, cambios propuestos y payload para desarrollo</span>
+        <strong>Propuesta de mapa de taggeo · MAC</strong>
+        <span>Pasos, imágenes y parámetros de dataLayer en formato para desarrollo</span>
       </button>
     </section>
 
@@ -269,27 +268,8 @@
 
     <section id="macProposal" class="panel hidden" aria-labelledby="macProposalTitle">
       <div class="toolbar"><button class="button" data-back="home">← Herramientas</button></div>
-      <h1 id="macProposalTitle">Propuesta de dataLayer · MAC</h1>
-      <p>Propuesta no implementada · el recorrido actual usa Colombia como ejemplo · verde = parámetro o evento nuevo.</p>
-      <div id="macProposalFlow" class="proposal-flow"></div>
-      <section class="mac-future" aria-labelledby="macFutureTitle">
-        <h2 id="macFutureTitle">Migración a Contigo · registro y cupón</h2>
-        <p><strong>AR, BR, CL, EC y PE:</strong> resultado MAC → registro nuevo o login existente → mismo popup de cupón. <strong>CO y MX:</strong> enlace directo a WhatsApp; no aplicarles el flujo de cuenta.</p>
-        <p>Se propone conservar <code>flow_origin=mac</code> hasta confirmar la autenticación. <code>auth_path=new_registration|existing_login</code> distingue las dos rutas. Los eventos de esta tabla son una <strong>solicitud de implementación</strong>, no evidencia de producción.</p>
-        <div class="table-scroll"><table><thead><tr><th>Paso</th><th>Evento GA4</th><th>Parámetros propuestos</th><th>Señal necesaria</th></tr></thead><tbody>
-          <tr><td>Error del test</td><td><code>test_error</code></td><td><code>market</code>, <code>flow_origin</code>, <code>error_reason</code></td><td>Dev: motivo real del error.</td></tr>
-          <tr><td>Reiniciar test</td><td><code>test_retry_click</code></td><td><code>market</code>, <code>flow_origin</code>, <code>flow_step</code></td><td>GTM: clic en el botón.</td></tr>
-          <tr><td>Formulario visible</td><td><code>registration_start</code></td><td><code>market</code>, <code>flow_origin</code>, <code>form_name</code></td><td>GTM: vista; Dev: conservar origen MAC.</td></tr>
-          <tr><td>Formulario inválido</td><td><code class="new-event">form_validation_error · nuevo</code></td><td><code>field_name</code>, <code>error_type</code>, <code>flow_origin</code></td><td>Dev: validación de la app o servidor. GTM solo puede leer errores HTML visibles.</td></tr>
-          <tr><td>Registro confirmado</td><td><code class="new-event">registro_exitoso_mac · nuevo</code></td><td><code>auth_path=new_registration</code>, <code>whatsapp_provided_form=true|false</code>, <code>flow_origin</code></td><td>Dev: confirmación, no clic en «Crear cuenta».</td></tr>
-          <tr><td>Ir a inicio de sesión</td><td><code>login_click</code></td><td><code>flow_origin=mac</code>, <code>auth_purpose=claim_coupon</code></td><td>GTM: clic; Dev: persistir contexto.</td></tr>
-          <tr><td>Login confirmado</td><td><code>login</code></td><td><code>auth_path=existing_login</code>, <code>flow_origin=mac</code>, <code>auth_purpose=claim_coupon</code></td><td>Dev: autenticación exitosa.</td></tr>
-          <tr><td>Popup visible</td><td><code class="new-event">view_popup · nuevo</code></td><td><code>auth_path</code>, <code>popup_type=coupon_ready|technical_error</code>, <code>flow_origin</code></td><td>GTM: vista; Dev: tipo real del popup.</td></tr>
-          <tr><td>Enviar a WhatsApp</td><td><code class="new-event">coupon_whatsapp_click · nuevo</code></td><td><code>auth_path</code>, <code>whatsapp_source=popup</code></td><td>GTM: clic; mide intención, no entrega.</td></tr>
-          <tr><td>Resultado del envío</td><td><code class="new-event">coupon_delivery_result · nuevo</code></td><td><code>auth_path</code>, <code>delivery_channel=email|whatsapp</code>, <code>delivery_status=success|error</code>, <code>whatsapp_source=form|popup</code> si aplica</td><td>Dev/backend: confirmar el resultado por canal.</td></tr>
-        </tbody></table></div>
-        <p>La bandera de WhatsApp indica solo si se diligenció en el formulario nuevo; se omite en login existente. No enviar números, correos, contraseñas ni códigos de cupón a GA4. Para CO/MX se conservan <code>coupon_get_click</code> y <code>coupon_claim_click</code>; su disparo en el flujo nuevo requiere validación para no duplicarlos.</p>
-      </section>
+      <h1 id="macProposalTitle">Mapa de taggeo · MAC y cupón (Abbott)</h1>
+      <div id="macProposalFlow" class="mac-spec"></div>
     </section>
 
     <section id="mac" class="panel hidden">
@@ -3472,90 +3452,87 @@ const tagMapData = {
     let step = 0;
     let selectedCountry = 'CO';
 
-    const macProposalEvents = [
-      {
-        name:'desktop_gate_view',
-        current:['market = CO','route_clean = /desktop','flow_step = home'],
-        changes:[],
-        payload:{event:'desktop_gate_view',market:'CO',route_clean:'/desktop',flow_step:'home'}
-      },
-      {
-        name:'form_start',
-        images:[["assets/f26fe62d9868a13d.png",'Formulario inicial · captura recibida']],
-        current:['GA4 automático: form_id, form_destination, form_length, first_field_id, first_field_name, first_field_type, first_field_position'],
-        changes:['market','flow_step','test_id','test_version','attempt_number'],
-        payload:{event:'form_start',market:'CO',flow_step:'form',test_id:'strength_test',test_version:'v1',attempt_number:1},
-        note:'Emitir una vez al iniciar el formulario MAC; evitar duplicarlo con el form_start automático del modal.'
-      },
-      {
-        name:'start_form_submit',
-        images:[["assets/fddffc2049fb160e.png",'Formulario diligenciado · captura recibida']],
-        current:['market = CO','route_clean = /','flow_step = home','age_range = 30 (edad exacta)','gender = male'],
-        changes:['test_id','test_version','attempt_number','age_band = 30-34; sustituye edad exacta'],
-        payload:{event:'start_form_submit',market:'CO',route_clean:'/',flow_step:'home',test_id:'strength_test',test_version:'v1',attempt_number:1,age_band:'30-34',gender:'male'}
-      },
-      {
-        name:'calibration_start',
-        images:[["assets/4f5721974bfdf3d6.png",'Calibración · captura recibida']],
-        current:['market = CO','route_clean = /calibration','flow_step = calibration','test_id = strength_test','test_version = v1'],
-        changes:['attempt_number','motion_permission_status'],
-        payload:{event:'calibration_start',market:'CO',route_clean:'/calibration',flow_step:'calibration',test_id:'strength_test',test_version:'v1',attempt_number:1,motion_permission_status:'granted'}
-      },
-      {
-        name:'test_start',
-        images:[["assets/45baa2b75703cc62.png",'Test en progreso · captura recibida']],
-        current:['market = CO','route_clean = /test','flow_step = test','test_id = strength_test','test_version = v1'],
-        changes:['attempt_number','motion_permission_status'],
-        payload:{event:'test_start',market:'CO',route_clean:'/test',flow_step:'test',test_id:'strength_test',test_version:'v1',attempt_number:1,motion_permission_status:'granted'}
-      },
-      {
-        name:'test_error',
-        images:[["assets/3e631df1137a11dc.png",'Error y botón Reiniciar test · captura recibida']],
-        current:['Sin parámetros confirmados en las capturas de red'],
-        changes:['market','flow_step','test_id','test_version','attempt_number','error_reason','repetitions'],
-        payload:{event:'test_error',market:'CO',flow_step:'test',test_id:'strength_test',test_version:'v1',attempt_number:1,error_reason:'no_movement',repetitions:0},
-        note:'no_movement es un valor ilustrativo; desarrollo debe confirmar el catálogo de errores.'
-      },
-      {
-        name:'test_complete',
-        images:[["assets/72150379b58c33e0.png",'CO/MX · resultado verde'],["assets/c5431d6a27142ef0.png",'CO/MX · resultado amarillo'],["assets/e4abc596109c110f.png",'CO/MX · resultado rojo']],
-        current:['route_clean = /results','flow_step = results','test_id = strength_test','test_version = v1','repititions = 10','muscular_age_range = 45-49','age_range = 30 (edad exacta)'],
-        changes:['market','attempt_number','repetitions (nombre corregido; repititions temporal)','age_band','result_category','coupon_available'],
-        payload:{event:'test_complete',market:'CO',route_clean:'/results',flow_step:'results',test_id:'strength_test',test_version:'v1',attempt_number:1,repititions:10,repetitions:10,age_band:'30-34',muscular_age_range:'45-49',result_category:'low',coupon_available:true},
-        note:'low es ilustrativo. En recorridos sin CTA, coupon_available = false.'
-      },
-      {
-        name:'coupon_get_click',
-        images:[["assets/76ba12481bb2bd61.png",'Modal «Confirmar la acción» · solo CO/MX']],
-        current:['market = CO','route_clean = /results','flow_step = results','test_id = strength_test','test_version = v1','placement = results_screen'],
-        changes:['attempt_number','destination_type'],
-        payload:{event:'coupon_get_click',market:'CO',route_clean:'/results',flow_step:'results',test_id:'strength_test',test_version:'v1',attempt_number:1,placement:'results_screen',destination_type:'whatsapp'}
-      },
-      {
-        name:'coupon_claim_click',
-        current:['market = CO','route_clean = /results','flow_step = coupon_modal','test_id = strength_test','test_version = v1','outbound_url con código','accepted_exit = "true" (texto)'],
-        changes:['attempt_number','destination_type','outbound_host en lugar de URL con código','accepted_exit como booleano'],
-        payload:{event:'coupon_claim_click',market:'CO',route_clean:'/results',flow_step:'coupon_modal',test_id:'strength_test',test_version:'v1',attempt_number:1,destination_type:'whatsapp',outbound_host:'scan.abbott.com',accepted_exit:true}
-      },
-      {
-        name:'mac_step_view',newEvent:true,
-        current:['Evento no implementado'],
-        changes:['market','flow_step','test_id','test_version','attempt_number'],
-        payload:{event:'mac_step_view',market:'CO',flow_step:'instructions',test_id:'strength_test',test_version:'v1',attempt_number:1},
-        note:'Propuesto al mostrar form, instructions, calibration, test, results y coupon_modal para medir abandono.'
-      }
+    const macSpecGlobal = [
+      ['market', 'pe'], ['route_clean', '/es-pe/...'], ['flow_step', 'result'],
+      ['flow_origin', 'mac', true], ['flow_type', 'whatsapp_direct / account', true]
     ];
+    const macSpecSteps = [
+      {number:'1', title:'Acceso desde desktop (QR)', images:[["assets/0b3de5127e6856ea.png",'Acceso desde desktop']], events:[
+        {name:'desktop_gate_view', rows:[['Solo parámetros globales','—']]}
+      ]},
+      {number:'2', title:'Formulario de inicio', images:[["assets/f26fe62d9868a13d.png",'Formulario vacío'],["assets/fddffc2049fb160e.png",'Formulario diligenciado']], events:[
+        {name:'start_form_view', rows:[['Solo parámetros globales','—']]},
+        {name:'start_form_submit', rows:[['age_range','35-49'],['gender','female'],['terms_accepted','true']]}
+      ]},
+      {number:'3', title:'Permiso de movimiento', events:[
+        {name:'motion_permission_prompt', rows:[['Solo parámetros globales','—']]},
+        {name:'motion_permission_result', rows:[['permission_status','granted / denied']]}
+      ]},
+      {number:'4', title:'Calibración', images:[["assets/4f5721974bfdf3d6.png",'Calibración']], events:[
+        {name:'calibration_start', rows:[['test_id','a1b2c3'],['test_version','v2']]}
+      ]},
+      {number:'5', title:'Inicio del test', images:[["assets/45baa2b75703cc62.png",'Test en progreso']], events:[
+        {name:'test_start', rows:[['test_id','a1b2c3'],['test_version','v2']]}
+      ]},
+      {number:'6', title:'Error del test', images:[["assets/3e631df1137a11dc.png",'Error y reinicio del test']], events:[
+        {name:'test_error', rows:[['test_id','a1b2c3'],['test_version','v2'],['error_code','no_motion']]},
+        {name:'test_retry_click', rows:[['test_id','a1b2c3'],['test_version','v2']], note:'Corregir: hoy el tag envía el nombre test_restart.'}
+      ]},
+      {number:'7', title:'Resultado', images:[["assets/72150379b58c33e0.png",'Resultado verde'],["assets/c5431d6a27142ef0.png",'Resultado amarillo'],["assets/e4abc596109c110f.png",'Resultado rojo']], events:[
+        {name:'test_complete', rows:[['test_id','a1b2c3'],['test_version','v2'],['repetitions','43'],['muscular_age_range','<40'],['age_range','35-49'],['test_result','green / yellow / red',true],['mac_result (propiedad de usuario)','yellow',true],['mac_age_group (propiedad de usuario)','35-49',true]], note:'Corregir: hoy el parámetro se envía como repititions.'},
+        {name:'test_restart', rows:[['test_id','a1b2c3'],['test_version','v2']]},
+        {name:'coupon_get_click', rows:[['test_id','a1b2c3'],['test_version','v2'],['placement','result'],['test_result','yellow',true]]}
+      ]},
+      {number:'8', title:'Modal del cupón (CO y MX)', images:[["assets/76ba12481bb2bd61.png",'Modal de confirmación']], events:[
+        {name:'coupon_modal_view', rows:[['test_id','a1b2c3'],['test_version','v2'],['test_result','green',true]]},
+        {name:'coupon_modal_accept_toggle', rows:[['accepted_exit','true / false']]},
+        {name:'coupon_claim_click', rows:[['test_id','a1b2c3'],['test_version','v2'],['outbound_url','https://wa.me/...'],['outbound_domain','wa.me'],['accepted_exit','true'],['claim_channel','whatsapp_redirect',true],['test_result','green',true]]}
+      ]},
+      {number:'8', title:'Formulario de registro (rama cuenta)', images:[["assets/122bb1ca1bd991c5.png",'Formulario de registro']], events:[
+        {name:'registration_start', newEvent:true, rows:[['form_name','mac',true]]},
+        {name:'sign_up', newEvent:true, rows:[['method','email',true],['auth_purpose','claim_coupon',true],['auth_path','new_registration',true],['whatsapp_provided','true / false',true],['test_result','yellow',true]], note:'Reemplaza a registro_exitoso_mac.'}
+      ]},
+      {number:'9', title:'Errores del registro', events:[
+        {name:'form_validation_error', newEvent:true, rows:[['field_name','email / password / whatsapp',true],['error_type','format / required / already_registered',true],['form_location','registration',true]]}
+      ]},
+      {number:'10', title:'Login', images:[["assets/adf4a06281b6fbd5.png",'Formulario de login']], events:[
+        {name:'login_click', newEvent:true, rows:[['auth_purpose','claim_coupon',true]]},
+        {name:'login', newEvent:true, rows:[['method','email',true],['auth_purpose','claim_coupon',true],['auth_path','existing_login',true],['whatsapp_on_file','true / false',true],['test_result','red',true]]},
+        {name:'form_validation_error', newEvent:true, rows:[['field_name','email / password',true],['error_type','format / invalid_credentials',true],['form_location','login',true]]}
+      ]},
+      {number:'11', title:'Selector de tienda (países por confirmar)', events:[
+        {name:'store_select', newEvent:true, rows:[['store_id','POS_001',true],['form_location','registration / popup',true]]}
+      ]},
+      {number:'12', title:'Popup verde: cupón listo', images:[["assets/ea35d3704b2c7cd9.png",'Cupón listo']], events:[
+        {name:'coupon_status_view', newEvent:true, rows:[['coupon_status','ready',true],['display','popup',true],['auth_path','new_registration / existing_login',true],['test_result','green',true]]},
+        {name:'coupon_delivery_result', newEvent:true, rows:[['delivery_channel','email / whatsapp',true],['delivery_status','success / error',true],['whatsapp_source','form',true]], note:'Se envía uno por canal.'}
+      ]},
+      {number:'13', title:'Popup: usuario logueado sin WhatsApp', images:[["assets/4debdbba7049d93b.png",'Ingreso opcional de WhatsApp']], events:[
+        {name:'coupon_status_view', newEvent:true, rows:[['coupon_status','ready',true],['display','popup',true],['auth_path','existing_login',true]]},
+        {name:'coupon_whatsapp_click', newEvent:true, rows:[['whatsapp_source','popup',true]]},
+        {name:'form_validation_error', newEvent:true, rows:[['field_name','whatsapp',true],['error_type','format / already_registered',true],['form_location','popup',true]]},
+        {name:'coupon_delivery_result', newEvent:true, rows:[['delivery_channel','whatsapp',true],['delivery_status','success / error',true],['whatsapp_source','popup',true]]}
+      ]},
+      {number:'14', title:'Página: cupón ya utilizado', events:[
+        {name:'coupon_status_view', newEvent:true, rows:[['coupon_status','already_used',true],['display','page',true],['auth_path','existing_login',true]]}
+      ]},
+      {number:'15', title:'Popup rojo: error técnico', images:[["assets/b58a28f312214649.png",'Error técnico']], events:[
+        {name:'coupon_status_view', newEvent:true, rows:[['coupon_status','technical_error',true],['display','popup',true],['auth_path','new_registration / existing_login',true]]}
+      ]}
+    ];
+    function renderMacSpecTable(event) {
+      const color = event.newEvent ? ' class="mac-spec-new"' : '';
+      const rows = event.rows.map(([key, value, isNew]) => '<tr' + (isNew ? ' class="mac-spec-new"' : '') + '><td><code>' + escapeMacHtml(key) + '</code></td><td><code>' + escapeMacHtml(value) + '</code></td></tr>').join('');
+      return '<table class="mac-spec-table"><thead><tr' + color + '><th>Evento</th><th><code>' + escapeMacHtml(event.name) + '</code></th></tr><tr><th>Parámetro</th><th>Valor</th></tr></thead><tbody>' + rows + '</tbody></table>' + (event.note ? '<p class="mac-spec-note">' + escapeMacHtml(event.note) + '</p>' : '');
+    }
     function renderMacProposal() {
-      document.getElementById('macProposalFlow').innerHTML = macProposalEvents.map((item, index) => {
-        const current = item.current.map((field) => '<li><code>' + escapeMacHtml(field) + '</code></li>').join('');
-        const changes = item.changes.length ? item.changes.map((field) => '<li><code>' + escapeMacHtml(field) + '</code></li>').join('') : '<li>Sin cambios</li>';
-        const code = 'dataLayer.push(' + JSON.stringify(item.payload, null, 2) + ');';
-        const images = (item.images || []).map(([src, caption]) => '<figure><img src="' + escapeMacHtml(src) + '" alt="' + escapeMacHtml(item.name + ' · ' + caption) + '"><figcaption>' + escapeMacHtml(caption) + '</figcaption></figure>').join('');
-        return '<article class="mac-proposal-card"><h2>' + (index + 1) + '. <code>' + escapeMacHtml(item.name) + '</code>' + (item.newEvent ? ' <span class="mac-proposal-badge">🟢 Evento nuevo</span>' : '') + '</h2>' +
-          (images ? '<div class="mac-proposal-gallery">' + images + '</div>' : '') +
-          '<div class="mac-proposal-columns"><div><h3>Parámetros actuales (GA4)</h3><ul>' + current + '</ul></div><div class="mac-proposal-new"><h3>🟢 Agregar o cambiar</h3><ul>' + changes + '</ul></div></div>' +
-          '<pre><code>' + escapeMacHtml(code) + '</code></pre>' + (item.note ? '<p>' + escapeMacHtml(item.note) + '</p>' : '') + '</article>';
+      const globalRows = macSpecGlobal.map(([key, value, isNew]) => '<tr' + (isNew ? ' class="mac-spec-new"' : '') + '><td><code>' + escapeMacHtml(key) + '</code></td><td><code>' + escapeMacHtml(value) + '</code></td></tr>').join('');
+      const global = '<p class="mac-spec-legend">Texto en negro: ya existe en GTM. <span class="mac-spec-new">Texto en verde: nuevo, hay que crearlo.</span></p><h2>Parámetros globales (van en todos los eventos)</h2><table class="mac-spec-table"><thead><tr><th>Evento</th><th>Todos los eventos</th></tr><tr><th>Parámetro</th><th>Valor</th></tr></thead><tbody>' + globalRows + '</tbody></table>';
+      const steps = macSpecSteps.map((step) => {
+        const images = step.images ? '<div class="mac-spec-images">' + step.images.map(([src, caption]) => '<figure><img src="' + escapeMacHtml(src) + '" alt="' + escapeMacHtml(caption) + '" loading="lazy"><figcaption>' + escapeMacHtml(caption) + '</figcaption></figure>').join('') + '</div>' : '<p class="mac-spec-placeholder">[Imagen pendiente]</p>';
+        return '<section class="mac-spec-step"><h2>Paso ' + escapeMacHtml(step.number) + ' · ' + escapeMacHtml(step.title) + '</h2>' + images + step.events.map(renderMacSpecTable).join('') + '</section>';
       }).join('');
+      document.getElementById('macProposalFlow').innerHTML = global + steps;
     }
     renderMacProposal();
 
