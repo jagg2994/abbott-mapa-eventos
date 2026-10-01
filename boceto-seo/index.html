@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <link rel="icon" href="data:,">
-  <title>SEO / GEO · Abbott LATAM · Boceto 02</title>
+  <title>SEO / GEO · Abbott LATAM · Boceto</title>
   <style>
     :root { --navy:#18253a; --ink:#273344; --muted:#727e8e; --line:#dfe5eb; --bg:#f2f4f7; --white:#fff; --gsc:#2973d4; --ga4:#de8529; --ai:#6f62d8; --seo:#258c87; --soft:#f8fafc; }
     * { box-sizing:border-box; }
@@ -17,11 +17,14 @@
     .mast-right { display:flex; align-items:center; gap:12px; flex-wrap:wrap; justify-content:flex-end; }
     .period { border:1px solid #63758e; padding:8px 10px; font-size:12px; color:#e6edf8; }
     .demo { background:#ffe9a3; color:#624600; padding:7px 9px; font-size:10px; letter-spacing:.05em; font-weight:700; white-space:nowrap; }
+    .filters { display:flex; align-items:center; gap:12px; flex-wrap:wrap; padding:8px 0; }
+    .filter { display:flex; align-items:center; gap:6px; color:var(--muted); font-size:11px; }
+    .filter select,.filter input { max-width:150px; border:1px solid var(--line); border-radius:3px; background:white; color:var(--ink); padding:6px; font:inherit; }
+    .filter[hidden] { display:none; }
     .subbar { border-bottom:1px solid var(--line); display:flex; justify-content:space-between; align-items:center; gap:8px; flex-wrap:wrap; padding:0 24px; }
-    .tabs,.markets { display:flex; align-items:center; gap:4px; flex-wrap:wrap; }
-    .tabs button,.markets button { border:0; background:none; color:var(--muted); padding:14px 10px; font-size:12px; }
+    .tabs { display:flex; align-items:center; gap:4px; flex-wrap:wrap; }
+    .tabs button { border:0; background:none; color:var(--muted); padding:14px 10px; font-size:12px; }
     .tabs button.active { color:var(--navy); border-bottom:3px solid var(--navy); font-weight:700; }
-    .markets button.active { color:var(--gsc); font-weight:700; }
     .body { padding:22px 28px 40px; }
     .page { display:none; }
     .page.active { display:block; }
@@ -31,12 +34,13 @@
     .tiny { color:var(--muted); font-size:11px; }
     .source { color:var(--muted); font-size:10px; text-transform:uppercase; letter-spacing:.04em; font-weight:700; }
     .source.gsc { color:var(--gsc); }.source.ga4 { color:var(--ga4); }.source.ai { color:var(--ai); }.source.seo { color:var(--seo); }
-    .kpis { display:grid; grid-template-columns:repeat(5,minmax(0,1fr)); border:1px solid var(--line); margin-bottom:18px; }
+    .kpis { display:grid; grid-template-columns:repeat(7,minmax(0,1fr)); border:1px solid var(--line); margin-bottom:18px; }
     .kpi { min-width:0; padding:14px 17px; border-right:1px solid var(--line); }
     .kpi:last-child { border-right:0; }
     .kpi-label { font-size:11px; color:var(--muted); margin-bottom:7px; }
     .kpi-value { font-size:28px; font-weight:500; line-height:1; font-variant-numeric:tabular-nums; }
     .kpi-delta { font-size:11px; color:#187968; margin-top:8px; font-variant-numeric:tabular-nums; }
+    .kpi-delta.down { color:#ae5656; }
     .kpi-delta.flat { color:var(--muted); }
     .layout { display:grid; gap:15px; }
     .layout.main { grid-template-columns:minmax(0,1.75fr) minmax(300px,1fr); }
@@ -67,6 +71,21 @@
     .bartrack { height:13px; background:#edf0f4; }
     .barfill { height:100%; background:var(--ai); }
     .barrow strong { text-align:right; font-weight:500; font-variant-numeric:tabular-nums; }
+    .mini-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:10px; }
+    .mini-metric { min-width:0; padding:12px; border:1px solid var(--line); }
+    .mini-metric span { display:block; font-size:10px; color:var(--muted); }
+    .mini-metric strong { display:block; font-size:21px; font-weight:500; margin:5px 0; }
+    .spark { width:100%; height:38px; display:block; }
+    .muted { color:var(--muted); }
+    .inline-bar { display:inline-block; height:7px; background:var(--ai); vertical-align:middle; margin-right:7px; }
+    .table-nav { display:flex; justify-content:flex-end; align-items:center; gap:9px; margin-top:9px; font-size:11px; color:var(--muted); }
+    .table-nav button { padding:5px 9px; border:1px solid var(--line); background:white; color:var(--ink); }
+    .table-nav button:disabled { opacity:.35; cursor:default; }
+    .sort-head { border:0; background:none; color:inherit; font:inherit; font-weight:700; cursor:pointer; padding:0; }
+    .sort-head.active { color:var(--gsc); }
+    .insight { border-left:3px solid var(--navy); background:var(--soft); padding:12px 15px; margin-top:16px; font-size:12px; }
+    .insight strong { display:block; margin-bottom:4px; }
+    .insight p { margin:0; color:var(--muted); }
     .table-scroll { overflow-x:auto; }
     table { width:100%; border-collapse:collapse; font-size:11px; }
     th { color:var(--muted); font-weight:700; background:#f8fafc; white-space:nowrap; }
@@ -97,19 +116,25 @@
     .compare-meter span { display:block; background:var(--ai); height:100%; }
     .refs { margin-top:22px; border-top:1px solid var(--line); padding-top:12px; font-size:10px; color:var(--muted); }
     .refs a { color:#4a66a0; }
-    @media(max-width:850px) { .layout.main,.layout.equal,.layout.wide-left { grid-template-columns:1fr; } .kpis { grid-template-columns:repeat(3,minmax(0,1fr)); } .kpi:nth-child(3) { border-right:0; } .kpi:nth-child(n+4) { border-top:1px solid var(--line); } .regional-grid { grid-template-columns:1fr; } }
-    @media(max-width:580px) { .masthead { padding:16px; } .body { padding:16px; } .subbar { padding:0 8px; } h1 { font-size:22px; } .kpis { grid-template-columns:repeat(2,minmax(0,1fr)); } .kpi:nth-child(3) { border-right:1px solid var(--line); } .kpi:nth-child(even) { border-right:0; } .kpi:nth-child(n+3) { border-top:1px solid var(--line); } .gauge-meta { grid-template-columns:repeat(3,1fr); } .donut-layout { flex-wrap:wrap; } }
+    @media(max-width:1100px) { .kpis { grid-template-columns:repeat(4,minmax(0,1fr)); } .kpi:nth-child(4) { border-right:0; } .kpi:nth-child(n+5) { border-top:1px solid var(--line); } }
+    @media(max-width:850px) { .layout.main,.layout.equal,.layout.wide-left { grid-template-columns:1fr; } .regional-grid { grid-template-columns:1fr; } }
+    @media(max-width:580px) { .masthead { padding:16px; } .body { padding:16px; } .subbar { padding:0 8px; } h1 { font-size:22px; } .kpis,.mini-grid { grid-template-columns:repeat(2,minmax(0,1fr)); } .kpi { border-top:1px solid var(--line); } .kpi:nth-child(-n+2) { border-top:0; } .kpi:nth-child(even) { border-right:0; } .donut-layout { flex-wrap:wrap; } }
   </style>
 </head>
 <body>
 <div class="report">
   <header class="masthead">
     <div><div class="brand">ABBOTT LATAM / SEARCH INTELLIGENCE</div><h1>SEO / GEO</h1></div>
-    <div class="mast-right"><span class="period">Agosto 2026 · comparado con julio</span><span class="demo">Datos simulados</span></div>
+    <div class="mast-right"><span class="period" id="period-label">Mar–ago 2026</span><span class="demo">Datos simulados</span></div>
   </header>
   <div class="subbar">
     <nav class="tabs" aria-label="Páginas"><button class="active" data-page="panorama">01&nbsp; Panorama</button><button data-page="seo">02&nbsp; SEO</button><button data-page="geo">03&nbsp; GEO</button><button data-page="regional">04&nbsp; Regional</button><button data-page="fuentes">05&nbsp; Fuentes</button></nav>
-    <div class="markets" aria-label="Mercado de ejemplo"><button class="active" data-market="contigo">Contigo · CO</button><button data-market="convos">Convos · AR</button><button data-market="comvoce">Comvoce · BR</button></div>
+    <div class="filters" aria-label="Filtros del boceto">
+      <label class="filter">Dominio <select id="domain-select"><option value="contigo">Contigo</option><option value="convos">Convos</option><option value="comvoce">Comvoce</option></select></label>
+      <label class="filter" id="country-control">País <select id="country-select"></select></label>
+      <label class="filter">Desde <input id="month-start" type="month" min="2025-09" max="2026-08" value="2026-03"></label>
+      <label class="filter">Hasta <input id="month-end" type="month" min="2025-09" max="2026-08" value="2026-08"></label>
+    </div>
   </div>
   <main class="body">
     <section class="page active" id="panorama">
@@ -120,21 +145,24 @@
         <div class="panel"><div class="panel-head"><h3>Presencia en respuestas de IA</h3><span class="source ai">Semrush AI</span></div><div class="panel-body" id="ai-gauge"></div></div>
       </div>
       <div class="layout equal gap">
-        <div class="panel"><div class="panel-head"><h3>URLs con mayor oportunidad</h3><span class="source gsc">Search Console</span></div><div class="panel-body" id="scatter-summary"></div></div>
+        <div class="panel"><div class="panel-head"><h3>URLs con mayor oportunidad</h3><span class="source gsc">Search Console</span></div><div class="panel-body table-scroll"><table><thead><tr><th><button class="sort-head" data-sort="0">URL ↕</button></th><th class="num"><button class="sort-head active" data-sort="1">Impresiones ↓</button></th><th class="num"><button class="sort-head" data-sort="2">Clics ↕</button></th><th class="num"><button class="sort-head" data-sort="3">CTR ↕</button></th><th class="num"><button class="sort-head" data-sort="4">Pos. ↕</button></th></tr></thead><tbody id="opportunity-rows"></tbody></table><div class="table-nav"><span id="opportunity-count"></span><button id="opportunity-prev" aria-label="Página anterior">‹</button><button id="opportunity-next" aria-label="Página siguiente">›</button></div></div><div class="panel-foot">Ordena por cualquier encabezado; criterio de «oportunidad» por definir. 10 filas por página.</div></div>
         <div class="panel"><div class="panel-head"><h3>Qué sistemas de IA nos mencionan</h3><span class="source ai">Semrush AI</span></div><div class="panel-body" id="platform-summary"></div></div>
       </div>
+      <div class="panel gap"><div class="panel-head"><h3>Interacción y acciones orgánicas</h3><span class="source ga4">GA4</span></div><div class="panel-body" id="ga4-actions"></div><div class="panel-foot">Evento «Dónde comprar» y conversiones definitivas: por confirmar en GA4.</div></div>
+      <div class="insight"><strong>Lectura del equipo · Panorama</strong><p>Espacio para un insight editorial con datos reales del período seleccionado.</p></div>
     </section>
     <section class="page" id="seo">
       <div class="page-heading"><h2>Rendimiento SEO</h2><span class="tiny">Visibilidad · páginas · salud técnica</span></div>
       <div class="layout wide-left">
-        <div class="panel"><div class="panel-head"><h3>Impresiones vs. CTR por página</h3><span class="source gsc">Search Console</span></div><div class="panel-body" id="scatter-seo"></div></div>
+        <div class="panel"><div class="panel-head"><h3>Evolución mensual de impresiones y CTR</h3><span class="source gsc">Search Console</span></div><div class="panel-body"><div id="seo-trend"></div><div class="legend"><span><i style="background:var(--gsc)"></i>Impresiones</span><span><i style="background:var(--seo)"></i>CTR</span></div></div></div>
         <div class="panel"><div class="panel-head"><h3>Salud del sitio</h3><span class="source seo">Semrush · dominio completo</span></div><div class="panel-body" id="health"></div></div>
       </div>
       <div class="layout equal gap">
-        <div class="panel"><div class="panel-head"><h3>Páginas con mayor exposición</h3><span class="source gsc">Search Console</span></div><div class="panel-body table-scroll"><table><thead><tr><th>URL de ejemplo</th><th class="num">Impresiones</th><th class="num">Clics</th><th class="num">CTR</th></tr></thead><tbody id="pages"></tbody></table></div></div>
+        <div class="panel"><div class="panel-head"><h3>Páginas con mayor exposición</h3><span class="source gsc">Search Console</span></div><div class="panel-body table-scroll"><table><thead><tr><th>URL de ejemplo</th><th class="num">Impresiones</th><th class="num">Clics</th><th class="num">CTR</th><th class="num">Pos.</th></tr></thead><tbody id="pages"></tbody></table></div></div>
         <div class="panel"><div class="panel-head"><h3>Keywords por intención</h3><span class="source seo">Semrush</span></div><div class="panel-body" id="intent"></div></div>
       </div>
       <div class="panel gap"><div class="panel-head"><h3>Consultas que ganan o pierden clics</h3><span class="source gsc">Search Console</span></div><div class="panel-body table-scroll"><table><thead><tr><th>Consulta de ejemplo</th><th class="num">Clics</th><th class="num">Δ vs. julio</th><th class="num">Posición</th></tr></thead><tbody id="queries"></tbody></table></div></div>
+      <div class="insight"><strong>Lectura del equipo · SEO</strong><p>Espacio para comentar URLs, consultas y acciones técnicas priorizadas.</p></div>
     </section>
     <section class="page" id="geo">
       <div class="page-heading"><h2>Visibilidad en IA</h2><span class="tiny">Menciones, citas y brechas · Semrush AI Visibility</span></div>
@@ -142,29 +170,35 @@
         <div class="panel"><div class="panel-head"><h3>AI Visibility Score</h3><span class="source ai">Semrush AI</span></div><div class="panel-body" id="ai-gauge-geo"></div></div>
         <div class="panel"><div class="panel-head"><h3>Menciones por plataforma</h3><span class="source ai">Semrush AI</span></div><div class="panel-body" id="platform-geo"></div></div>
       </div>
+      <div class="panel gap"><div class="panel-head"><h3>Evolución mensual de presencia en IA</h3><span class="source ai">Semrush AI</span></div><div class="panel-body mini-grid" id="geo-trends"></div></div>
+      <div class="panel gap"><div class="panel-head"><h3>Marca frente a competidores por plataforma</h3><span class="source ai">Semrush AI</span></div><div class="panel-body table-scroll" id="competitor-geo"></div><div class="panel-foot">Marcas del ejemplo ficticias; definir competidores para el reporte real.</div></div>
       <div class="layout equal gap">
-        <div class="panel"><div class="panel-head"><h3>Cobertura de prompts prioritarios</h3><span class="source ai">Semrush Prompt Tracking</span></div><div class="panel-body table-scroll" id="prompt-matrix"></div><div class="panel-foot">1 = aparece la marca · 0 = no aparece. Requiere campaña de prompts definida.</div></div>
-        <div class="panel"><div class="panel-head"><h3>Temas donde estamos ausentes</h3><span class="source ai">Semrush AI</span></div><div class="panel-body table-scroll"><table><thead><tr><th>Tema de ejemplo</th><th class="num">Volumen AI estimado</th><th class="num">Competidores</th></tr></thead><tbody id="gaps"></tbody></table></div></div>
+        <div class="panel"><div class="panel-head"><h3>Cobertura de prompts prioritarios</h3><span class="source ai">Semrush Prompt Tracking</span></div><div class="panel-body table-scroll" id="prompt-coverage"></div><div class="panel-foot">% = prompts con mención de marca / prompts rastreados. Requiere campaña definida.</div></div>
+        <div class="panel"><div class="panel-head"><h3>Temas donde estamos ausentes</h3><span class="source ai">Semrush AI</span></div><div class="panel-body table-scroll"><table><thead><tr><th>Tema de ejemplo</th><th>Competidores presentes</th><th class="num">Volumen AI</th></tr></thead><tbody id="gaps"></tbody></table></div></div>
       </div>
       <div class="panel gap"><div class="panel-head"><h3>Páginas propias citadas</h3><span class="source ai">Semrush AI</span></div><div class="panel-body table-scroll"><table><thead><tr><th>URL de ejemplo</th><th>Plataforma</th><th>Tema</th></tr></thead><tbody id="cited"></tbody></table></div></div>
+      <div class="insight"><strong>Lectura del equipo · GEO</strong><p>Espacio para explicar brechas frente a marcas concretas y citas de páginas propias.</p></div>
     </section>
     <section class="page" id="regional">
-      <div class="page-heading"><h2>Vista regional</h2><span class="tiny">Variante B · comparación por dominio</span></div>
+      <div class="page-heading"><h2>Vista regional</h2><span class="tiny">Comparación por dominio · país seleccionado en cada uno</span></div>
       <div class="regional-grid" id="regional-cards"></div>
       <div class="panel gap"><div class="panel-head"><h3>Brechas GEO por mercado</h3><span class="source ai">Semrush AI</span></div><div class="panel-body table-scroll"><table><thead><tr><th>Mercado</th><th>Tema con mayor oportunidad</th><th class="num">Volumen AI estimado</th><th>Fuente</th></tr></thead><tbody id="regional-gaps"></tbody></table></div></div>
+      <div class="insight"><strong>Lectura del equipo · Regional</strong><p>Espacio para comparar mercados sin mezclar métricas de fuentes distintas.</p></div>
     </section>
     <section class="page" id="fuentes">
       <div class="page-heading"><h2>Mapa de construcción en Looker Studio</h2><span class="tiny">Solo componentes nativos</span></div>
       <div class="panel"><div class="panel-body table-scroll"><table><thead><tr><th>Componente del boceto</th><th>Gráfico nativo</th><th>Fuente</th><th>Preparación</th></tr></thead><tbody>
-        <tr><td>Demanda orgánica</td><td>Combinado: columnas + línea</td><td>Search Console</td><td>Conector Site Impression</td></tr>
-        <tr><td>Oportunidades de URL</td><td>Dispersión</td><td>Search Console</td><td>Conector URL Impression</td></tr>
-        <tr><td>Salud y AI Visibility</td><td>Gauge</td><td>Semrush → Sheets</td><td>Una fila por dominio y mes</td></tr>
+        <tr><td>Demanda orgánica por país/sitio</td><td>Combinado: columnas + línea</td><td>Search Console</td><td>URL Impression; filtro por prefijo de URL del país</td></tr>
+        <tr><td>URLs de oportunidad</td><td>Tabla paginada · 10 filas</td><td>Search Console</td><td>Conector URL Impression; criterio de orden pendiente</td></tr>
+        <tr><td>Evolución SEO y GEO</td><td>Combinado, serie temporal y scorecard con sparkline</td><td>GSC y Semrush → Sheets</td><td>Fecha/mes como dimensión</td></tr>
+        <tr><td>Salud y AI Visibility</td><td>Gauge/scorecard + tendencias</td><td>Semrush → Sheets</td><td>Distinguir dominio de país</td></tr>
+        <tr><td>GA4 engagement y eventos</td><td>Scorecards / tabla</td><td>GA4</td><td>Validar nombres de eventos y propiedad</td></tr>
         <tr><td>Intención y plataformas</td><td>Dona / barras</td><td>Semrush → Sheets</td><td>Normalizar intención a filas; exportar plataformas</td></tr>
-        <tr><td>Cobertura de prompts</td><td>Tabla dinámica con heatmap</td><td>Semrush Prompt Tracking → Sheets</td><td>Definir campaña; una fila por prompt y plataforma</td></tr>
-        <tr><td>Cambio de dominio</td><td>Navegación entre páginas</td><td>GSC, GA4 y Sheets</td><td>Una página por dominio; filtros propios por fuente</td></tr>
+        <tr><td>Competidores / prompts</td><td>Barras o tabla con barras</td><td>Semrush → Sheets</td><td>Marcas y campaña de prompts por definir</td></tr>
+        <tr><td>País y fechas</td><td>Desplegable y control de rango de fechas</td><td>GSC, GA4 y Sheets</td><td>Filtros por fuente; Site Health queda a nivel dominio</td></tr>
         <tr><td>Vista regional</td><td>Tarjetas por fuente y dominio</td><td>GSC, GA4 y Sheets</td><td>Fuentes independientes; no mezcla implícita</td></tr>
       </tbody></table></div></div>
-      <div class="refs">La hoja actual contiene Semrush SEO hasta diciembre de 2025; GEO aún no está cargado. El prototipo usa valores inventados. Referencias: <a href="https://developers.google.com/search/docs/monitor-debug/google-analytics-search-console" target="_blank" rel="noopener">Google Search Central</a> · <a href="https://www.semrush.com/kb/1596-visibility-overview-report" target="_blank" rel="noopener">Semrush Visibility Overview</a> · <a href="https://docs.cloud.google.com/data-studio/types-of-charts" target="_blank" rel="noopener">gráficos de Looker Studio</a>.</div>
+      <div class="refs">La hoja actual contiene Semrush SEO hasta diciembre de 2025; GEO aún no está cargado. El prototipo usa valores inventados. «País» significa versión del sitio por prefijo URL, no país del visitante. Referencias: <a href="https://docs.cloud.google.com/data-studio/connect-to-search-console" target="_blank" rel="noopener">conector GSC</a> · <a href="https://www.semrush.com/kb/1596-visibility-overview-report" target="_blank" rel="noopener">Semrush Visibility Overview</a> · <a href="https://docs.cloud.google.com/data-studio/types-of-charts" target="_blank" rel="noopener">gráficos de Looker Studio</a>.</div>
     </section>
   </main>
 </div>
@@ -176,17 +210,127 @@ const data={
 };
 const number=n=>n==null?'Pendiente':new Intl.NumberFormat('es-CO').format(n);
 const dec=n=>new Intl.NumberFormat('es-CO',{minimumFractionDigits:1,maximumFractionDigits:1}).format(n);
-function kpi(label,value,delta,source,color){return `<div class="kpi"><div class="kpi-label">${label} <span class="source ${color}">${source}</span></div><div class="kpi-value">${value}</div><div class="kpi-delta ${delta==='sin cambio'||delta==='acceso pendiente'?'flat':''}">${delta}</div></div>`;}
-function combo(d){const w=690,h=255,x0=48,y0=218,plotW=600,plotH=166,max=Math.max(...d.seriesClick)*1.25;const bars=d.seriesClick.map((v,i)=>{const x=x0+i*plotW/8+10,bh=v/max*plotH;return `<rect x="${x}" y="${y0-bh}" width="42" height="${bh}" fill="#2973d4" opacity=".86"/>`}).join('');const minCtr=3,maxCtr=6;const points=d.seriesCtr.map((v,i)=>[x0+i*plotW/8+31,y0-(v-minCtr)/(maxCtr-minCtr)*plotH]);const path=points.map((p,i)=>`${i?'L':'M'}${p[0]} ${p[1]}`).join(' ');return `<svg class="chart-svg" viewBox="0 0 ${w} ${h}" role="img" aria-label="Gráfico combinado de clics y CTR de agosto"><title>Clics y CTR por corte de cuatro días</title><line class="chart-grid" x1="48" x2="648" y1="52" y2="52"/><line class="chart-grid" x1="48" x2="648" y1="135" y2="135"/><line class="chart-axis" x1="48" x2="648" y1="218" y2="218"/><text class="chart-label" x="43" y="56" text-anchor="end">${number(Math.round(max))}</text><text class="chart-label" x="43" y="139" text-anchor="end">${number(Math.round(max/2))}</text><text class="chart-label" x="657" y="56">6%</text><text class="chart-label" x="657" y="139">4,5%</text>${bars}<path d="${path}" fill="none" stroke="#258c87" stroke-width="3"/>${points.map(p=>`<circle cx="${p[0]}" cy="${p[1]}" r="4" fill="#258c87"/>`).join('')}${['1 ago','5 ago','9 ago','13 ago','17 ago','21 ago','25 ago','29 ago'].map((t,i)=>`<text class="chart-label" x="${x0+i*plotW/8+31}" y="240" text-anchor="middle">${t}</text>`).join('')}</svg>`;}
-function gauge(value,delta,meta,color='ai',unit='/100'){return `<div class="gauge-number" style="color:var(--${color})">${value}<small>${unit}</small></div><div class="tiny">${delta} frente al mes anterior</div><div class="gauge-track"><span style="width:${value}%;background:var(--${color})"></span></div><div class="gauge-scale"><span>0</span><span>25</span><span>50</span><span>75</span><span>100</span></div><div class="gauge-meta">${meta.map(m=>`<div><strong>${m[0]}</strong><span>${m[1]}</span></div>`).join('')}</div>`;}
+function kpi(label,value,delta,source,color){const unchanged=/^[+-]?0,0(?: %| pp| pts| posiciones)/.test(delta),bad=label==='Posición media'?!delta.startsWith('-'):delta.startsWith('-');const state=delta==='sin cambio'||delta==='acceso pendiente'||unchanged?'flat':bad?'down':'';return `<div class="kpi"><div class="kpi-label">${label} <span class="source ${color}">${source}</span></div><div class="kpi-value">${value}</div><div class="kpi-delta ${state}">${delta}</div></div>`;}
+function combo(records,barField,barLabel){
+  const w=690,h=255,x0=54,y0=215,pw=580,ph=165,max=Math.max(...records.map(r=>r[barField]))*1.18;
+  const step=pw/records.length,barW=Math.min(44,step*.62),minCtr=Math.min(...records.map(r=>r.ctr))-.4,maxCtr=Math.max(...records.map(r=>r.ctr))+.4;
+  const bars=records.map((r,i)=>{const bh=r[barField]/max*ph;return `<rect x="${x0+i*step+(step-barW)/2}" y="${y0-bh}" width="${barW}" height="${bh}" fill="#2973d4" opacity=".86"><title>${r.label}: ${number(r[barField])} ${barLabel}</title></rect>`}).join('');
+  const points=records.map((r,i)=>[x0+i*step+step/2,y0-(r.ctr-minCtr)/(maxCtr-minCtr)*ph]);
+  const path=points.map((p,i)=>`${i?'L':'M'}${p[0]} ${p[1]}`).join(' ');
+  return `<svg class="chart-svg" viewBox="0 0 ${w} ${h}" role="img" aria-label="Gráfico combinado mensual de ${barLabel} y CTR"><line class="chart-grid" x1="54" x2="634" y1="50" y2="50"/><line class="chart-grid" x1="54" x2="634" y1="132" y2="132"/><line class="chart-axis" x1="54" x2="634" y1="215" y2="215"/><text class="chart-label" x="49" y="54" text-anchor="end">${number(Math.round(max))}</text><text class="chart-label" x="49" y="136" text-anchor="end">${number(Math.round(max/2))}</text><text class="chart-label" x="640" y="54">${dec(maxCtr)}%</text><text class="chart-label" x="640" y="136">${dec((minCtr+maxCtr)/2)}%</text>${bars}<path d="${path}" fill="none" stroke="#258c87" stroke-width="3"/>${points.map(p=>`<circle cx="${p[0]}" cy="${p[1]}" r="3" fill="#258c87"/>`).join('')}${records.map((r,i)=>`<text class="chart-label" x="${x0+i*step+step/2}" y="237" text-anchor="middle">${r.label}</text>`).join('')}</svg>`;
+}
+function gauge(value,delta,meta,color='ai',unit='/100'){return `<div class="gauge-number" style="color:var(--${color})">${value}<small>${unit}</small></div><div class="tiny">${delta}</div><div class="gauge-track"><span style="width:${value}%;background:var(--${color})"></span></div><div class="gauge-scale"><span>0</span><span>25</span><span>50</span><span>75</span><span>100</span></div>${meta.length?`<div class="gauge-meta">${meta.map(m=>`<div><strong>${m[0]}</strong><span>${m[1]}</span></div>`).join('')}</div>`:''}`;}
 function scatter(d){const w=600,h=275,x0=54,y0=222,pw=495,ph=175,maxX=Math.max(...d.pages.map(p=>p[1]))*1.15;const circles=d.pages.map((p,i)=>{const x=x0+p[1]/maxX*pw,y=y0-p[3]/8*ph,r=7+Math.sqrt(p[2])/15;return `<circle cx="${x}" cy="${y}" r="${r}" fill="${p[3]<4?'#2973d4':'#a9c6ec'}" opacity=".8"><title>${p[0]} · ${number(p[1])} impresiones · CTR ${dec(p[3])}%</title></circle>${i<3?`<text class="chart-note" x="${x+12}" y="${y-10}">${String.fromCharCode(65+i)}</text>`:''}`}).join('');return `<svg class="chart-svg" viewBox="0 0 ${w} ${h}" role="img" aria-label="Dispersión de impresiones y CTR por página"><title>Impresiones frente a CTR de seis páginas simuladas</title><line class="chart-grid" x1="54" x2="549" y1="134" y2="134"/><line class="chart-grid" x1="302" x2="302" y1="47" y2="222"/><line class="chart-axis" x1="54" x2="549" y1="222" y2="222"/><line class="chart-axis" x1="54" x2="54" y1="47" y2="222"/><text class="chart-label" x="50" y="53" text-anchor="end">8%</text><text class="chart-label" x="50" y="138" text-anchor="end">4%</text><text class="chart-label" x="54" y="244">0</text><text class="chart-label" x="549" y="244" text-anchor="end">${number(Math.round(maxX))}</text><text class="chart-label" x="302" y="263" text-anchor="middle">Impresiones</text>${circles}</svg>`;}
 function platforms(d){const max=Math.max(...d.platforms.map(p=>p[1]));return `<div class="barrows">${d.platforms.map(p=>`<div class="barrow"><span>${p[0]}</span><div class="bartrack"><div class="barfill" style="width:${p[1]/max*100}%"></div></div><strong>${p[1]}</strong></div>`).join('')}</div>`;}
 function intent(d){const [a,b,c,e]=d.intents,colors=['#2973d4','#258c87','#de8529','#6f62d8'];const stops=`${colors[0]} 0 ${a}%,${colors[1]} ${a}% ${a+b}%,${colors[2]} ${a+b}% ${a+b+c}%,${colors[3]} ${a+b+c}% 100%`;return `<div class="donut-layout"><div class="donut" style="background:conic-gradient(${stops})"><div class="donut-mid">${number(d.keywords)}<small>keywords</small></div></div><div class="donut-legend">${['Informativa','Navegacional','Comercial','Transaccional'].map((label,i)=>`<div><span><i style="background:${colors[i]}"></i>${label}</span><strong>${d.intents[i]}%</strong></div>`).join('')}</div></div>`;}
-function render(key){const d=data[key];document.getElementById('kpis').innerHTML=[kpi('Clics',number(d.clicks),d.clicksDelta,'GSC','gsc'),kpi('CTR',`${dec(d.ctr)}%`,d.ctrDelta,'GSC','gsc'),kpi('Sesiones orgánicas',number(d.sessions),d.sessionsDelta,'GA4','ga4'),kpi('Keywords',number(d.keywords),d.keywordsDelta,'Semrush','seo'),kpi('AI Visibility',`${d.ai}/100`,d.aiDelta,'Semrush','ai')].join('');document.getElementById('combo').innerHTML=combo(d);const aiGauge=gauge(d.ai,d.aiDelta,[[d.mentions,'menciones'],[d.citations,'citas'],[d.citedCount,'páginas citadas']]);document.getElementById('ai-gauge').innerHTML=aiGauge;document.getElementById('ai-gauge-geo').innerHTML=aiGauge;document.getElementById('scatter-summary').innerHTML=scatter(d);document.getElementById('scatter-seo').innerHTML=scatter(d);document.getElementById('platform-summary').innerHTML=platforms(d);document.getElementById('platform-geo').innerHTML=platforms(d);document.getElementById('health').innerHTML=gauge(d.health,`+${d.health-d.healthPrev} pts`,[[d.errors,'errores'],[number(d.keywords),'keywords'],[d.healthPrev+'%','julio']],'seo','%');document.getElementById('intent').innerHTML=intent(d);const maxImp=Math.max(...d.pages.map(p=>p[1]));document.getElementById('pages').innerHTML=d.pages.slice(0,5).map(p=>`<tr><td>${p[0]}</td><td class="num"><span class="cellbar"><b style="width:${p[1]/maxImp*75}px"></b><em>${number(p[1])}</em></span></td><td class="num">${number(p[2])}</td><td class="num">${dec(p[3])}%</td></tr>`).join('');document.getElementById('queries').innerHTML=d.queries.map(q=>`<tr><td>${q[0]}</td><td class="num">${number(q[1])}</td><td class="num" style="background:${q[2]>0?'#e5f4ef':'#fff0e8'}">${q[2]>0?'+':''}${q[2]}%</td><td class="num">${dec(q[3])}</td></tr>`).join('');document.getElementById('prompt-matrix').innerHTML=`<table class="heat"><thead><tr><th>Prompt / tema de ejemplo</th><th>ChatGPT</th><th>AI Overview</th><th>Gemini</th><th>AI Mode</th></tr></thead><tbody>${d.prompts.map(row=>`<tr><td>${row[0]}</td>${row.slice(1).map(v=>`<td class="${v?'yes':'no'}">${v}</td>`).join('')}</tr>`).join('')}</tbody></table>`;const maxGap=Math.max(...d.gaps.map(g=>g[1]));document.getElementById('gaps').innerHTML=d.gaps.map(g=>`<tr><td>${g[0]}</td><td class="num"><span class="cellbar"><b style="background:var(--ai);width:${g[1]/maxGap*75}px"></b><em>${number(g[1])}</em></span></td><td class="num">${g[2]}</td></tr>`).join('');document.getElementById('cited').innerHTML=d.cited.map(p=>`<tr><td>${p[0]}</td><td>${p[1]}</td><td>${p[2]}</td></tr>`).join('');}
-function renderRegional(){document.getElementById('regional-cards').innerHTML=Object.values(data).map(d=>`<div class="panel"><div class="regional-head">${d.name}</div><div class="regional-row"><span>Clics · GSC</span><strong>${number(d.clicks)}</strong></div><div class="regional-row"><span>Sesiones orgánicas · GA4</span><strong>${number(d.sessions)}</strong></div><div class="regional-row"><span>Keywords · Semrush</span><strong>${number(d.keywords)}</strong></div><div class="regional-row"><span>Site Health · Semrush</span><strong>${d.health}/100</strong></div><div class="regional-row"><span>AI Visibility · Semrush</span><strong>${d.ai}/100</strong></div><div class="compare-meter"><span style="width:${d.ai}%"></span></div></div>`).join('');document.getElementById('regional-gaps').innerHTML=Object.values(data).map(d=>`<tr><td>${d.name}</td><td>${d.gaps[0][0]}</td><td class="num">${number(d.gaps[0][1])}</td><td>Semrush AI</td></tr>`).join('');}
-document.querySelectorAll('[data-page]').forEach(b=>b.addEventListener('click',()=>{document.querySelectorAll('[data-page]').forEach(x=>x.classList.toggle('active',x===b));document.querySelectorAll('.page').forEach(x=>x.classList.toggle('active',x.id===b.dataset.page));}));
-document.querySelectorAll('[data-market]').forEach(b=>b.addEventListener('click',()=>{document.querySelectorAll('[data-market]').forEach(x=>x.classList.toggle('active',x===b));render(b.dataset.market);}));
-render('contigo');renderRegional();
+const countriesByDomain={
+  contigo:[['CO','Colombia',1],['CL','Chile',.72],['MX','México',.88],['EC','Ecuador',.57],['PE','Perú',.69],['PA','Panamá',.31],['GT','Guatemala',.37],['SV','El Salvador',.25],['HN','Honduras',.23],['DO','República Dominicana',.28]],
+  convos:[['AR','Argentina',1],['NI','Nicaragua',.32],['CR','Costa Rica',.42]],
+  comvoce:[['BR','Brasil',1]]
+};
+const state={domain:'contigo',country:'CO',sortBy:1,sortDir:-1,page:0,opportunities:[]};
+const el=id=>document.getElementById(id);
+const round=n=>Math.round(n);
+const deltaPct=(a,b)=>`${a>=b?'+':''}${dec((a/b-1)*100)} % vs. mes anterior`;
+const deltaPts=(a,b)=>`${a>=b?'+':''}${dec(a-b)} pts vs. mes anterior`;
+const deltaPp=(a,b)=>`${a>=b?'+':''}${dec(a-b)} pp vs. mes anterior`;
+const deltaPosition=(a,b)=>`${a>=b?'+':''}${dec(a-b)} posiciones vs. mes anterior`;
+function monthIndex(ym){const [year,month]=ym.split('-').map(Number);return (year-2025)*12+month-9;}
+function priorMonth(ym){const [year,month]=ym.split('-').map(Number);return new Date(Date.UTC(year,month-2,1)).toISOString().slice(0,7);}
+function monthLabel(ym){const date=new Date(ym+'-01T00:00:00Z');return `${new Intl.DateTimeFormat('es-CO',{month:'short',timeZone:'UTC'}).format(date)} ${date.getUTCFullYear()}`;}
+function countrySnapshot(domain,code){
+  const base=data[domain], country=countriesByDomain[domain].find(item=>item[0]===code), factor=country[2];
+  const prefix=domain==='contigo'?`/es-${code.toLowerCase()}/`:domain==='convos'?`/es-${code.toLowerCase()}/`:'/ferramentas/';
+  const scaled=base.pages.map(p=>[p[0].replace(/^\/es-(co|ar)\//,prefix),round(p[1]*factor),round(p[2]*factor),p[3],p[4]]);
+  for(let i=7;i<=28;i++){const impressions=round(base.pages[0][1]*factor*(.55-(i-7)*.018));const ctr=round((2.1+(i%6)*.38)*10)/10;scaled.push([prefix+`contenido-ejemplo-${String(i).padStart(2,'0')}`,impressions,round(impressions*ctr/100),ctr,round((6+(i%10)*.8)*10)/10]);}
+  return {...base,name:`${domain==='contigo'?'Contigo':domain==='convos'?'Convos':'Comvoce'} · ${country[1]}`,clicks:round(base.clicks*factor),sessions:base.sessions==null?null:round(base.sessions*factor),keywords:round(base.keywords*factor),ai:round(base.ai*(.75+.25*factor)),mentions:round(base.mentions*factor),citations:round(base.citations*factor),citedCount:Math.max(1,round(base.citedCount*factor)),pages:scaled,platforms:base.platforms.map(p=>[p[0],Math.max(1,round(p[1]*factor))]),queries:base.queries.map(q=>[q[0].replace('argentina',country[1].toLowerCase()),round(q[1]*factor),q[2],q[3]]),cited:base.cited.map(p=>[p[0].replace(/^\/es-(co|ar)\//,prefix),p[1],p[2]])};
+}
+function monthRecord(d,ym){
+  const idx=monthIndex(ym),trend=idx===11?1:.68+.32*idx/11+.018*Math.sin(idx*1.7);
+  const clicks=round(d.clicks*trend),ctr=Math.max(.5,round((d.ctr-(11-idx)*.08)*100)/100);
+  const issueFactor=1+(11-idx)*.025;
+  return {ym,label:monthLabel(ym),clicks,ctr,impressions:round(clicks/(ctr/100)),position:round((d.pages[0][4]+(11-idx)*.08)*10)/10,sessions:d.sessions==null?null:round(d.sessions*trend),keywords:round(d.keywords*trend),ai:round(d.ai*trend),mentions:round(d.mentions*trend),citations:round(d.citations*trend),citedCount:Math.max(1,round(d.citedCount*trend)),health:round(d.health-(11-idx)*.3),errors:round(d.errors*issueFactor),warnings:round(d.errors*1.7*issueFactor),notices:round(d.errors*2.25*issueFactor)};
+}
+function selectedMonths(){
+  const start=el('month-start'),end=el('month-end');
+  if(start.value>end.value)start.value=end.value;
+  const result=[];let ym=start.value;
+  while(ym<=end.value&&result.length<12){result.push(ym);const [year,month]=ym.split('-').map(Number);ym=new Date(Date.UTC(year,month,1)).toISOString().slice(0,7);}
+  return result;
+}
+function sparkline(records,key,color){
+  const values=records.map(r=>r[key]),low=Math.min(...values),high=Math.max(...values),span=high-low||1;
+  const points=values.map((v,i)=>`${5+i*150/Math.max(1,values.length-1)},${34-(v-low)/span*27}`).join(' ');
+  return `<svg class="spark" viewBox="0 0 160 40" role="img" aria-label="Tendencia mensual"><polyline points="${points}" fill="none" stroke="${color}" stroke-width="2.5"/></svg>`;
+}
+function pageRows(d,current){
+  const factor=current.clicks/d.clicks;
+  return d.pages.map(p=>[p[0],round(p[1]*factor),round(p[2]*factor),p[3],round((p[4]+current.position-d.pages[0][4])*10)/10]);
+}
+function renderOpportunity(){
+  const sorted=[...state.opportunities].sort((a,b)=>state.sortDir*(state.sortBy===0?a[0].localeCompare(b[0]):a[state.sortBy]-b[state.sortBy]));
+  const start=state.page*10,visible=sorted.slice(start,start+10);
+  el('opportunity-rows').innerHTML=visible.map(p=>`<tr><td>${p[0]}</td><td class="num">${number(p[1])}</td><td class="num">${number(p[2])}</td><td class="num">${dec(p[3])}%</td><td class="num">${dec(p[4])}</td></tr>`).join('');
+  el('opportunity-count').textContent=`${start+1}–${start+visible.length} de ${sorted.length}`;
+  el('opportunity-prev').disabled=state.page===0;
+  el('opportunity-next').disabled=start+10>=sorted.length;
+  document.querySelectorAll('[data-sort]').forEach(button=>{const i=Number(button.dataset.sort),active=i===state.sortBy;button.classList.toggle('active',active);button.textContent=['URL','Impresiones','Clics','CTR','Pos.'][i]+(active?(state.sortDir===1?' ↑':' ↓'):' ↕');});
+}
+function renderRegional(){
+  const selected={contigo:state.domain==='contigo'?state.country:'CO',convos:state.domain==='convos'?state.country:'AR',comvoce:'BR'};
+  const markets=Object.keys(selected).map(domain=>{const d=countrySnapshot(domain,selected[domain]);return {d,r:monthRecord(d,el('month-end').value)};});
+  el('regional-cards').innerHTML=markets.map(({d,r})=>`<div class="panel"><div class="regional-head">${d.name}</div><div class="regional-row"><span>Clics · GSC</span><strong>${number(r.clicks)}</strong></div><div class="regional-row"><span>Sesiones orgánicas · GA4</span><strong>${number(r.sessions)}</strong></div><div class="regional-row"><span>Keywords · Semrush</span><strong>${number(r.keywords)}</strong></div><div class="regional-row"><span>Site Health · dominio</span><strong>${r.health}/100</strong></div><div class="regional-row"><span>AI Visibility · Semrush</span><strong>${r.ai}/100</strong></div><div class="compare-meter"><span style="width:${r.ai}%"></span></div></div>`).join('');
+  el('regional-gaps').innerHTML=markets.map(({d})=>`<tr><td>${d.name}</td><td>${d.gaps[0][0]}</td><td class="num">${number(d.gaps[0][1])}</td><td>Semrush AI</td></tr>`).join('');
+}
+function render(){
+  const d=countrySnapshot(state.domain,state.country),months=selectedMonths(),records=months.map(ym=>monthRecord(d,ym));
+  const current=records.at(-1),previous=monthRecord(d,priorMonth(current.ym));
+  el('period-label').textContent=`${monthLabel(months[0])}–${monthLabel(months.at(-1))} · vs. mes anterior`;
+  el('kpis').innerHTML=[
+    kpi('Clics',number(current.clicks),deltaPct(current.clicks,previous.clicks),'GSC','gsc'),
+    kpi('Impresiones',number(current.impressions),deltaPct(current.impressions,previous.impressions),'GSC','gsc'),
+    kpi('CTR',`${dec(current.ctr)}%`,deltaPp(current.ctr,previous.ctr),'GSC','gsc'),
+    kpi('Posición media',dec(current.position),deltaPosition(current.position,previous.position),'GSC','gsc'),
+    kpi('Sesiones orgánicas',number(current.sessions),current.sessions==null?'acceso pendiente':deltaPct(current.sessions,previous.sessions),'GA4','ga4'),
+    kpi('Keywords',number(current.keywords),deltaPct(current.keywords,previous.keywords),'Semrush','seo'),
+    kpi('AI Visibility',`${current.ai}/100`,deltaPts(current.ai,previous.ai),'Semrush','ai')
+  ].join('');
+  el('combo').innerHTML=combo(records,'clicks','clics');
+  el('seo-trend').innerHTML=combo(records,'impressions','impresiones');
+  const aiGauge=gauge(current.ai,deltaPts(current.ai,previous.ai),[[number(current.mentions),'menciones'],[number(current.citations),'citas'],[number(current.citedCount),'páginas citadas']]);
+  el('ai-gauge').innerHTML=aiGauge;el('ai-gauge-geo').innerHTML=aiGauge;
+  el('platform-summary').innerHTML=platforms(d);el('platform-geo').innerHTML=platforms(d);
+  state.opportunities=pageRows(d,current);state.page=0;renderOpportunity();
+  const issues=[['Errores','errors','#c85656'],['Advertencias','warnings','#d59335'],['Avisos','notices','#5c88b8']];
+  el('health').innerHTML=gauge(current.health,deltaPts(current.health,previous.health),[],'seo','%')+`<div class="mini-grid">${issues.map(([label,key,color])=>`<div class="mini-metric"><span>${label}</span><strong>${number(current[key])}</strong>${sparkline(records,key,color)}</div>`).join('')}</div>`;
+  el('intent').innerHTML=intent({...d,keywords:current.keywords});
+  const pages=[...state.opportunities].sort((a,b)=>b[1]-a[1]).slice(0,5),maxImp=pages[0][1];
+  el('pages').innerHTML=pages.map(p=>`<tr><td>${p[0]}</td><td class="num"><span class="cellbar"><b style="width:${p[1]/maxImp*75}px"></b><em>${number(p[1])}</em></span></td><td class="num">${number(p[2])}</td><td class="num">${dec(p[3])}%</td><td class="num">${dec(p[4])}</td></tr>`).join('');
+  el('queries').innerHTML=d.queries.map(q=>`<tr><td>${q[0]}</td><td class="num">${number(round(q[1]*current.clicks/d.clicks))}</td><td class="num" style="background:${q[2]>0?'#e5f4ef':'#fff0e8'}">${q[2]>0?'+':''}${q[2]}%</td><td class="num">${dec(q[3])}</td></tr>`).join('');
+  const ga4Values=[['Sesiones orgánicas',number(current.sessions)],['Tasa de interacción · ejemplo',current.sessions==null?'Pendiente':`${round(61+current.ctr)}%`],['Clic «Dónde comprar» · evento dummy',current.sessions==null?'Pendiente':number(round(current.sessions*.08))]];
+  el('ga4-actions').innerHTML=`<div class="mini-grid">${ga4Values.map(([label,value])=>`<div class="mini-metric"><span>${label}</span><strong>${value}</strong></div>`).join('')}</div>`;
+  el('geo-trends').innerHTML=[['Menciones','mentions'],['Citas','citations'],['Páginas citadas','citedCount']].map(([label,key])=>`<div class="mini-metric"><span>${label}</span><strong>${number(current[key])}</strong>${sparkline(records,key,'#6f62d8')}</div>`).join('');
+  const competitors=['Abbott','Nestlé','Danone/Nutricia','Reckitt/Mead Johnson'];
+  el('competitor-geo').innerHTML=`<table><thead><tr><th>Plataforma</th>${competitors.map(name=>`<th class="num">${name}</th>`).join('')}</tr></thead><tbody>${d.platforms.map((p,i)=>{const shares=[round(current.ai*.68+i*2),35+i*3,24+i*2,18+i];return `<tr><td>${p[0]}</td>${shares.map(v=>`<td class="num"><span class="inline-bar" style="width:${v}px"></span>${v}%</td>`).join('')}</tr>`}).join('')}</tbody></table>`;
+  el('prompt-coverage').innerHTML=`<table><thead><tr><th>Tema de ejemplo</th><th class="num">Prompts</th><th class="num">Con mención</th><th class="num">Cobertura</th></tr></thead><tbody>${d.prompts.map((row,i)=>{const total=12+i*4,mentions=round(total*(.18+row.slice(1).reduce((sum,v)=>sum+v,0)*.17));const pct=round(mentions/total*100);return `<tr><td>${row[0]}</td><td class="num">${total}</td><td class="num">${mentions}</td><td class="num"><span class="inline-bar" style="width:${pct*.65}px"></span>${pct}%</td></tr>`}).join('')}</tbody></table>`;
+  el('gaps').innerHTML=d.gaps.map((g,i)=>`<tr><td>${g[0]}</td><td>${competitors.slice(1,1+g[2]).join(', ')}</td><td class="num">${number(g[1])}</td></tr>`).join('');
+  el('cited').innerHTML=d.cited.map(p=>`<tr><td>${p[0]}</td><td>${p[1]}</td><td>${p[2]}</td></tr>`).join('');
+  renderRegional();
+}
+function updateCountryOptions(){
+  const list=countriesByDomain[state.domain],select=el('country-select');
+  select.innerHTML=list.map(([code,name])=>`<option value="${code}">${name}</option>`).join('');
+  if(!list.some(([code])=>code===state.country))state.country=list[0][0];
+  select.value=state.country;el('country-control').hidden=list.length===1;
+}
+document.querySelectorAll('[data-page]').forEach(button=>button.addEventListener('click',()=>{document.querySelectorAll('[data-page]').forEach(x=>x.classList.toggle('active',x===button));document.querySelectorAll('.page').forEach(x=>x.classList.toggle('active',x.id===button.dataset.page));}));
+el('domain-select').addEventListener('change',event=>{state.domain=event.target.value;state.country=countriesByDomain[state.domain][0][0];updateCountryOptions();render();});
+el('country-select').addEventListener('change',event=>{state.country=event.target.value;render();});
+['month-start','month-end'].forEach(id=>el(id).addEventListener('change',render));
+document.querySelectorAll('[data-sort]').forEach(button=>button.addEventListener('click',()=>{const index=Number(button.dataset.sort);state.sortDir=state.sortBy===index?-state.sortDir:index===0?1:-1;state.sortBy=index;state.page=0;renderOpportunity();}));
+el('opportunity-prev').addEventListener('click',()=>{state.page=Math.max(0,state.page-1);renderOpportunity();});
+el('opportunity-next').addEventListener('click',()=>{state.page+=1;renderOpportunity();});
+updateCountryOptions();render();
 </script>
 </body>
 </html>
