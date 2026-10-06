@@ -71,6 +71,10 @@
     .bartrack { height:13px; background:#edf0f4; }
     .barfill { height:100%; background:var(--ai); }
     .barrow strong { text-align:right; font-weight:500; font-variant-numeric:tabular-nums; }
+    .platform-panel { display:flex; flex-direction:column; }
+    .platform-insight { flex:1; min-height:125px; margin:0 15px 15px; padding:13px 15px; background:var(--soft); border-left:3px solid var(--ai); font-size:12px; }
+    .platform-insight strong { display:block; margin-bottom:8px; }
+    .platform-insight p { margin:0; max-width:50ch; line-height:1.5; }
     .mini-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:10px; }
     .mini-metric { min-width:0; padding:12px; border:1px solid var(--line); }
     .mini-metric span { display:block; font-size:10px; color:var(--muted); }
@@ -146,10 +150,9 @@
       </div>
       <div class="layout equal gap">
         <div class="panel"><div class="panel-head"><h3>URLs con mayor oportunidad</h3><span class="source gsc">Search Console</span></div><div class="panel-body table-scroll"><table><thead><tr><th><button class="sort-head" data-sort="0">URL ↕</button></th><th class="num"><button class="sort-head active" data-sort="1">Impresiones ↓</button></th><th class="num"><button class="sort-head" data-sort="2">Clics ↕</button></th><th class="num"><button class="sort-head" data-sort="3">CTR ↕</button></th><th class="num"><button class="sort-head" data-sort="4">Pos. ↕</button></th></tr></thead><tbody id="opportunity-rows"></tbody></table><div class="table-nav"><span id="opportunity-count"></span><button id="opportunity-prev" aria-label="Página anterior">‹</button><button id="opportunity-next" aria-label="Página siguiente">›</button></div></div><div class="panel-foot">Ordena por cualquier encabezado; criterio de «oportunidad» por definir. 10 filas por página.</div></div>
-        <div class="panel"><div class="panel-head"><h3>Qué sistemas de IA nos mencionan</h3><span class="source ai">Semrush AI</span></div><div class="panel-body" id="platform-summary"></div></div>
+        <div class="panel platform-panel"><div class="panel-head"><h3>Qué sistemas de IA nos mencionan</h3><span class="source ai">Semrush AI</span></div><div class="panel-body" id="platform-summary"></div><div class="platform-insight"><strong>Lectura del equipo · Panorama</strong><p>Espacio para un insight editorial con datos reales del período seleccionado.</p></div></div>
       </div>
       <div class="panel gap"><div class="panel-head"><h3>Interacción y acciones orgánicas</h3><span class="source ga4">GA4</span></div><div class="panel-body" id="ga4-actions"></div><div class="panel-foot">Evento «Dónde comprar» y conversiones definitivas: por confirmar en GA4.</div></div>
-      <div class="insight"><strong>Lectura del equipo · Panorama</strong><p>Espacio para un insight editorial con datos reales del período seleccionado.</p></div>
     </section>
     <section class="page" id="seo">
       <div class="page-heading"><h2>Rendimiento SEO</h2><span class="tiny">Visibilidad · páginas · salud técnica</span></div>
